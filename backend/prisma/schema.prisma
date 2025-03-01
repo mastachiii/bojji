@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  fullName       String
+  username       String    @unique
+  profilePicture String?
+  bio            String?
+  followers      User[]    @relation("followers")
+  following      User[]    @relation("following")
+  posts          Post[]
+  comments       Comment[]
+  commentReplies Reply[]
+  likedPosts     Post[]    @relation("liked post")
+  likedComments  Comment[] @relation("liked comment")
+  likedReplies   Reply[]   @relation("liked replies")
+  likedStories   Story[]   @relation("liked stories")
+
+  symmetricFollowers User[] @relation("followers")
+  symmetricFollowing User[] @relation("following")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  body      String
+  images    String[]
+  likedBy   User[]   @relation("liked post")
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  body      String
+  replies   Reply[]
+  likedBy   User[]   @relation("liked comment")
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Reply {
+  id        String   @id @default(uuid())
+  body      String
+  likedBy   User[]   @relation("liked replies")
+  comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId String?
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Story {
+  id        String   @id @default(uuid())
+  image     String
+  likedBy   User[]   @relation("liked stories")
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
