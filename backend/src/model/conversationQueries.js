@@ -12,6 +12,12 @@ class Conversation {
             },
         });
     }
+
+    async deleteConversation({ id }) {
+        await prisma.conversation.delete({
+            where: { id },
+        });
+    }
 }
 
 (async () => {

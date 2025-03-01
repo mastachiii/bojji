@@ -94,9 +94,9 @@ class User {
     //     password: "alsaliasid12",
     // });
 
-    // const query = await prisma.user.findMany();
+    const query = await prisma.user.findMany();
 
-    // console.log(query);
+    console.log(query);
 })();
 
 module.exports = User;
