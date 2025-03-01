@@ -13,6 +13,18 @@ class User {
             },
         });
     }
+
+    async updateUser({ profilePicture, bio, username, fullname, id }) {
+        await prisma.user.update({
+            where: { id },
+            data: {
+                profilePicture,
+                bio,
+                username,
+                fullName,
+            },
+        });
+    }
 }
 
 (async () => {
