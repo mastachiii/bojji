@@ -43,6 +43,7 @@ model Post {
   body      String
   images    String[]
   likedBy   User[]   @relation("liked post")
+  edited    Boolean  @default(false)
   createdAt DateTime @default(now())
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
