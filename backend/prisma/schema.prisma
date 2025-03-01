@@ -14,20 +14,23 @@ datasource db {
 }
 
 model User {
-  id             Int       @id @default(autoincrement())
+  id             Int            @id @default(autoincrement())
   fullName       String
-  username       String    @unique
+  username       String         @unique
   profilePicture String?
   bio            String?
-  followers      User[]    @relation("followers")
-  following      User[]    @relation("following")
+  followers      User[]         @relation("followers")
+  following      User[]         @relation("following")
   posts          Post[]
   comments       Comment[]
   commentReplies Reply[]
-  likedPosts     Post[]    @relation("liked post")
-  likedComments  Comment[] @relation("liked comment")
-  likedReplies   Reply[]   @relation("liked replies")
-  likedStories   Story[]   @relation("liked stories")
+  stories        Story[]
+  conversations  Conversation[]
+  messages       Messages[]
+  likedPosts     Post[]         @relation("liked post")
+  likedComments  Comment[]      @relation("liked comment")
+  likedReplies   Reply[]        @relation("liked replies")
+  likedStories   Story[]        @relation("liked stories")
 
   symmetricFollowers User[] @relation("followers")
   symmetricFollowing User[] @relation("following")
@@ -70,4 +73,20 @@ model Story {
   likedBy   User[]   @relation("liked stories")
   expiresAt DateTime
   createdAt DateTime @default(now())
+  author    User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Conversation {
+  id    String @id @default(uuid())
+  users User[]
+}
+
+model Messages {
+  id       String   @id @default(uuid())
+  message  String
+  isImage  Boolean
+  dateSent DateTime @default(now())
+  sender   User     @relation(fields: [userId], references: [id])
+  userId   Int
 }
