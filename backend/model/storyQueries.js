@@ -42,13 +42,19 @@ class Story {
             },
         });
     }
+
+    async deleteStory({ id }) {
+        await prisma.story.delete({
+            where: { id },
+        });
+    }
 }
 
 (async () => {
     const db = new Story();
 
     // await db.createStory({ image: "IMAGE", expiresAt: new Date(), userId: 3 });
-    await db.dislikeStory({ id: "fd3558dc-55e4-4817-815a-f10db018c410", userId: 1 });
+    // await db.dislikeStory({ id: "fd3558dc-55e4-4817-815a-f10db018c410", userId: 1 });
 
     const query = await prisma.user.findUnique({
         where: { id: 3 },
