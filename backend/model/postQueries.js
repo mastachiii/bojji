@@ -16,19 +16,59 @@ class Post {
             },
         });
     }
+
+    async deletePost({ id }) {
+        await prisma.post.delete({
+            where: { id },
+        });
+    }
+
+    async likePost({ id, userId }) {
+        console.log({ id, userId });
+        await prisma.post.update({
+            where: { id },
+            data: {
+                likedBy: {
+                    connect: {
+                        id: userId,
+                    },
+                },
+            },
+        });
+    }
+
+    async dislikePost({ id, userId }) {
+        await prisma.post.update({
+            where: { id },
+            data: {
+                likedBy: {
+                    disconnect: {
+                        id: userId,
+                    },
+                },
+            },
+        });
+    }
 }
 
 (async () => {
     const post = new Post();
 
     // await post.createPost({ body: "WILL THIS POST FAIL?", images: ["IMAGE 1", "IMAGE 2"], id: 1 });
+    await post.dislikePost({ id: "871b539e-7745-4c40-97d2-af641be4efaf", userId: 2 });
 
     const query = await prisma.user.findUnique({
         where: { id: 1 },
         include: {
-            posts: true,
+            posts: {
+                include: {
+                    likedBy: true,
+                },
+            },
         },
     });
+
+    // const query = await prisma.user.findMany()
 
     console.dir(query, { depth: null });
 })();
