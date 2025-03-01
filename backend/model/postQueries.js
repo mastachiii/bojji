@@ -66,7 +66,7 @@ class Post {
     const post = new Post();
 
     // await post.createPost({ body: "WILL THIS POST FAIL?", images: ["IMAGE 1", "IMAGE 2"], id: 1 });
-    await post.likePost({ id: "871b539e-7745-4c40-97d2-af641be4efaf", userId: 2 });
+    // await post.likePost({ id: "871b539e-7745-4c40-97d2-af641be4efaf", userId: 2 });
     // await post.updatePost({ id: "871b539e-7745-4c40-97d2-af641be4efaf", body: "IS THIS POST UPDATED?", images: ["IMAGE 1"] });
 
     const query = await prisma.user.findUnique({

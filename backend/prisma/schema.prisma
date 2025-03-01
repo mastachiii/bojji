@@ -39,13 +39,14 @@ model User {
 }
 
 model Post {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   body      String
   images    String[]
-  likedBy   User[]   @relation("liked post")
-  edited    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  author    User     @relation(fields: [authorId], references: [id])
+  comments  Comment[]
+  likedBy   User[]    @relation("liked post")
+  edited    Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  author    User      @relation(fields: [authorId], references: [id])
   authorId  Int
 }
 
@@ -57,6 +58,8 @@ model Comment {
   createdAt DateTime @default(now())
   author    User     @relation(fields: [userId], references: [id])
   userId    Int
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
 }
 
 model Reply {
