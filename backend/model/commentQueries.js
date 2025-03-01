@@ -58,7 +58,7 @@ class Comment {
     const db = new Comment();
 
     // await db.createComment({ body: "amazing post!", userId: 2, postId: "871b539e-7745-4c40-97d2-af641be4efaf" });
-    await db.dislikeComment({ id: "65e09ebb-1622-4343-9bc8-223d9df7db01", userId: 1 });
+    // await db.dislikeComment({ id: "65e09ebb-1622-4343-9bc8-223d9df7db01", userId: 1 });
 
     const query = await prisma.post.findMany({
         include: {
