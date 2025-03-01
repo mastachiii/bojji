@@ -93,17 +93,6 @@ class User {
     //     username: "audreyHepburn123",
     //     password: "alsaliasid12",
     // });
-
-    await db.followUser({ id: 2, username: "mastachii" });
-
-    const query = await prisma.user.findMany({
-        include: {
-            followers: true,
-            following: true,
-        },
-    });
-
-    console.dir(query, { depth: null });
 })();
 
 module.exports = User;
