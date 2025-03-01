@@ -28,7 +28,7 @@ model User {
   commentReplies Reply[]
   stories        Story[]
   conversations  Conversation[]
-  messages       Messages[]
+  messages       Message[]
   likedPosts     Post[]         @relation("liked post")
   likedComments  Comment[]      @relation("liked comment")
   likedReplies   Reply[]        @relation("liked replies")
@@ -84,15 +84,18 @@ model Story {
 }
 
 model Conversation {
-  id    String @id @default(uuid())
-  users User[]
+  id       String    @id @default(uuid())
+  messages Message[]
+  users    User[]
 }
 
-model Messages {
-  id       String   @id @default(uuid())
-  message  String
-  isImage  Boolean
-  dateSent DateTime @default(now())
-  sender   User     @relation(fields: [userId], references: [id])
-  userId   Int
+model Message {
+  id             String        @id @default(uuid())
+  message        String
+  isImage        Boolean
+  dateSent       DateTime      @default(now())
+  sender         User          @relation(fields: [userId], references: [id])
+  userId         Int
+  conversation   Conversation? @relation(fields: [conversationId], references: [id])
+  conversationId String?
 }
