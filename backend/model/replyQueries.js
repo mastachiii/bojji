@@ -46,6 +46,12 @@ class Reply {
             },
         });
     }
+
+    async deleteReply({ id }) {
+        await prisma.reply.delete({
+            where: { id },
+        });
+    }
 }
 
 (async () => {
@@ -57,7 +63,7 @@ class Reply {
     //     commentId: "65e09ebb-1622-4343-9bc8-223d9df7db01",
     // });
 
-    await db.dislikeReply({ id: "bc6ec135-7c0c-4d18-b60a-89f19bb7c92a", userId: 2 });
+    // await db.deleteReply({ id: "bc6ec135-7c0c-4d18-b60a-89f19bb7c92a", });
 
     const query = await prisma.comment.findMany({
         include: {
