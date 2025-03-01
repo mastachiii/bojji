@@ -14,7 +14,7 @@ class User {
         });
     }
 
-    async updateUser({ profilePicture, bio, username, fullname, id }) {
+    async updateUser({ profilePicture, bio, username, fullName, id }) {
         await prisma.user.update({
             where: { id },
             data: {
@@ -25,21 +25,85 @@ class User {
             },
         });
     }
+
+    async followUser({ username, id }) {
+        await prisma.user.update({
+            where: { id },
+            data: {
+                following: {
+                    connect: {
+                        username,
+                    },
+                },
+            },
+        });
+
+        await prisma.user.update({
+            where: { username },
+            data: {
+                followers: {
+                    connect: {
+                        id,
+                    },
+                },
+            },
+        });
+    }
+
+    async unfollowUser({ username, id }) {
+        await prisma.user.update({
+            where: { id },
+            data: {
+                following: {
+                    disconnect: {
+                        username,
+                    },
+                },
+            },
+        });
+
+        await prisma.user.update({
+            where: {
+                username,
+            },
+            data: {
+                followers: {
+                    disconnect: {
+                        id,
+                    },
+                },
+            },
+        });
+    }
 }
 
 (async () => {
     const db = new User();
 
-    await db.createUser({
-        fullName: "Al Asid",
-        email: "mastachii273@gmai.com",
-        username: "mastachii",
-        password: "alsaliasid12",
+    // await db.createUser({
+    //     fullName: "Al Asid",
+    //     email: "mastachii273@gmai.com",
+    //     username: "mastachii",
+    //     password: "alsaliasid12",
+    // });
+
+    // await db.createUser({
+    //     fullName: "Audrey Hepburn",
+    //     email: "audreyHepburn123@gmail.com",
+    //     username: "audreyHepburn123",
+    //     password: "alsaliasid12",
+    // });
+
+    await db.followUser({ id: 2, username: "mastachii" });
+
+    const query = await prisma.user.findMany({
+        include: {
+            followers: true,
+            following: true,
+        },
     });
 
-    const query = await prisma.user.findMany();
-
-    console.log(query);
+    console.dir(query, { depth: null });
 })();
 
 module.exports = User;
