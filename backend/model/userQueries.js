@@ -93,6 +93,10 @@ class User {
     //     username: "audreyHepburn123",
     //     password: "alsaliasid12",
     // });
+
+    // const query = await prisma.user.findMany();
+
+    // console.log(query);
 })();
 
 module.exports = User;
