@@ -14,6 +14,14 @@ class User {
         });
     }
 
+    async getUser({ id }) {
+        const user = await prisma.user.findUnique({
+            where: { id },
+        });
+
+        return user;
+    }
+
     async updateUser({ profilePicture, bio, username, fullName, id }) {
         await prisma.user.update({
             where: { id },
