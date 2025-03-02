@@ -1,9 +1,10 @@
 const express = require("express");
 const controller = require("../controller/userController");
+const passport = require("passport");
 const route = express.Router();
 
 // GET
-// route.get("/:id", controller.getUser);
+route.get("/:id", passport.authenticate("jwt", { session: false }), controller.getData);
 
 // POST
 route.post("/sign-up", controller.signUp);

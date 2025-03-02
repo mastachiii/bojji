@@ -26,7 +26,7 @@ class User {
 
     logIn = [
         validateLogIn,
-        async (req, res) => {
+        async (req, res, next) => {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
@@ -48,7 +48,9 @@ class User {
     ];
 
     async getData(req, res, next) {
-        console.log(req.user);
+        const user = await db.getUser({ id: req.user.id });
+
+        res.status(200).json({ user });
     }
 }
 

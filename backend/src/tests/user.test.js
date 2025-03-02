@@ -104,12 +104,12 @@ describe("Authentication", () => {
             });
     });
 
-    it("Rejects if user does not provide a token", async done => {
-        request.post("/user/1").expect(403, done);
+    it("Rejects if user does not provide a token", done => {
+        request.get("/user/1").expect(401, done);
     });
 
-    it("Accepts if token is valid", async done => {
-        request.post("/user/1").set("Authorization", `Bearer ${token}`).expect(200, done);
+    it("Accepts if token is valid", done => {
+        request.get("/user/1").set("Authorization", `Bearer ${token}`).expect(200, done);
     });
 });
 
