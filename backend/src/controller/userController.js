@@ -29,7 +29,6 @@ class User {
         async (req, res) => {
             const errors = validationResult(req);
 
-
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             const user = await db.getUserByUsername({ username: req.body.username });
@@ -47,6 +46,10 @@ class User {
             next();
         },
     ];
+
+    async getData(req, res, next) {
+        console.log(req.user);
+    }
 }
 
 module.exports = new User();

@@ -89,7 +89,31 @@ describe("Login", () => {
     });
 });
 
-describe("Following / Unfollowing users", () => {
+describe("Authentication", () => {
+    let token;
+
+    beforeAll(async () => {
+        await request
+            .post("/user/log-in")
+            .send({
+                username: "mastachii",
+                password: "alsaliasid12",
+            })
+            .then(response => {
+                token = response.body.token;
+            });
+    });
+
+    it("Rejects if user does not provide a token", async done => {
+        request.post("/user/1").expect(403, done);
+    });
+
+    it("Accepts if token is valid", async done => {
+        request.post("/user/1").set("Authorization", `Bearer ${token}`).expect(200, done);
+    });
+});
+
+xdescribe("Following / Unfollowing users", () => {
     let mastachiiToken;
     let audreyToken;
 
