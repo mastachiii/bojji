@@ -49,3 +49,25 @@ describe("Sign up", () => {
             });
     });
 });
+
+describe("Login", () => {
+    it("Rejects invalid login form", done => {
+        request
+            .post("/user/log-in")
+            .send({
+                username: "userThatDoesNotExist",
+                password: "nullnullnull",
+            })
+            .expect(401, done);
+    });
+
+    it("Accepts valid login form", done => {
+        request
+            .post("/user/log-in")
+            .send({
+                username: "mastachii",
+                password: "alsaliasid12",
+            })
+            .expect(200, done);
+    });
+});
