@@ -1,9 +1,20 @@
 const express = require("express");
+const user = require("./routes/userRoutes");
 
 const app = express();
 
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use("/user", user);
+
+// Error handler
+app.use((err, req, res, next) => {
+    console.error(err);
+
+    res.json({ err });
+});
 
 const PORT = process.env.PORT || 8080;
 

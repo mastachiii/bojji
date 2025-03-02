@@ -107,4 +107,4 @@ class User {
     console.log(query);
 })();
 
-module.exports = User;
+module.exports = new User;
