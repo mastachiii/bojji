@@ -17,9 +17,6 @@ const userStrategy = new JwtStrategy(options, async (payload, done) => {
         });
         if (!user) return done(null, false);
 
-        const passwordIsMatch = await bcrypt.compare(payload.password, user.password);
-        if (!passwordIsMatch) return done(null, false);
-
         return done(null, user);
     } catch (err) {
         done(err);

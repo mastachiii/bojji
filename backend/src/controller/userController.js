@@ -1,5 +1,6 @@
 const db = require("../model/userQueries");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { validateSignUp, validateLogIn } = require("../helpers/userValidation");
 const { validationResult } = require("express-validator");
 
@@ -29,6 +30,18 @@ class User {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+            const user = db.getUserByUsername({ username: req.body.username });
+            if (!user) return res.status(401).json({ error: "Incorrect username or password" });
+
+            const passwordIsMatch = await bcrypt.compare(req.body.password, user.password);
+            if (!passwordIsMatch) return res.status(401).json({ error: "Incorrect username or password" });
+
+            jwt.sign({ user }, process.env.SECRET, { expiresIn: "1d" }, (err, token) => {
+                if (err) return next(err);
+
+                res.status(200).json({ token });
+            });
 
             next();
         },
