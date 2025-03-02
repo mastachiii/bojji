@@ -14,11 +14,11 @@
     "devDependencies": {
         "jest": "^29.7.0",
         "nodemon": "^3.1.9",
-        "prisma": "^6.4.1",
+        "prisma": "^6.2.1",
         "supertest": "^7.0.0"
     },
     "dependencies": {
-        "@prisma/client": "^6.4.1",
+        "@prisma/client": "^6.2.1",
         "bcryptjs": "^3.0.2",
         "express": "^5.0.1",
         "express-validator": "^7.2.1",

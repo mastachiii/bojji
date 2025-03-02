@@ -68,6 +68,11 @@ describe("Login", () => {
                 username: "mastachii",
                 password: "alsaliasid12",
             })
-            .expect(200, done);
+            .expect(200)
+            .then(response => {
+                expect(response.body.token).toBeTruthy();
+
+                done();
+            });
     });
 });

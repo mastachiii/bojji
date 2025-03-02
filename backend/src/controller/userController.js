@@ -29,9 +29,10 @@ class User {
         async (req, res) => {
             const errors = validationResult(req);
 
+
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-            const user = db.getUserByUsername({ username: req.body.username });
+            const user = await db.getUserByUsername({ username: req.body.username });
             if (!user) return res.status(401).json({ error: "Incorrect username or password" });
 
             const passwordIsMatch = await bcrypt.compare(req.body.password, user.password);
