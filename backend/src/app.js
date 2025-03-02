@@ -5,6 +5,7 @@ const app = express();
 
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Routes
 app.use("/user", user);

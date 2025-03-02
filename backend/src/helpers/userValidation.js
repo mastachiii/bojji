@@ -45,4 +45,9 @@ const validateSignUp = [
         .withMessage("Password does not match"),
 ];
 
-module.exports = { validateSignUp };
+const validateLogIn = [
+    body("username").trim().notEmpty().withMessage("Username is required"),
+    body("password").trim().notEmpty().withMessage("Password is required"),
+];
+
+module.exports = { validateSignUp, validateLogIn };

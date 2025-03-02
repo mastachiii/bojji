@@ -1,6 +1,14 @@
 const { PrismaClient } = require("@prisma/client");
 
-const prisma = new PrismaClient();
+const databaseUrl = process.env.NODE_ENV === "test" ? process.env.TEST_DATABASE_URL : process.env.DATABASE_URL;
+
+const prisma = new PrismaClient({
+    datasources: {
+        db: {
+            url: databaseUrl,
+        },
+    },
+});
 
 class User {
     async createUser({ fullName, email, username, password }) {
@@ -103,8 +111,6 @@ class User {
     // });
 
     const query = await prisma.user.findMany();
-
-    console.log(query);
 })();
 
-module.exports = new User;
+module.exports = new User();
