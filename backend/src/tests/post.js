@@ -80,6 +80,34 @@ const postTest = () => {
                     });
             });
         });
+
+        describe("When user interacts with posts", () => {
+            let postId;
+
+            beforeAll(async () => {
+                await request
+                    .post("/post/create")
+                    .send({ body: "Dummy post", images: ["image1", "image2"] })
+                    .then(response => {
+                        const { post } = response.body;
+
+                        postId = post.id;
+                    });
+            });
+
+            it("Likes post", async () => {
+                await request.post("/post/:id/like").send("Authorization", `Bearer ${audreyToken}`).expect(200);
+
+                await request
+                    .get("/post/:id")
+                    .send("Authorization", `Bearer ${mastachiiToken}`)
+                    .then(response => {
+                        const { post } = response.body;
+
+                        expect(post.likedBy).toHaveLength(1);
+                    });
+            });
+        });
     });
 };
 
