@@ -25,6 +25,14 @@ class Post {
         });
     }
 
+    async getPost({ id }) {
+        const post = await prisma.post.findUnique({
+            where: { id },
+        });
+
+        return post;
+    }
+
     async likePost({ id, userId }) {
         await prisma.post.update({
             where: { id },
