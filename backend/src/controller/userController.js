@@ -47,10 +47,26 @@ class User {
         },
     ];
 
-    async getData(req, res, next) {
+    async getData(req, res) {
         const user = await db.getUser({ id: req.user.id });
 
         res.status(200).json({ user });
+    }
+
+    async followUser(req, res) {
+        if (req.user.username === req.params.username) return res.sendStatus(400);
+
+        await db.followUser({ id: req.user.id, username: req.params.username });
+
+        res.sendStatus(200);
+    }
+
+    async unfollowUser(req, res) {
+        if (req.user.username === req.params.username) return res.sendStatus(400);
+
+        await db.unfollowUser({ id: req.user.id, username: req.params.username });
+
+        res.sendStatus(200);
     }
 }
 

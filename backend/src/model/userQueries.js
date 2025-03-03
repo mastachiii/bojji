@@ -25,6 +25,10 @@ class User {
     async getUser({ id }) {
         const user = await prisma.user.findUnique({
             where: { id },
+            include: {
+                followers: true,
+                following: true,
+            },
         });
 
         return user;
@@ -50,7 +54,7 @@ class User {
         });
     }
 
-    async followUser({ username, id }) {
+    async followUser({ id, username }) {
         await prisma.user.update({
             where: { id },
             data: {

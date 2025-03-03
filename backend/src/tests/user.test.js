@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { response } = require("express");
 let request = require("supertest");
 
 const prisma = new PrismaClient({
@@ -113,7 +112,7 @@ describe("Authentication", () => {
     });
 });
 
-xdescribe("Following / Unfollowing users", () => {
+describe("Following / Unfollowing users", () => {
     let mastachiiToken;
     let audreyToken;
 
@@ -139,10 +138,8 @@ xdescribe("Following / Unfollowing users", () => {
             });
     });
 
-    it("Follows user", async done => {
-        console.log({ mastachiiToken, audreyToken });
-
-        await request.post("/user/follow/1").set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+    it("Follows user", async () => {
+        await request.post("/user/follow/audreyHepburn123").set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
 
         await request
             .get("/user/2")
@@ -151,8 +148,6 @@ xdescribe("Following / Unfollowing users", () => {
                 const { user } = response.body;
 
                 expect(user.following).toBeTruthy();
-
-                done();
             });
 
         await request
@@ -162,13 +157,11 @@ xdescribe("Following / Unfollowing users", () => {
                 const { user } = response.body;
 
                 expect(user.followers).toBeTruthy();
-
-                done();
             });
     });
 
-    it("Unfollows user", async done => {
-        await request.post("/user/unfollow/1").set("Authorization", `Bearer ${mastachiiToken}`).expect(200, done);
+    it("Unfollows user", async () => {
+        await request.post("/user/unfollow/audreyHepburn123").set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
 
         await request
             .get("/user/2")
@@ -176,9 +169,7 @@ xdescribe("Following / Unfollowing users", () => {
             .then(response => {
                 const { user } = response.body;
 
-                expect(user.following).toBeUndefined();
-
-                done();
+                expect(user.following).toHaveLength(0);
             });
 
         await request
@@ -187,13 +178,11 @@ xdescribe("Following / Unfollowing users", () => {
             .then(response => {
                 const { user } = response.body;
 
-                expect(user.followers).toBeUndefined();
-
-                done();
+                expect(user.followers).toHaveLength(0);
             });
     });
 
-    it("Throws if user tries to follow themself", () => {
-        request.post("/user/follow/2").set("Authorization", `Bearer ${mastachiiToken}`).expect(400, done);
+    it("Throws if user tries to follow themself", done => {
+        request.post("/user/follow/mastachii").set("Authorization", `Bearer ${mastachiiToken}`).expect(400, done);
     });
 });
