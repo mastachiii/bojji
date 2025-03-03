@@ -1,6 +1,7 @@
 const express = require("express");
 const controller = require("../controller/userController");
 const passport = require("passport");
+
 const route = express.Router();
 
 // GET

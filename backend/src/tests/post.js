@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { response } = require("express");
 let request = require("supertest");
 
 const prisma = new PrismaClient({
