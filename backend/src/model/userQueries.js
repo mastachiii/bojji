@@ -28,6 +28,7 @@ class User {
             include: {
                 followers: true,
                 following: true,
+                posts: true,
             },
         });
 

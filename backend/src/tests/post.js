@@ -35,11 +35,20 @@ const postTest = () => {
 
         describe("Creates Post", () => {
             it("Creates a post", async () => {
-                const user = await prisma.user.findMany();
+                await request
+                    .post("/post/create")
+                    .send({ body: "Posting from a test file!", images: "somePic.imgur.com" })
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200);
 
-                console.log(user);
+                await request
+                    .get("/user/2")
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .then(response => {
+                        const { user } = response.body;
 
-                console.log({ mastachiiToken, audreyToken });
+                        expect(user.posts).toHaveLength(1);
+                    });
             });
         });
     });
