@@ -105,8 +105,21 @@ const postTest = () => {
                     .expect(200)
                     .then(response => {
                         const { post } = response.body;
-                        console.log(post);
+
                         expect(post.likedBy).toHaveLength(1);
+                    });
+            });
+
+            it("Dislike post", async () => {
+                await request.post(`/post/${postId}/dislike`).set("Authorization", `Bearer ${audreyToken}`).expect(200);
+
+                await request
+                    .get(`/post/${postId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .then(response => {
+                        const { post } = response.body;
+
+                        expect(post.likedBy).toHaveLength(0);
                     });
             });
         });
