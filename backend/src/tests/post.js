@@ -1,14 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 let request = require("supertest");
 
-const prisma = new PrismaClient({
-    datasources: {
-        db: {
-            url: process.env.TEST_DATABASE_URL,
-        },
-    },
-});
-
 request = request("http://localhost:8080");
 
 const postTest = () => {
@@ -36,16 +28,17 @@ const postTest = () => {
             it("Creates a post", async () => {
                 await request
                     .post("/post/create")
-                    .send({ body: "Posting from a test file!", images: "somePic.imgur.com" })
+                    .send({ body: "Posting from a test file!", images: ["somePic.imgur.com"] })
                     .set("Authorization", `Bearer ${mastachiiToken}`)
-                    .expect(200);
+                    .expect(201);
+
 
                 await request
                     .get("/user/2")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;
-
+                        console.dir(user, { depth: null });
                         expect(user.posts).toHaveLength(1);
                     });
             });

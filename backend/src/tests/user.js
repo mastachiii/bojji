@@ -1,30 +1,6 @@
-const { PrismaClient } = require("@prisma/client");
 let request = require("supertest");
 
-const prisma = new PrismaClient({
-    datasources: {
-        db: {
-            url: process.env.TEST_DATABASE_URL,
-        },
-    },
-});
-
 request = request("http://localhost:8080");
-
-beforeAll(async () => {
-    await request.post("/user/sign-up").send({
-        username: "audreyHepburn123",
-        email: "audreyHepburn123@gmail.com",
-        password: "alsaliasid12",
-        passwordConfirm: "alsaliasid12",
-        displayName: "audreyy",
-        fullName: "Audrey Hepburn",
-    });
-});
-
-afterAll(async () => {
-    await prisma.user.deleteMany();
-});
 
 const userTest = () => {
     describe("User test suite", () => {

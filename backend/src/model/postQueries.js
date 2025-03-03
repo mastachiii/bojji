@@ -84,3 +84,5 @@ class Post {
 
     console.dir(query, { depth: null });
 })();
+
+module.exports = new Post();
