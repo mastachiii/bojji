@@ -28,6 +28,9 @@ class Post {
     async getPost({ id }) {
         const post = await prisma.post.findUnique({
             where: { id },
+            include: {
+                likedBy: true,
+            },
         });
 
         return post;

@@ -24,6 +24,12 @@ class Post {
 
         res.sendStatus(200);
     }
+
+    async likePost(req, res) {
+        await db.likePost({ id: req.params.id, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Post();

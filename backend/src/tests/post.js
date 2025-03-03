@@ -88,6 +88,7 @@ const postTest = () => {
                 await request
                     .post("/post/create")
                     .send({ body: "Dummy post", images: ["image1", "image2"] })
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { post } = response.body;
 
@@ -96,14 +97,15 @@ const postTest = () => {
             });
 
             it("Likes post", async () => {
-                await request.post("/post/:id/like").send("Authorization", `Bearer ${audreyToken}`).expect(200);
+                await request.post(`/post/${postId}/like`).set("Authorization", `Bearer ${audreyToken}`).expect(200);
 
                 await request
-                    .get("/post/:id")
-                    .send("Authorization", `Bearer ${mastachiiToken}`)
+                    .get(`/post/${postId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
                     .then(response => {
                         const { post } = response.body;
-
+                        console.log(post);
                         expect(post.likedBy).toHaveLength(1);
                     });
             });
