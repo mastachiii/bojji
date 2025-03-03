@@ -12,6 +12,12 @@ class Post {
 
         res.status(201).json({ post });
     }
+
+    async updatePost(req, res) {
+        await db.updatePost({ id: req.params.id, body: req.body.body, images: req.body.images });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Post();

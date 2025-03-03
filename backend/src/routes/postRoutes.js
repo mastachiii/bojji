@@ -9,5 +9,6 @@ route.get("/:id", passport.authenticate("jwt", { session: false }), controller.g
 
 // POST
 route.post("/create", passport.authenticate("jwt", { session: false }), controller.createPost);
+route.post("/update/:id", passport.authenticate("jwt", { session: false }), controller.updatePost);
 
 module.exports = route;

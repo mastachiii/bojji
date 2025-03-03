@@ -59,12 +59,12 @@ class Post {
         });
     }
 
-    async updatePost({ id, image, body }) {
+    async updatePost({ id, images, body }) {
         await prisma.post.update({
             where: { id },
             data: {
                 body,
-                image,
+                images,
                 edited: true,
                 createdAt: new Date(),
             },

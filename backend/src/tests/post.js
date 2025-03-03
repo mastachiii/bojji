@@ -61,9 +61,9 @@ const postTest = () => {
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { post } = response.body;
-
                         expect(post.body).toEqual("Updated post!");
                         expect(post.images).toHaveLength(2);
+                        expect(post.edited).toBeTruthy();
                     });
             });
         });
