@@ -1,17 +1,19 @@
 const express = require("express");
-const controller = require("../controller/postController");
+const postController = require("../controller/postController");
+const commentController = require("../controller/commentController");
 const passport = require("passport");
 
 const route = express.Router();
 
 // GET
-route.get("/:id", passport.authenticate("jwt", { session: false }), controller.getPost);
+route.get("/:id", passport.authenticate("jwt", { session: false }), postController.getPost);
 
 // POST
-route.post("/create", passport.authenticate("jwt", { session: false }), controller.createPost);
-route.post("/update/:id", passport.authenticate("jwt", { session: false }), controller.updatePost);
-route.post("/delete/:id", passport.authenticate("jwt", { session: false }), controller.deletePost);
-route.post("/:id/like", passport.authenticate("jwt", { session: false }), controller.likePost);
-route.post("/:id/dislike", passport.authenticate("jwt", { session: false }), controller.dislikePost);
+route.post("/create", passport.authenticate("jwt", { session: false }), postController.createPost);
+route.post("/update/:id", passport.authenticate("jwt", { session: false }), postController.updatePost);
+route.post("/delete/:id", passport.authenticate("jwt", { session: false }), postController.deletePost);
+route.post("/:id/like", passport.authenticate("jwt", { session: false }), postController.likePost);
+route.post("/:id/dislike", passport.authenticate("jwt", { session: false }), postController.dislikePost);
+route.post("/:id/comment", passport.authenticate("jwt", { session: false }), commentController.createComment);
 
 module.exports = route;

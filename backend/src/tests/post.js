@@ -117,7 +117,7 @@ const postTest = () => {
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { post } = response.body;
-                        console.log(post);
+
                         expect(post.likedBy).toHaveLength(0);
                     });
             });
@@ -143,7 +143,7 @@ const postTest = () => {
                     .post(`/post/${postId}/comment`)
                     .send({ body: "Great dummy post!" })
                     .set("Authorization", `Bearer ${audreyToken}`)
-                    .expect(200);
+                    .expect(201);
 
                 await request
                     .get(`/post/${postId}`)

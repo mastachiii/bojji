@@ -25,6 +25,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+    await prisma.comment.deleteMany();
     await prisma.post.deleteMany();
     await prisma.user.deleteMany();
 });

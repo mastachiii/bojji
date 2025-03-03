@@ -106,24 +106,4 @@ class User {
     }
 }
 
-(async () => {
-    const db = new User();
-
-    // await db.createUser({
-    //     fullName: "Al Asid",
-    //     email: "mastachii273@gmai.com",
-    //     username: "mastachii",
-    //     password: "alsaliasid12",
-    // });
-
-    // await db.createUser({
-    //     fullName: "Audrey Hepburn",
-    //     email: "audreyHepburn123@gmail.com",
-    //     username: "audreyHepburn123",
-    //     password: "alsaliasid12",
-    // });
-
-    const query = await prisma.user.findMany();
-})();
-
 module.exports = new User();

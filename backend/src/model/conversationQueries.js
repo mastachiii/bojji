@@ -20,17 +20,4 @@ class Conversation {
     }
 }
 
-(async () => {
-    const db = new Conversation();
-
-    // await db.createConversation({ userIds: [1, 3] });
-
-    const query = await prisma.conversation.findMany({
-        include: {
-            messages: true,
-            users: true,
-        },
-    });
-
-    console.dir(query, { depth: null });
-})();
+module.exports = new Conversation();
