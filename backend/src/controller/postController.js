@@ -18,6 +18,12 @@ class Post {
 
         res.sendStatus(200);
     }
+
+    async deletePost(req, res) {
+        await db.deletePost({ id: req.params.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Post();

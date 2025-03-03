@@ -66,6 +66,19 @@ const postTest = () => {
                         expect(post.edited).toBeTruthy();
                     });
             });
+
+            it("Delete a post", async () => {
+                await request.post(`/post/delete/${postId}`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+
+                await request
+                    .get("/user/2")
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .then(response => {
+                        const { user } = response.body;
+
+                        expect(user.posts).toHaveLength(0);
+                    });
+            });
         });
     });
 };
