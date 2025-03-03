@@ -24,22 +24,46 @@ const postTest = () => {
                 });
         });
 
-        describe("Creates Post", () => {
+        describe("Post CRUD Operations", () => {
+            let postId;
+
             it("Creates a post", async () => {
                 await request
                     .post("/post/create")
                     .send({ body: "Posting from a test file!", images: ["somePic.imgur.com"] })
                     .set("Authorization", `Bearer ${mastachiiToken}`)
-                    .expect(201);
+                    .expect(201)
+                    .then(response => {
+                        const { post } = response.body;
 
+                        postId = post.id;
+                    });
 
                 await request
                     .get("/user/2")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;
-                        console.dir(user, { depth: null });
+
                         expect(user.posts).toHaveLength(1);
+                    });
+            });
+
+            it("Updates a post", async () => {
+                await request
+                    .post(`/post/update/${postId}`)
+                    .send({ body: "Updated post!", images: ["someimage", "anotherimage"] })
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200);
+
+                await request
+                    .get(`/post/${postId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .then(response => {
+                        const { post } = response.body;
+
+                        expect(post.body).toEqual("Updated post!");
+                        expect(post.images).toHaveLength(2);
                     });
             });
         });

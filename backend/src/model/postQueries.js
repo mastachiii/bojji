@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 class Post {
     async createPost({ body, images, id }) {
-        await prisma.post.create({
+        const post = await prisma.post.create({
             data: {
                 body,
                 images,
@@ -15,6 +15,8 @@ class Post {
                 },
             },
         });
+
+        return post;
     }
 
     async deletePost({ id }) {
