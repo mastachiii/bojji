@@ -1,4 +1,3 @@
-const { PrismaClient } = require("@prisma/client");
 let request = require("supertest");
 
 request = request("http://localhost:8080");
@@ -118,8 +117,41 @@ const postTest = () => {
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { post } = response.body;
-                        console.log(post)
+                        console.log(post);
                         expect(post.likedBy).toHaveLength(0);
+                    });
+            });
+        });
+
+        describe("When user comments on a post", () => {
+            let postId;
+
+            beforeAll(async () => {
+                await request
+                    .post("/post/create")
+                    .send({ body: "Another dummy post", images: ["IMAGE 1"] })
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .then(response => {
+                        const { post } = response.body;
+
+                        postId = post.id;
+                    });
+            });
+
+            it("Can comment on post", async () => {
+                await request
+                    .post(`/post/${postId}/comment`)
+                    .send({ body: "Great dummy post!" })
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(200);
+
+                await request
+                    .get(`/post/${postId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .then(response => {
+                        const { post } = response.body;
+
+                        expect(post.comments).toHaveLength(1);
                     });
             });
         });
