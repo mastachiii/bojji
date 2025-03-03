@@ -30,6 +30,12 @@ class Post {
 
         res.sendStatus(200);
     }
+
+    async dislikePost(req, res) {
+        await db.dislikePost({ id: req.params.id, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Post();

@@ -118,7 +118,7 @@ const postTest = () => {
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { post } = response.body;
-
+                        console.log(post)
                         expect(post.likedBy).toHaveLength(0);
                     });
             });

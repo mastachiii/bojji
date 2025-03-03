@@ -12,5 +12,6 @@ route.post("/create", passport.authenticate("jwt", { session: false }), controll
 route.post("/update/:id", passport.authenticate("jwt", { session: false }), controller.updatePost);
 route.post("/delete/:id", passport.authenticate("jwt", { session: false }), controller.deletePost);
 route.post("/:id/like", passport.authenticate("jwt", { session: false }), controller.likePost);
+route.post("/:id/dislike", passport.authenticate("jwt", { session: false }), controller.dislikePost);
 
 module.exports = route;
