@@ -1,4 +1,3 @@
-const { it } = require("date-fns/locale");
 const getUserTokens = require("./helpers/getUserTokens");
 let request = require("supertest");
 
@@ -75,7 +74,7 @@ const storyTest = () => {
             });
 
             it("Likes a post", async () => {
-                await request.post(`/story/${storyId}/like`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+                await request.post(`/story/like/${storyId}`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
 
                 await request
                     .get(`/story/${storyId}`)

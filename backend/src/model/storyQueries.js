@@ -54,6 +54,15 @@ class Story {
     async getStory({ id }) {
         const story = await prisma.story.findUnique({
             where: { id },
+            include: {
+                likedBy: {
+                    select: {
+                        id: true,
+                        username: true,
+                        profilePicture: true,
+                    },
+                },
+            },
         });
 
         return story;

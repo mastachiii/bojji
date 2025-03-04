@@ -23,6 +23,12 @@ class Story {
 
         res.status(200).json({ story });
     }
+
+    async likeStory(req, res) {
+        await db.likeStory({ id: req.params.id, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Story();
