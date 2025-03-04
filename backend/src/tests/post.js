@@ -1,4 +1,3 @@
-const { response } = require("express");
 let request = require("supertest");
 
 request = request("http://localhost:8080");
@@ -49,6 +48,10 @@ const postTest = () => {
                     });
             });
 
+            it("Doesn't update if user is not author of post", async () => {
+                await request.post(`/post/update/${postId}`).set("Authorization", `Bearer ${audreyToken}`).expect(403);
+            });
+
             it("Updates a post", async () => {
                 await request
                     .post(`/post/update/${postId}`)
@@ -68,7 +71,7 @@ const postTest = () => {
             });
 
             it("Doesn't delete if user is not author of post", async () => {
-                console.log({ postId })
+                console.log({ postId });
                 await request.post(`/post/delete/${postId}`).set("Authorization", `Bearer ${audreyToken}`).expect(403);
 
                 await request

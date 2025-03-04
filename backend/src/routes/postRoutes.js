@@ -4,7 +4,7 @@ const commentController = require("../controller/commentController");
 const passport = require("passport");
 
 const route = express.Router();
-
+console.dir(postController, { depth: null })
 // GET
 route.get("/:id", passport.authenticate("jwt", { session: false }), postController.getPost);
 

@@ -1,5 +1,10 @@
 const db = require("../model/postQueries");
 
+function checkIfUserPost({ user, postId }) {
+    return user.posts.find(p => p.id === postId);
+}
+
+
 class Post {
     async getPost(req, res) {
         const post = await db.getPost({ id: req.params.id });
@@ -14,15 +19,15 @@ class Post {
     }
 
     async updatePost(req, res) {
+        if (!checkIfUserPost({ user: req.user, postId: req.params.id })) return res.sendStatus(403);
+
         await db.updatePost({ id: req.params.id, body: req.body.body, images: req.body.images });
 
         res.sendStatus(200);
     }
 
     async deletePost(req, res) {
-        const isUserPost = req.user.posts.find(p => p.id === req.params.id); // Check if post is by user
-
-        if (!isUserPost) return res.sendStatus(403);
+        if (!checkIfUserPost({ user: req.user, postId: req.params.id })) return res.sendStatus(403);
 
         await db.deletePost({ id: req.params.id });
 
