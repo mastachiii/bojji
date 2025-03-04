@@ -86,6 +86,20 @@ const storyTest = () => {
                         expect(story.likedBy).toHaveLength(1);
                     });
             });
+
+            it("Dislike a post", async () => {
+                await request.post(`/story/dislike/${storyId}`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+
+                await request
+                    .get(`/story/${storyId}`)
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { story } = response.body;
+
+                        expect(story.likedBy).toHaveLength(0);
+                    });
+            });
         });
     });
 };
