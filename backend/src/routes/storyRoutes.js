@@ -11,5 +11,6 @@ route.get("/:id", passport.authenticate("jwt", { session: false }), controller.g
 route.post("/create", passport.authenticate("jwt", { session: false }), controller.createStory);
 route.post("/delete/:id", passport.authenticate("jwt", { session: false }), controller.deleteStory);
 route.post("/like/:id", passport.authenticate("jwt", { session: false }), controller.likeStory);
+route.post("/dislike/:id", passport.authenticate("jwt", { session: false }), controller.dislikeStory);
 
 module.exports = route;

@@ -29,6 +29,12 @@ class Story {
 
         res.sendStatus(200);
     }
+
+    async dislikeStory(req, res) {
+        await db.dislikeStory({ id: req.params.id, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Story();
