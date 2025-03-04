@@ -1,3 +1,4 @@
+const getUserTokens = require("./helpers/getUserTokens");
 let request = require("supertest");
 
 request = request("http://localhost:8080");
@@ -8,19 +9,10 @@ const postTest = () => {
         let audreyToken;
 
         beforeAll(async () => {
-            await request
-                .post("/user/log-in")
-                .send({ username: "mastachii", password: "alsaliasid12" })
-                .then(response => {
-                    mastachiiToken = response.body.token;
-                });
+            const tokens = await getUserTokens({ mastachiiVar: mastachiiToken, audreyVar: audreyToken });
 
-            await request
-                .post("/user/log-in")
-                .send({ username: "audreyHepburn123", password: "alsaliasid12" })
-                .then(response => {
-                    audreyToken = response.body.token;
-                });
+            mastachiiToken = tokens[0];
+            audreyToken = tokens[1];
         });
 
         describe("Post CRUD Operations", () => {
