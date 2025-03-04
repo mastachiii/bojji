@@ -1,5 +1,6 @@
 const userTest = require("./user");
 const postTest = require("./post");
+const storyTest = require("./story");
 let request = require("supertest");
 const { PrismaClient } = require("@prisma/client");
 
@@ -25,6 +26,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+    await prisma.story.deleteMany();
     await prisma.comment.deleteMany();
     await prisma.post.deleteMany();
     await prisma.user.deleteMany();
@@ -32,3 +34,4 @@ afterAll(async () => {
 
 describe("User", userTest);
 describe("Post", postTest);
+describe("Story", storyTest);

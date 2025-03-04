@@ -42,6 +42,7 @@ class User {
                 followers: selectFields,
                 following: selectFields,
                 posts: true,
+                stories: true,
             },
         });
 

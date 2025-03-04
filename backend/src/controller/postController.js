@@ -4,7 +4,6 @@ function checkIfUserPost({ user, postId }) {
     return user.posts.find(p => p.id === postId);
 }
 
-
 class Post {
     async getPost(req, res) {
         const post = await db.getPost({ id: req.params.id });

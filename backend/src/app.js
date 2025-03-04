@@ -3,6 +3,7 @@ const passport = require("passport");
 const userStrategy = require("./passport/passport");
 const user = require("./routes/userRoutes");
 const post = require("./routes/postRoutes");
+const story = require("./routes/storyRoutes");
 
 const app = express();
 
@@ -14,6 +15,7 @@ passport.use(userStrategy);
 // Routes
 app.use("/user", user);
 app.use("/post", post);
+app.use("/story", story);
 
 // Error handler
 app.use((err, req, res, next) => {

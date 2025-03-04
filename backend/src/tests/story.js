@@ -32,3 +32,5 @@ const storyTest = () => {
         });
     });
 };
+
+module.exports = storyTest;
