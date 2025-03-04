@@ -195,6 +195,21 @@ const postTest = () => {
                     });
             });
 
+            it("Dislike a comment", async () => {
+                await request.post(`/post/comment/${commentId}/dislike`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+
+                await request
+                    .get(`/post/${postId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { post } = response.body;
+                        const comment = post.comments.find(c => c.id === commentId);
+
+                        expect(comment.likedBy).toHaveLength(0);
+                    });
+            });
+
             it("Doesn't delete if user is not author of comment", async () => {
                 await request.post(`/post/comment/${commentId}/delete`).set("Authorization", `Bearer ${mastachiiToken}`).expect(403);
             });

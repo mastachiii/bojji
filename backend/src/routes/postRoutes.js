@@ -16,6 +16,7 @@ route.post("/:id/like", passport.authenticate("jwt", { session: false }), postCo
 route.post("/:id/dislike", passport.authenticate("jwt", { session: false }), postController.dislikePost);
 route.post("/:id/comment", passport.authenticate("jwt", { session: false }), commentController.createComment);
 route.post("/comment/:id/like", passport.authenticate("jwt", { session: false }), commentController.likeComment);
+route.post("/comment/:id/dislike", passport.authenticate("jwt", { session: false }), commentController.dislikeComment);
 route.post("/comment/:id/delete", passport.authenticate("jwt", { session: false }), commentController.deleteComment);
 
 module.exports = route;

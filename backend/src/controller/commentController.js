@@ -24,6 +24,12 @@ class Comment {
 
         res.sendStatus(200);
     }
+
+    async dislikeComment(req, res) {
+        await db.dislikeComment({ id: req.params.id, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Comment();
