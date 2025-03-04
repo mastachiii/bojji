@@ -7,6 +7,16 @@ class Story {
 
         res.status(201).json({ story });
     }
+
+    async deleteStory(req, res) {
+        const checkStoryFromUser = req.user.stories.find(s => s.id === req.params.id);
+
+        if (!checkStoryFromUser) return res.sendStatus(403);
+
+        await db.deleteStory({ id: req.params.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Story();

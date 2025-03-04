@@ -17,6 +17,7 @@ const userStrategy = new JwtStrategy(options, async (payload, done) => {
                 followers: true,
                 following: true,
                 posts: true,
+                stories: true,
                 comments: true,
             },
         });

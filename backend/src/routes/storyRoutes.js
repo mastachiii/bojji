@@ -6,5 +6,6 @@ const route = express.Router();
 
 // POST
 route.post("/create", passport.authenticate("jwt", { session: false }), controller.createStory);
+route.post("/delete/:id", passport.authenticate("jwt", { session: false }), controller.deleteStory);
 
 module.exports = route;
