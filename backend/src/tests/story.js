@@ -60,12 +60,32 @@ const storyTest = () => {
         });
 
         describe("Like / Dislike story", () => {
+            let storyId;
+
             beforeAll(async () => {
-                await request.post("/story/create").send({ image: "Some image" }).set("Authorization", `Bearer ${audreyToken}`);
+                await request
+                    .post("/story/create")
+                    .send({ image: "Some image" })
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .then(response => {
+                        const { story } = response.body;
+
+                        storyId = story.id;
+                    });
             });
 
             it("Likes a post", async () => {
-                await request.post('/')
+                await request.post(`/story/${storyId}/like`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+
+                await request
+                    .get(`/story/${storyId}`)
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { story } = response.body;
+
+                        expect(story.likedBy).toHaveLength(1);
+                    });
             });
         });
     });
