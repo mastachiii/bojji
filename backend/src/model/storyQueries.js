@@ -50,6 +50,14 @@ class Story {
             where: { id },
         });
     }
+
+    async getStory({ id }) {
+        const story = await prisma.story.findUnique({
+            where: { id },
+        });
+
+        return story;
+    }
 }
 
 module.exports = new Story();

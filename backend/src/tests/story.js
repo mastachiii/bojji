@@ -1,3 +1,4 @@
+const { it } = require("date-fns/locale");
 const getUserTokens = require("./helpers/getUserTokens");
 let request = require("supertest");
 
@@ -55,6 +56,16 @@ const storyTest = () => {
 
                         expect(user.stories).toHaveLength(0);
                     });
+            });
+        });
+
+        describe("Like / Dislike story", () => {
+            beforeAll(async () => {
+                await request.post("/story/create").send({ image: "Some image" }).set("Authorization", `Bearer ${audreyToken}`);
+            });
+
+            it("Likes a post", async () => {
+                await request.post('/')
             });
         });
     });

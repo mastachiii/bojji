@@ -17,6 +17,12 @@ class Story {
 
         res.sendStatus(200);
     }
+
+    async getStory(req, res) {
+        const story = await db.getStory({ id: req.params.id });
+
+        res.status(200).json({ story });
+    }
 }
 
 module.exports = new Story();
