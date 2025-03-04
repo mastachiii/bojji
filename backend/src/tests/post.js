@@ -1,4 +1,3 @@
-const { response } = require("express");
 let request = require("supertest");
 
 request = request("http://localhost:8080");
@@ -192,6 +191,7 @@ const postTest = () => {
                         const { post } = response.body;
                         const comment = post.comments.find(c => c.id === commentId);
 
+                        console.dir({ post }, { depth: null });
                         expect(comment.likedBy).toHaveLength(1);
                     });
             });

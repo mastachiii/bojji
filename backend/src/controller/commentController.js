@@ -18,6 +18,12 @@ class Comment {
 
         res.sendStatus(200);
     }
+
+    async likeComment(req, res) {
+        await db.likeComment({ id: req.params.id, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Comment();

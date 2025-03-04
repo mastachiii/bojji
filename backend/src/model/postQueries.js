@@ -30,7 +30,11 @@ class Post {
             where: { id },
             include: {
                 likedBy: true,
-                comments: true,
+                comments: {
+                    include: {
+                        likedBy: true,
+                    },
+                },
             },
         });
 
