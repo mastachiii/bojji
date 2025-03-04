@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 class Story {
     async createStory({ image, expiresAt, userId }) {
-        await prisma.story.create({
+        const story = await prisma.story.create({
             data: {
                 image,
                 expiresAt,
@@ -15,6 +15,8 @@ class Story {
                 },
             },
         });
+
+        return story;
     }
 
     async likeStory({ id, userId }) {

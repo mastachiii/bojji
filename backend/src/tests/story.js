@@ -16,8 +16,19 @@ const storyTest = () => {
         });
 
         describe("Story CRUD Operations", () => {
+            let storyId;
+
             it("Creates a story", async () => {
-                await request.post("/story/create").set("Authorization", `Bearer ${mastachiiToken}`).send({ image: "Some image" }).expect(201);
+                await request
+                    .post("/story/create")
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .send({ image: "Some image" })
+                    .expect(201)
+                    .then(response => {
+                        const { story } = response.body;
+
+                        storyId = story.id;
+                    });
 
                 await request
                     .get("/user/2")
@@ -27,6 +38,22 @@ const storyTest = () => {
                         const { user } = response.body;
 
                         expect(user.stories).toHaveLength(1);
+                    });
+            });
+
+            it("Deletes a story, throws if user is not author of story", async () => {
+                await request.post(`/story/delete/${storyId}`).set("Authorization", `Bearer ${audreyToken}`).expect(403);
+
+                await request.post(`/story/delete/${storyId}`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+
+                await request
+                    .get("/user/2")
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { user } = response.body;
+
+                        expect(user.stories).toHaveLength(0);
                     });
             });
         });
