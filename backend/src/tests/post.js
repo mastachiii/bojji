@@ -1,3 +1,4 @@
+const { response } = require("express");
 let request = require("supertest");
 
 request = request("http://localhost:8080");
@@ -177,6 +178,21 @@ const postTest = () => {
                         const { post } = response.body;
 
                         expect(post.comments).toHaveLength(1);
+                    });
+            });
+
+            it("Like a comment", async () => {
+                await request.post(`/post/comment/${commentId}/like`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+
+                await request
+                    .get(`/post/${postId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { post } = response.body;
+                        const comment = post.comments.find(c => c.id === commentId);
+
+                        expect(comment.likedBy).toHaveLength(1);
                     });
             });
 
