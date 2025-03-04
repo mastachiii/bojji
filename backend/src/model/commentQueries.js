@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 class Comment {
     async createComment({ body, userId, postId }) {
-        await prisma.comment.create({
+        const comment = await prisma.comment.create({
             data: {
                 body,
                 post: {
@@ -19,6 +19,8 @@ class Comment {
                 },
             },
         });
+
+        return comment;
     }
 
     async deleteComment({ id }) {

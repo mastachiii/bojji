@@ -64,6 +64,7 @@ const postTest = () => {
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { post } = response.body;
+
                         expect(post.body).toEqual("Updated post!");
                         expect(post.images).toHaveLength(2);
                         expect(post.edited).toBeTruthy();
@@ -71,7 +72,6 @@ const postTest = () => {
             });
 
             it("Doesn't delete if user is not author of post", async () => {
-                console.log({ postId });
                 await request.post(`/post/delete/${postId}`).set("Authorization", `Bearer ${audreyToken}`).expect(403);
 
                 await request
@@ -144,6 +144,7 @@ const postTest = () => {
 
         describe("When user comments on a post", () => {
             let postId;
+            let commentId;
 
             beforeAll(async () => {
                 await request
@@ -162,7 +163,12 @@ const postTest = () => {
                     .post(`/post/${postId}/comment`)
                     .send({ body: "Great dummy post!" })
                     .set("Authorization", `Bearer ${audreyToken}`)
-                    .expect(201);
+                    .expect(201)
+                    .then(response => {
+                        const { comment } = response.body;
+
+                        commentId = comment.id;
+                    });
 
                 await request
                     .get(`/post/${postId}`)
@@ -174,9 +180,23 @@ const postTest = () => {
                     });
             });
 
-            // it("Can delete comment", async () => {
-            //     await request.post(`/post/${postId}/comment/delete`).set("Authorization", `Bearer ${mastachiiToken}`);
-            // });
+            it("Doesn't delete if user is not author of comment", async () => {
+                await request.post(`/post/${postId}/comment/delete`).set("Authorization", `Bearer ${mastachiiToken}`).expect(403);
+            });
+
+            it("Can delete comment", async () => {
+                await request.post(`/post/${postId}/comment/delete`).set("Authorization", `Bearer ${audreyToken}`).expect(200);
+
+                await request
+                    .get(`/post/${postId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { post } = response.body;
+
+                        expect(post.comments).toHaveLength(0);
+                    });
+            });
         });
     });
 };
