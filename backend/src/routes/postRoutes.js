@@ -4,7 +4,7 @@ const commentController = require("../controller/commentController");
 const passport = require("passport");
 
 const route = express.Router();
-console.dir(postController, { depth: null })
+console.dir(postController, { depth: null });
 // GET
 route.get("/:id", passport.authenticate("jwt", { session: false }), postController.getPost);
 
@@ -15,5 +15,6 @@ route.post("/delete/:id", passport.authenticate("jwt", { session: false }), post
 route.post("/:id/like", passport.authenticate("jwt", { session: false }), postController.likePost);
 route.post("/:id/dislike", passport.authenticate("jwt", { session: false }), postController.dislikePost);
 route.post("/:id/comment", passport.authenticate("jwt", { session: false }), commentController.createComment);
+route.post("/comment/:id/delete", passport.authenticate("jwt", { session: false }), commentController.deleteComment);
 
 module.exports = route;

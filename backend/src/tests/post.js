@@ -181,11 +181,11 @@ const postTest = () => {
             });
 
             it("Doesn't delete if user is not author of comment", async () => {
-                await request.post(`/post/${postId}/comment/delete`).set("Authorization", `Bearer ${mastachiiToken}`).expect(403);
+                await request.post(`/post/comment/${commentId}/delete`).set("Authorization", `Bearer ${mastachiiToken}`).expect(403);
             });
 
             it("Can delete comment", async () => {
-                await request.post(`/post/${postId}/comment/delete`).set("Authorization", `Bearer ${audreyToken}`).expect(200);
+                await request.post(`/post/comment/${commentId}/delete`).set("Authorization", `Bearer ${audreyToken}`).expect(200);
 
                 await request
                     .get(`/post/${postId}`)
