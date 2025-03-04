@@ -20,6 +20,10 @@ class Post {
     }
 
     async deletePost(req, res) {
+        const isUserPost = req.user.posts.find(p => p.id === req.params.id); // Check if post is by user
+
+        if (!isUserPost) return res.sendStatus(403);
+
         await db.deletePost({ id: req.params.id });
 
         res.sendStatus(200);

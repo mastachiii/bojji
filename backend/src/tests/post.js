@@ -1,3 +1,4 @@
+const { response } = require("express");
 let request = require("supertest");
 
 request = request("http://localhost:8080");
@@ -63,6 +64,21 @@ const postTest = () => {
                         expect(post.body).toEqual("Updated post!");
                         expect(post.images).toHaveLength(2);
                         expect(post.edited).toBeTruthy();
+                    });
+            });
+
+            it("Doesn't delete if user is not author of post", async () => {
+                console.log({ postId })
+                await request.post(`/post/delete/${postId}`).set("Authorization", `Bearer ${audreyToken}`).expect(403);
+
+                await request
+                    .get(`/post/${postId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { post } = response.body;
+
+                        expect(post).toBeTruthy();
                     });
             });
 
@@ -154,6 +170,10 @@ const postTest = () => {
                         expect(post.comments).toHaveLength(1);
                     });
             });
+
+            // it("Can delete comment", async () => {
+            //     await request.post(`/post/${postId}/comment/delete`).set("Authorization", `Bearer ${mastachiiToken}`);
+            // });
         });
     });
 };
