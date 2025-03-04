@@ -26,13 +26,21 @@ class Post {
     }
 
     async getPost({ id }) {
+        const selectFields = {
+            select: {
+                id: true,
+                username: true,
+                profilePicture: true,
+            },
+        };
+
         const post = await prisma.post.findUnique({
             where: { id },
             include: {
-                likedBy: true,
+                likedBy: selectFields,
                 comments: {
                     include: {
-                        likedBy: true,
+                        likedBy: selectFields,
                     },
                 },
             },

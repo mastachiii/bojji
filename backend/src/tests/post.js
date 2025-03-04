@@ -191,7 +191,6 @@ const postTest = () => {
                         const { post } = response.body;
                         const comment = post.comments.find(c => c.id === commentId);
 
-                        console.dir({ post }, { depth: null });
                         expect(comment.likedBy).toHaveLength(1);
                     });
             });

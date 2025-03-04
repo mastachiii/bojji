@@ -23,11 +23,24 @@ class User {
     }
 
     async getUser({ id }) {
+        const selectFields = {
+            select: {
+                id: true,
+                username: true,
+                profilePicture: true,
+            },
+        };
+
         const user = await prisma.user.findUnique({
             where: { id },
-            include: {
-                followers: true,
-                following: true,
+            select: {
+                id: true,
+                fullName: true,
+                username: true,
+                profilePicture: true,
+                bio: true,
+                followers: selectFields,
+                following: selectFields,
                 posts: true,
             },
         });
