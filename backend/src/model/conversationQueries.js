@@ -13,9 +13,16 @@ class Conversation {
         });
     }
 
-    async deleteConversation({ id }) {
-        await prisma.conversation.delete({
+    async removeConversation({ id, userId }) {
+        await prisma.conversation.update({
             where: { id },
+            data: {
+                users: {
+                    disconnect: {
+                        id: userId,
+                    },
+                },
+            },
         });
     }
 }
