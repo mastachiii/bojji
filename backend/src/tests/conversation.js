@@ -7,6 +7,7 @@ const conversationTest = () => {
     describe("Conversation test suite", () => {
         let mastachiiToken;
         let audreyToken;
+        let conversationId;
 
         beforeAll(async () => {
             const tokens = await getUserTokens();
@@ -15,15 +16,13 @@ const conversationTest = () => {
             audreyToken = tokens[1];
         });
 
+        let receiverId;
         describe("Conversation CRUD", () => {
-            let conversationId;
-
             it("Creates a conversation", async () => {
-                let receiverId;
 
                 await request
                     .get("/user/2")
-                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;
 
@@ -47,14 +46,13 @@ const conversationTest = () => {
                     .expect(200)
                     .then(response => {
                         const { user } = response.body;
-                        console.dir({ user }, { depth: null });
 
                         expect(user.conversations).toHaveLength(1);
                     });
             });
 
             it("Removes a conversation", async () => {
-                await request.post(`/conversation/${conversationId}/leave`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+                await request.post("/conversation/create").send({ receiverId }).set("Authorization", `Bearer ${audreyToken}`);
 
                 await request
                     .get("/user/2")
@@ -62,8 +60,28 @@ const conversationTest = () => {
                     .expect(200)
                     .then(response => {
                         const { user } = response.body;
-                        console.log({ user });
+
                         expect(user.conversations).toHaveLength(0);
+                    });
+            });
+        });
+
+        xdescribe("Conversation interactions", () => {
+            it("Sends messages to conversation", async () => {
+                await request
+                    .post(`/conversation/${conversationId}/message`)
+                    .send({ message: "Hi!" })
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(201);
+
+                await request
+                    .get(`/conversation/${conversationId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { conversation } = response.body;
+
+                        expect(conversation.messages).toHaveLength(1);
                     });
             });
         });
