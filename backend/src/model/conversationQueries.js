@@ -4,15 +4,15 @@ const prisma = new PrismaClient();
 
 class Conversation {
     async createConversation({ userIds }) {
-        console.log({ userIds });
-
-        await prisma.conversation.create({
+        const conversation = await prisma.conversation.create({
             data: {
                 users: {
                     connect: userIds.map(id => ({ id })),
                 },
             },
         });
+
+        return conversation;
     }
 
     async removeConversation({ id, userId }) {

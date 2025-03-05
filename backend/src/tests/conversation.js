@@ -16,6 +16,8 @@ const conversationTest = () => {
         });
 
         describe("Conversation CRUD", () => {
+            let conversationId;
+
             it("Creates a conversation", async () => {
                 let receiverId;
 
@@ -28,7 +30,16 @@ const conversationTest = () => {
                         receiverId = user.id;
                     });
 
-                await request.post("/conversation/create").send({ receiverId }).set("Authorization", `Bearer ${audreyToken}`).expect(201);
+                await request
+                    .post("/conversation/create")
+                    .send({ receiverId })
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(201)
+                    .then(response => {
+                        const { conversation } = response.body;
+
+                        conversationId = conversation.id;
+                    });
 
                 await request
                     .get("/user/1")
@@ -38,6 +49,20 @@ const conversationTest = () => {
                         const { user } = response.body;
 
                         expect(user.conversations).toHaveLength(1);
+                    });
+            });
+
+            it("Removes a conversation", async () => {
+                await request.post(`/conversation/${conversationId}/leave`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+
+                await request
+                    .get("/user/2")
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { user } = response.body;
+
+                        expect(user.conversations).toHaveLength(0);
                     });
             });
         });
