@@ -85,7 +85,7 @@ const postTest = () => {
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;
-                        console.log({ user });
+
                         expect(user.posts).toHaveLength(0);
                     });
             });

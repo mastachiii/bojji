@@ -6,5 +6,6 @@ const route = express.Router();
 
 // POST
 route.post("/create", passport.authenticate("jwt", { session: false }), controller.createConversation);
+route.post("/:id/leave", passport.authenticate("jwt", { session: false }), controller.leaveConversation);
 
 module.exports = route;

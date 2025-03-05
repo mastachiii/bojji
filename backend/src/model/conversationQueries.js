@@ -15,7 +15,7 @@ class Conversation {
         return conversation;
     }
 
-    async removeConversation({ id, userId }) {
+    async leaveConversation({ id, userId }) {
         await prisma.conversation.update({
             where: { id },
             data: {

@@ -47,6 +47,7 @@ const conversationTest = () => {
                     .expect(200)
                     .then(response => {
                         const { user } = response.body;
+                        console.dir({ user }, { depth: null });
 
                         expect(user.conversations).toHaveLength(1);
                     });
@@ -61,7 +62,7 @@ const conversationTest = () => {
                     .expect(200)
                     .then(response => {
                         const { user } = response.body;
-
+                        console.log({ user });
                         expect(user.conversations).toHaveLength(0);
                     });
             });

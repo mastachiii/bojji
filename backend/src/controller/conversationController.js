@@ -6,6 +6,12 @@ class Conversation {
 
         res.status(201).json({ conversation });
     }
+
+    async leaveConversation(req, res) {
+        await db.leaveConversation({ id: req.params.id, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Conversation();
