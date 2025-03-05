@@ -43,6 +43,7 @@ class User {
                 following: selectFields,
                 posts: true,
                 stories: true,
+                conversations: true,
             },
         });
 

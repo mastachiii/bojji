@@ -4,6 +4,8 @@ const prisma = new PrismaClient();
 
 class Conversation {
     async createConversation({ userIds }) {
+        console.log({ userIds });
+
         await prisma.conversation.create({
             data: {
                 users: {

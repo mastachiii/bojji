@@ -17,8 +17,31 @@ const conversationTest = () => {
 
         describe("Conversation CRUD", () => {
             it("Creates a conversation", async () => {
-                await request.post("/conversation/create").send({ receiverId: 2 }).set("Authorization", `Bearer ${audreyToken}`).expect(201);
+                let receiverId;
+
+                await request
+                    .get("/user/2")
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .then(response => {
+                        const { user } = response.body;
+
+                        receiverId = user.id;
+                    });
+
+                await request.post("/conversation/create").send({ receiverId }).set("Authorization", `Bearer ${audreyToken}`).expect(201);
+
+                await request
+                    .get("/user/1")
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { user } = response.body;
+
+                        expect(user.conversations).toHaveLength(1);
+                    });
             });
         });
     });
 };
+
+module.exports = conversationTest;
