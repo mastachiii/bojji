@@ -285,6 +285,23 @@ const postTest = () => {
                     });
             });
 
+            it("Dislikes a reply", async () => {
+                await request
+                    .post(`/post/comment/${commentId}/reply/${replyId}/dislike`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200);
+
+                await request
+                    .get(`/post/comment/${commentId}/reply/${replyId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { reply } = response.body;
+                        console.dir({ reply }, { depth: null });
+                        expect(reply.likedBy).toHaveLength(0);
+                    });
+            });
+
             it("Delete a reply", async () => {
                 await request.post(`/post/comment/${commentId}/reply/${replyId}/delete`).set("Authorization", `Bearer ${mastachiiToken}`).expect(403);
 
