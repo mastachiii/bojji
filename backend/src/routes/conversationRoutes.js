@@ -12,5 +12,6 @@ route.get("/:id", passport.authenticate("jwt", { session: false }), conversation
 route.post("/create", passport.authenticate("jwt", { session: false }), conversationController.createConversation);
 route.post("/:id/leave", passport.authenticate("jwt", { session: false }), conversationController.leaveConversation);
 route.post("/:id/message", passport.authenticate("jwt", { session: false }), messageController.createMessage);
+route.post("/:id/message/:messageId/delete", passport.authenticate("jwt", { session: false }), messageController.deleteMessage);
 
 module.exports = route;

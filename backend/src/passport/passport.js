@@ -20,6 +20,7 @@ const userStrategy = new JwtStrategy(options, async (payload, done) => {
                 stories: true,
                 comments: true,
                 conversations: true,
+                messages: true,
             },
         });
         if (!user) return done(null, false);

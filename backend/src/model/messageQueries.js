@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 class Message {
     async createMessage({ conversationId, message, isImage = false, userId }) {
-        const message = await prisma.message.create({
+        const body = await prisma.message.create({
             data: {
                 message,
                 isImage,
@@ -21,7 +21,7 @@ class Message {
             },
         });
 
-        return message;
+        return body;
     }
 
     async deleteMessage({ id }) {
