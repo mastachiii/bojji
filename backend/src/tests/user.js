@@ -12,8 +12,8 @@ const userTest = () => {
                     .send({
                         username: "mastachii",
                         email: "mastachii@gmail.com",
-                        password: "alsaliasid12",
-                        passwordConfirm: "alsaliasid12",
+                        password: "mastachii0226",
+                        passwordConfirm: "mastachii0226",
                         displayName: "mastachii",
                         fullName: "Al Asid",
                     })
@@ -56,7 +56,7 @@ const userTest = () => {
                     .post("/user/log-in")
                     .send({
                         username: "mastachii",
-                        password: "alsaliasid12",
+                        password: "mastachii0226",
                     })
                     .expect(200)
                     .then(response => {
@@ -75,7 +75,7 @@ const userTest = () => {
                     .post("/user/log-in")
                     .send({
                         username: "mastachii",
-                        password: "alsaliasid12",
+                        password: "mastachii0226",
                     })
                     .then(response => {
                         token = response.body.token;

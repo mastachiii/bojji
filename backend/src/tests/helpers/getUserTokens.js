@@ -8,14 +8,14 @@ async function getUserTokens() {
 
     await request
         .post("/user/log-in")
-        .send({ username: "mastachii", password: "alsaliasid12" })
+        .send({ username: "mastachii", password: "mastachii0226" })
         .then(response => {
             token1 = response.body.token;
         });
 
     await request
         .post("/user/log-in")
-        .send({ username: "audreyHepburn123", password: "alsaliasid12" })
+        .send({ username: "audreyHepburn123", password: "mastachii0226" })
         .then(response => {
             token2 = response.body.token;
         });

@@ -1,3 +1,4 @@
+const { response } = require("express");
 const getUserTokens = require("./helpers/getUserTokens");
 let request = require("supertest");
 
@@ -66,12 +67,19 @@ const conversationTest = () => {
         });
 
         describe("Conversation interactions", () => {
+            let messageId;
+
             it("Sends messages to conversation", async () => {
                 await request
                     .post(`/conversation/${conversationId}/message`)
                     .send({ message: "Hi!" })
                     .set("Authorization", `Bearer ${audreyToken}`)
-                    .expect(201);
+                    .expect(201)
+                    .then(response => {
+                        const { message } = response.body;
+
+                        messageId = message.id;
+                    });
 
                 await request
                     .get(`/conversation/${conversationId}`)
@@ -81,6 +89,28 @@ const conversationTest = () => {
                         const { conversation } = response.body;
 
                         expect(conversation.messages).toHaveLength(1);
+                    });
+            });
+
+            it("Removes messages from conversations", async () => {
+                await request
+                    .post(`/conversation/${conversationId}/message/${messageId}/delete`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(403);
+
+                await request
+                    .post(`/conversation/${conversationId}/message/${messageId}/delete`)
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(200);
+
+                await request
+                    .get(`/conversation/${conversationId}`)
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { conversation } = response.body;
+
+                        expect(conversation.messages).toHaveLength(0);
                     });
             });
         });

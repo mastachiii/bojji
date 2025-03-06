@@ -20,8 +20,8 @@ beforeAll(async () => {
     await request.post("/user/sign-up").send({
         username: "audreyHepburn123",
         email: "audreyHepburn123@gmail.com",
-        password: "alsaliasid12",
-        passwordConfirm: "alsaliasid12",
+        password: "mastachii0226",
+        passwordConfirm: "mastachii0226",
         displayName: "audreyy",
         fullName: "Audrey Hepburn",
     });
