@@ -21,6 +21,7 @@ const userStrategy = new JwtStrategy(options, async (payload, done) => {
                 comments: true,
                 conversations: true,
                 messages: true,
+                commentReplies: true,
             },
         });
         if (!user) return done(null, false);
