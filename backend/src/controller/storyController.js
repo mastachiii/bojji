@@ -35,6 +35,12 @@ class Story {
 
         res.sendStatus(200);
     }
+
+    async deleteExpiredStories(req, res) {
+        await db.deleteStory({ id: req.params.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Story();

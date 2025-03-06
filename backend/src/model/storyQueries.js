@@ -67,6 +67,14 @@ class Story {
 
         return story;
     }
+
+    async deleteStory({ id }) {
+        await prisma.story.delete({
+            where: {
+                id,
+            },
+        });
+    }
 }
 
 module.exports = new Story();

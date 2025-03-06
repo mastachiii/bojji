@@ -35,8 +35,6 @@ class Conversation {
             },
         });
 
-        const test = await prisma.conversation.findMany();
-
         return conversation;
     }
 

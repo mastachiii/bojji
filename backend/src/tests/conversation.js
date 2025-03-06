@@ -19,7 +19,6 @@ const conversationTest = () => {
         let receiverId;
         describe("Conversation CRUD", () => {
             it("Creates a conversation", async () => {
-
                 await request
                     .get("/user/2")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
@@ -52,7 +51,7 @@ const conversationTest = () => {
             });
 
             it("Removes a conversation", async () => {
-                await request.post("/conversation/create").send({ receiverId }).set("Authorization", `Bearer ${audreyToken}`);
+                await request.post(`/conversation/${conversationId}/leave`).set("Authorization", `Bearer ${mastachiiToken}`);
 
                 await request
                     .get("/user/2")
