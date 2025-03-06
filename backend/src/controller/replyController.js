@@ -30,6 +30,12 @@ class Reply {
 
         res.sendStatus(200);
     }
+
+    async dislikeReply(req, res) {
+        await db.dislikeReply({ id: req.params.replyId, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Reply();
