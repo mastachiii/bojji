@@ -1,3 +1,4 @@
+const { it } = require("date-fns/locale");
 const getUserTokens = require("./helpers/getUserTokens");
 let request = require("supertest");
 
@@ -217,6 +218,57 @@ const postTest = () => {
                         const { post } = response.body;
 
                         expect(post.comments).toHaveLength(0);
+                    });
+            });
+        });
+
+        describe("When user replies to a comment", () => {
+            let postId;
+            let commentId;
+            let replyId;
+
+            beforeAll(async () => {
+                await request
+                    .post("/post/create")
+                    .send({ body: "Dummy post", images: ["somepic.comcom"] })
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .then(response => {
+                        const { post } = response.body;
+
+                        postId = post.id;
+                    });
+
+                await request
+                    .post(`/post/${postId}/comment`)
+                    .send({ body: "Whats a dummy post without a dummy comment?" })
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .then(response => {
+                        const { comment } = response.body;
+
+                        commentId = comment.id;
+                    });
+            });
+
+            it("Creates a reply to a comment", async () => {
+                await request
+                    .post(`/post/${postId}/comment/${commentId}/reply`)
+                    .send({ body: "And whats a dummy comment without a dummy reply?" })
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(201)
+                    .then(response => {
+                        const { reply } = reponse.body;
+
+                        replyId = reply.id;
+                    });
+
+                await request
+                    .get(`/post/${postId}/comment/${commentId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(repsonse => {
+                        const { comment } = response.body;
+
+                        expect(comment.replies).toHaveLength(1);
                     });
             });
         });

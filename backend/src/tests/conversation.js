@@ -1,4 +1,3 @@
-const { response } = require("express");
 const getUserTokens = require("./helpers/getUserTokens");
 let request = require("supertest");
 
