@@ -20,7 +20,9 @@ class Post {
     async updatePost(req, res) {
         if (!checkIfUserPost({ user: req.user, postId: req.params.id })) return res.sendStatus(403);
 
-        await db.updatePost({ id: req.params.id, body: req.body.body, images: req.body.images });
+        const post = await db.getPost({ id: req.params.id }); // If user does not update images or body, use current details
+
+        await db.updatePost({ id: req.params.id, body: req.body.body || post.body, images: req.body.images || post.images });
 
         res.sendStatus(200);
     }

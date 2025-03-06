@@ -3,17 +3,20 @@ class User {
         this.userUrl = "http://localhost:8080/user";
     }
 
-    async signUp({ username, email, password, fullName }) {
+    async signUp({ username, email, password, passwordConfirm, fullName, errorHandler }) {
         fetch(`${this.userUrl}/sign-up`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username, email, password, fullName }),
+            body: JSON.stringify({ username, email, password, fullName, passwordConfirm }),
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                if (data.errors) return errorHandler(data.errors);
+
+                // TODO: Redirect user to index page when sign up is successful.
+                window.location.href = "/log-in";
             });
     }
 }

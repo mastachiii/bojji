@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const passport = require("passport");
 const userStrategy = require("./passport/passport");
 const user = require("./routes/userRoutes");
@@ -11,6 +12,7 @@ const app = express();
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 passport.use(userStrategy);
 
 // Routes

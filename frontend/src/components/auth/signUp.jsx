@@ -8,16 +8,22 @@ export default function SignUp() {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [fullName, setFullName] = useState("");
+    const [errors, setErrors] = useState([]);
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        user.signUp({ username, email, password, fullName });
+        user.signUp({ username, email, password, fullName, passwordConfirm, errorHandler: setErrors });
     }
 
     return (
         <div>
-            <form action="/">
+            <form onSubmit={handleSubmit}>
+                <div>
+                    {errors.map(e => {
+                        return <p key={e.path}>{e.msg}</p>;
+                    })}
+                </div>
                 <h3>SIGN UP</h3>
                 <FormField id={"username"} label={"Username: "} type={"text"} value={username} valueHandler={setUsername} />
                 <FormField id={"email"} label={"Email: "} type={"email"} value={email} valueHandler={setEmail} />
