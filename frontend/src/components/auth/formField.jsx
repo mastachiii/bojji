@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function FormField({ id, label, type, value, valueHandler }) {
     return (
         <>
@@ -6,3 +8,11 @@ export default function FormField({ id, label, type, value, valueHandler }) {
         </>
     );
 }
+
+FormField.propTypes = {
+    id: PropTypes.string,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string,
+    valueHandler: PropTypes.func,
+};

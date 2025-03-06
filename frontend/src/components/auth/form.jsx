@@ -1,10 +1,11 @@
+import PropTypes from "prop-types";
+
 export default function Form({ children, submitHandler, errors, label }) {
-    console.log({ errors });
     return (
         <form onSubmit={submitHandler}>
             <div>
                 <div>
-                    {errors.map((e) => {
+                    {errors.map(e => {
                         return <p key={e.path}>{e.msg}</p>;
                     })}
                 </div>
@@ -14,3 +15,10 @@ export default function Form({ children, submitHandler, errors, label }) {
         </form>
     );
 }
+
+Form.propTypes = {
+    children: PropTypes.node,
+    submitHandler: PropTypes.func,
+    errors: PropTypes.array,
+    label: PropTypes.string,
+};
