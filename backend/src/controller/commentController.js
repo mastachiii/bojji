@@ -30,6 +30,12 @@ class Comment {
 
         res.sendStatus(200);
     }
+
+    async getComment(req, res) {
+        const comment = await db.getComment({ id: req.params.id });
+
+        res.status(200).json({ comment });
+    }
 }
 
 module.exports = new Comment();

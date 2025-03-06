@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 class Reply {
     async createReply({ body, userId, commentId }) {
-        await prisma.reply.create({
+        const reply = await prisma.reply.create({
             data: {
                 body,
                 comment: {
@@ -19,6 +19,8 @@ class Reply {
                 },
             },
         });
+
+        return reply;
     }
 
     async likeReply({ id, userId }) {
@@ -53,3 +55,5 @@ class Reply {
         });
     }
 }
+
+module.exports = new Reply();

@@ -54,6 +54,17 @@ class Comment {
             },
         });
     }
+
+    async getComment({ id }) {
+        const comment = await prisma.comment.findUnique({
+            where: { id },
+            include: {
+                replies: true,
+            },
+        });
+
+        return comment;
+    }
 }
 
 module.exports = new Comment();

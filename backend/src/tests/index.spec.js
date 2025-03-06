@@ -32,6 +32,7 @@ afterAll(async () => {
     await prisma.message.deleteMany();
     await prisma.conversation.deleteMany();
     await prisma.story.deleteMany();
+    await prisma.reply.deleteMany();
     await prisma.comment.deleteMany();
     await prisma.post.deleteMany();
     await prisma.user.deleteMany();
