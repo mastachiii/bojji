@@ -271,6 +271,20 @@ const postTest = () => {
                     });
             });
 
+            it("Likes a reply", async () => {
+                await request.post(`/post/comment/${commentId}/reply/${replyId}/like`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
+
+                await request
+                    .get(`/post/comment/${commentId}/reply/${replyId}`)
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { reply } = response.body;
+
+                        expect(reply.likedBy).toHaveLength(1);
+                    });
+            });
+
             it("Delete a reply", async () => {
                 await request.post(`/post/comment/${commentId}/reply/${replyId}/delete`).set("Authorization", `Bearer ${mastachiiToken}`).expect(403);
 

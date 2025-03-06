@@ -18,6 +18,12 @@ class Reply {
 
         res.sendStatus(200);
     }
+
+    async getReply(req, res) {
+        const reply = await db.getReply({ id: req.params.replyId });
+
+        res.status(200).json({ reply });
+    }
 }
 
 module.exports = new Reply();

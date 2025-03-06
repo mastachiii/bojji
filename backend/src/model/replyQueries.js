@@ -54,6 +54,23 @@ class Reply {
             where: { id },
         });
     }
+
+    async getReply({ id }) {
+        const reply = await prisma.reply.findUnique({
+            where: { id },
+            include: {
+                likedBy: {
+                    select: {
+                        id: true,
+                        username: true,
+                        profilePicture: true,
+                    },
+                },
+            },
+        });
+
+        return reply;
+    }
 }
 
 module.exports = new Reply();
