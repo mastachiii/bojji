@@ -9,7 +9,7 @@ const postTest = () => {
         let audreyToken;
 
         beforeAll(async () => {
-            const tokens = await getUserTokens({ mastachiiVar: mastachiiToken, audreyVar: audreyToken });
+            const tokens = await getUserTokens();
 
             mastachiiToken = tokens[0];
             audreyToken = tokens[1];
@@ -280,7 +280,7 @@ const postTest = () => {
                     .expect(200)
                     .then(response => {
                         const { reply } = response.body;
-                        console.dir({ reply }, { depth: null });
+
                         expect(reply.likedBy).toHaveLength(1);
                     });
             });
@@ -297,7 +297,7 @@ const postTest = () => {
                     .expect(200)
                     .then(response => {
                         const { reply } = response.body;
-                        console.dir({ reply }, { depth: null });
+
                         expect(reply.likedBy).toHaveLength(0);
                     });
             });

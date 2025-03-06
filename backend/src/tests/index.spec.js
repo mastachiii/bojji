@@ -22,7 +22,6 @@ beforeAll(async () => {
         email: "audreyHepburn123@gmail.com",
         password: "mastachii0226",
         passwordConfirm: "mastachii0226",
-        displayName: "audreyy",
         fullName: "Audrey Hepburn",
     });
 });

@@ -68,6 +68,18 @@ class User {
 
         res.sendStatus(200);
     }
+
+    async updateProfile(req, res) {
+        await db.updateUser({
+            profilePicture: req.body.profilePicture || req.user.profilePicture,
+            username: req.body.username || req.user.username,
+            fullName: req.body.fullName || req.user.fullName,
+            bio: req.body.bio || req.user.bio,
+            id: req.user.id,
+        });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new User();

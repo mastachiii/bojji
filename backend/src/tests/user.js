@@ -17,7 +17,6 @@ const userTest = () => {
                         email: "mastachii@gmail.com",
                         password: "mastachii0226",
                         passwordConfirm: "mastachii0226",
-                        displayName: "mastachii",
                         fullName: "Al Asid",
                     })
                     .expect(201, done);
@@ -31,7 +30,6 @@ const userTest = () => {
                         email: "invalidemail@cc",
                         password: "invalidpassword123",
                         passwordConfirm: "invalidpasswordthatdoesnotmatch",
-                        displayName: "mastachii",
                         fullName: "Al Asid",
                     })
                     .expect(400)
@@ -152,21 +150,41 @@ const userTest = () => {
         });
 
         describe("Updating user information", () => {
-            it("Customizes user profile", async () => {
+            let userToken;
+
+            beforeAll(async () => {
+                await request.post("/user/sign-up").send({
+                    username: "hasenborg",
+                    email: "hasenborgggggs@gmail.com",
+                    password: "mastachii0226",
+                    passwordConfirm: "mastachii0226",
+                    fullName: "hasenn",
+                });
+
                 await request
-                    .post("/user/customize")
-                    .send({ username: "machii.026", profilePicture: "someimagelink.com", bio: "Just update my profile!" })
-                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .post("/user/log-in")
+                    .send({ username: "hasenborg", password: "mastachii0226" })
+                    .then(response => {
+                        userToken = response.body.token;
+                    });
+            });
+
+            it("Updates user profile", async () => {
+                await request
+                    .post("/user/update")
+                    .send({ username: "hasenborgs", fullName: "Al Asid", profilePicture: "someimagelink.com", bio: "Just updated my profile!" })
+                    .set("Authorization", `Bearer ${userToken}`)
                     .expect(200);
 
                 await request
-                    .get("/user/2")
-                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .get("/user/3")
+                    .set("Authorization", `Bearer ${userToken}`)
                     .expect(200)
                     .then(response => {
                         const { user } = response.body;
 
-                        expect(user.username).toEqual("machii.026");
+                        expect(user.username).toEqual("hasenborgs");
+                        expect(user.fullName).toEqual("Al Asid");
                         expect(user.bio).toEqual("Just updated my profile!");
                     });
             });
