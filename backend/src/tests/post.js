@@ -270,6 +270,22 @@ const postTest = () => {
                         expect(comment.replies).toHaveLength(1);
                     });
             });
+
+            it("Delete a reply", async () => {
+                await request.post(`/post/comment/${commentId}/reply/${replyId}/delete`).set("Authorization", `Bearer ${mastachiiToken}`).expect(403);
+
+                await request.post(`/post/comment/${commentId}/reply/${replyId}/delete`).set("Authorization", `Bearer ${audreyToken}`).expect(200);
+
+                await request
+                    .get(`/post/comment/${commentId}`)
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { comment } = response.body;
+
+                        expect(comment.replies).toHaveLength(0);
+                    });
+            });
         });
     });
 };
