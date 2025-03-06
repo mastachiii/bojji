@@ -19,7 +19,7 @@ class User {
                     // TODO: Redirect user to index page when sign up is successful.
                     window.location.href = "/log-in";
                 });
-        } catch (err) {
+        } catch {
             // TODO: Make a error page.
         }
     }
@@ -35,12 +35,13 @@ class User {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.errors) return errorHandler(data.errors);
+                    if (data.error) return errorHandler([{ msg: data.error }]);
 
-                    localStorage.setItem("token", response.body.token);
+                    localStorage.setItem("token", data.token);
+
                     window.location.href = "/";
                 });
-        } catch (err) {
+        } catch {
             window.location.href = "/log-in";
         }
     }
