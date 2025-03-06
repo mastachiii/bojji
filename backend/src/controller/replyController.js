@@ -24,6 +24,12 @@ class Reply {
 
         res.status(200).json({ reply });
     }
+
+    async likeReply(req, res) {
+        await db.likeReply({ id: req.params.replyId, userId: req.user.id });
+
+        res.sendStatus(200);
+    }
 }
 
 module.exports = new Reply();

@@ -280,7 +280,7 @@ const postTest = () => {
                     .expect(200)
                     .then(response => {
                         const { reply } = response.body;
-
+                        console.dir({ reply }, { depth: null });
                         expect(reply.likedBy).toHaveLength(1);
                     });
             });
