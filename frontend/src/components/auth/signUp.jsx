@@ -1,5 +1,6 @@
 import user from "../../helpers/userApi";
 import { useState } from "react";
+import Form from "./form";
 import FormField from "./formField";
 
 export default function SignUp() {
@@ -18,13 +19,7 @@ export default function SignUp() {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    {errors.map(e => {
-                        return <p key={e.path}>{e.msg}</p>;
-                    })}
-                </div>
-                <h3>SIGN UP</h3>
+            <Form submitHandler={handleSubmit} errors={errors} label={"SIGN UP"}>
                 <FormField id={"username"} label={"Username: "} type={"text"} value={username} valueHandler={setUsername} />
                 <FormField id={"email"} label={"Email: "} type={"email"} value={email} valueHandler={setEmail} />
                 <FormField id={"fullName"} label={"Full Name: "} type={"text"} value={fullName} valueHandler={setFullName} />
@@ -37,7 +32,7 @@ export default function SignUp() {
                     valueHandler={setPasswordConfirm}
                 />
                 <button>Sign Up</button>
-            </form>
+            </Form>
         </div>
     );
 }
