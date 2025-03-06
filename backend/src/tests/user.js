@@ -5,6 +5,9 @@ request = request("http://localhost:8080");
 
 const userTest = () => {
     describe("User test suite", () => {
+        let mastachiiToken;
+        let audreyToken;
+
         describe("Sign up", () => {
             it("Accepts if sign up is valid", done => {
                 request
@@ -92,9 +95,6 @@ const userTest = () => {
         });
 
         describe("Following / Unfollowing users", () => {
-            let mastachiiToken;
-            let audreyToken;
-
             beforeAll(async () => {
                 const tokens = await getUserTokens();
 
@@ -148,6 +148,27 @@ const userTest = () => {
 
             it("Throws if user tries to follow themselves", done => {
                 request.post("/user/follow/mastachii").set("Authorization", `Bearer ${mastachiiToken}`).expect(400, done);
+            });
+        });
+
+        describe("Updating user information", () => {
+            it("Customizes user profile", async () => {
+                await request
+                    .post("/user/customize")
+                    .send({ username: "machii.026", profilePicture: "someimagelink.com", bio: "Just update my profile!" })
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200);
+
+                await request
+                    .get("/user/2")
+                    .set("Authorization", `Bearer ${mastachiiToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { user } = response.body;
+
+                        expect(user.username).toEqual("machii.026");
+                        expect(user.bio).toEqual("Just updated my profile!");
+                    });
             });
         });
     });
