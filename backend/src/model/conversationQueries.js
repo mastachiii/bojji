@@ -50,6 +50,21 @@ class Conversation {
             },
         });
     }
+
+    async getConversation({ id }) {
+        const conversation = await prisma.conversation.findUnique({
+            where: { id },
+            include: {
+                messages: {
+                    orderBy: {
+                        dateSent: "asc",
+                    },
+                },
+            },
+        });
+
+        return conversation;
+    }
 }
 
 module.exports = new Conversation();

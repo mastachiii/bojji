@@ -3,14 +3,14 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 class Message {
-    async createMessage({ converastionId, message, isImage = false, userId }) {
+    async createMessage({ conversationId, message, isImage = false, userId }) {
         await prisma.message.create({
             data: {
                 message,
                 isImage,
                 conversation: {
                     connect: {
-                        id: converastionId,
+                        id: conversationId,
                     },
                 },
                 sender: {

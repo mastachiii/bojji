@@ -29,6 +29,7 @@ beforeAll(async () => {
 
 // DB cleanup so that every test will start with a clean state.
 afterAll(async () => {
+    await prisma.message.deleteMany();
     await prisma.conversation.deleteMany();
     await prisma.story.deleteMany();
     await prisma.comment.deleteMany();

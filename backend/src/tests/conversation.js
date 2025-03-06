@@ -65,7 +65,7 @@ const conversationTest = () => {
             });
         });
 
-        xdescribe("Conversation interactions", () => {
+        describe("Conversation interactions", () => {
             it("Sends messages to conversation", async () => {
                 await request
                     .post(`/conversation/${conversationId}/message`)

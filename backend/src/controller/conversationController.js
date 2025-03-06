@@ -12,6 +12,12 @@ class Conversation {
 
         res.sendStatus(200);
     }
+
+    async getConversation(req, res) {
+        const conversation = await db.getConversation({ id: req.params.id });
+
+        res.status(200).json({ conversation });
+    }
 }
 
 module.exports = new Conversation();
