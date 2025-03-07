@@ -33,6 +33,7 @@ export default function SignUp() {
                 />
                 <button>Sign Up</button>
             </Form>
+            
         </div>
     );
 }

@@ -122,15 +122,20 @@ class User {
 
     async searchUsers({ filter }) {
         const search = await prisma.user.findMany({
+            take: 20,
             where: {
                 username: {
                     contains: filter,
                 },
             },
-            take: 20,
+            select: {
+                username: true,
+                id: true,
+                profilePicture: true,
+            },
         });
 
-        return search
+        return search;
     }
 }
 

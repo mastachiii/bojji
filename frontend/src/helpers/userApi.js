@@ -47,7 +47,7 @@ class User {
         }
     }
 
-    async searchForUsers({ filter }) {
+    async searchForUsers({ filter, handler }) {
         try {
             await fetch(`${this.userUrl}/search`, {
                 method: "POST",
@@ -59,7 +59,7 @@ class User {
             })
                 .then(response => response.json())
                 .then(data => {
-                    return data;
+                    handler(data.search);
                 });
         } catch {
             // Error page seriously
