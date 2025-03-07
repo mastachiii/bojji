@@ -189,6 +189,21 @@ const userTest = () => {
                     });
             });
         });
+
+        describe("Searching for user", () => {
+            it("Returns for searched user", async () => {
+                await request
+                    .post("/user/find")
+                    .send({ search: "mas" })
+                    .set("Authorization", `Bearer ${audreyToken}`)
+                    .expect(200)
+                    .then(response => {
+                        const { search } = response.body;
+
+                        expect(search[0].username).toEqual("mastachii");
+                    });
+            });
+        });
     });
 };
 
