@@ -1,6 +1,7 @@
 class User {
     constructor() {
         this.userUrl = "http://localhost:8080/user";
+        this.token = localStorage.getItem("token");
     }
 
     async signUp({ username, email, password, passwordConfirm, fullName, errorHandler }) {
@@ -43,6 +44,25 @@ class User {
                 });
         } catch {
             window.location.href = "/log-in";
+        }
+    }
+
+    async searchForUsers({ filter }) {
+        try {
+            await fetch(`${this.userUrl}/search`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.token}`,
+                },
+                body: JSON.stringify({ search: filter }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    return data;
+                });
+        } catch {
+            // Error page seriously
         }
     }
 }

@@ -83,7 +83,7 @@ class User {
 
     async searchUsers(req, res) {
         const search = await db.searchUsers({ filter: req.body.search });
-        console.dir({ search }, { depth: null });
+
         res.status(200).json({ search });
     }
 }
