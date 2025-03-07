@@ -13,6 +13,7 @@ route.get("/:id", passport.authenticate("jwt", { session: false }), controller.g
 route.post("/sign-up", controller.signUp);
 route.post("/log-in", controller.logIn);
 route.post("/update", upload.fields([{ name: "profilePicture" }]), passport.authenticate("jwt", { session: false }), controller.updateProfile);
+route.post("/search", passport.authenticate("jwt", { session: false }), controller.searchUsers);
 route.post("/follow/:username", passport.authenticate("jwt", { session: false }), controller.followUser);
 route.post("/unfollow/:username", passport.authenticate("jwt", { session: false }), controller.unfollowUser);
 

@@ -80,6 +80,12 @@ class User {
 
         res.sendStatus(200);
     }
+
+    async searchUsers(req, res) {
+        const search = await db.searchUsers({ filter: req.body.search });
+        console.dir({ search }, { depth: null });
+        res.status(200).json({ search });
+    }
 }
 
 module.exports = new User();

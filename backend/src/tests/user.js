@@ -193,8 +193,8 @@ const userTest = () => {
         describe("Searching for user", () => {
             it("Returns for searched user", async () => {
                 await request
-                    .post("/user/find")
-                    .send({ search: "mas" })
+                    .post("/user/search")
+                    .send({ search: "mast" })
                     .set("Authorization", `Bearer ${audreyToken}`)
                     .expect(200)
                     .then(response => {

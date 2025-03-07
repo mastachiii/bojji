@@ -119,6 +119,19 @@ class User {
             },
         });
     }
+
+    async searchUsers({ filter }) {
+        const search = await prisma.user.findMany({
+            where: {
+                username: {
+                    contains: filter,
+                },
+            },
+            take: 20,
+        });
+
+        return search
+    }
 }
 
 module.exports = new User();
