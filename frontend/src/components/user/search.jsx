@@ -19,7 +19,7 @@ export default function Search() {
                 <button>Search</button>
             </form>
             {users.map(u => {
-                return <Link to={`/user/${u.id}`}>{u.username}</Link>;
+                return <Link to={`/user/${u.username}`}>{u.username}</Link>;
             })}
         </div>
     );

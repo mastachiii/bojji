@@ -66,9 +66,9 @@ class User {
         }
     }
 
-    async getUserData({ id }) {
+    async getUserData({ username }) {
         try {
-            const user = await fetch(`${this.userUrl}/${id}`, {
+            const user = await fetch(`${this.userUrl}/${username}`, {
                 headers: {
                     Authorization: `Bearer ${this.token}`,
                 },
@@ -77,6 +77,19 @@ class User {
                 .then(data => data.user);
 
             return user;
+        } catch {
+            //
+        }
+    }
+
+    async followUser({ username }) {
+        try {
+            await fetch(`${this.userUrl}/follow/${username}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            });
         } catch {
             //
         }

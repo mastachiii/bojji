@@ -8,20 +8,20 @@ export default function Profile() {
 
     useEffect(() => {
         (async () => {
-            const data = await userApi.getUserData({ id: params.id });
+            const data = await userApi.getUserData({ username: params.username });
 
             setUser(data);
         })();
-    }, [params.id]);
+    }, [params.username]);
 
     if (user) {
         console.log({ user });
         return (
             <div>
                 <h3>{user.username}</h3>
-                <p>{user.followers}</p>
-                <p>{user.following}</p>
-                <button>FOLLOW USER</button>
+                <p>FOLLOWERS - {user.followers && user.followers.length}</p>
+                <p>FOLLOWING - {user.following && user.following.length}</p>
+                <button onClick={() => userApi.followUser({ username: user.username })}>FOLLOW USER</button>
             </div>
         );
     }

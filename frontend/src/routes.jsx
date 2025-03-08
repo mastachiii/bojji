@@ -18,7 +18,7 @@ const routes = createBrowserRouter([
         element: <Search />,
     },
     {
-        path: "/user/:id",
+        path: "/user/:username",
         element: <Profile />,
     },
 ]);

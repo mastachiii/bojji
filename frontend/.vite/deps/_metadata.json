@@ -7,25 +7,25 @@
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "26079869",
+      "fileHash": "ea6b08f5",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "f7411b70",
+      "fileHash": "6a28ce12",
       "needsInterop": true
     },
     "react-router": {
       "src": "../../node_modules/react-router/dist/development/index.mjs",
       "file": "react-router.js",
-      "fileHash": "306659d1",
+      "fileHash": "9bffd68a",
       "needsInterop": false
     },
     "prop-types": {
       "src": "../../node_modules/prop-types/index.js",
       "file": "prop-types.js",
-      "fileHash": "d9201b38",
+      "fileHash": "9a31c366",
       "needsInterop": true
     }
   },
