@@ -3,6 +3,7 @@ import SignUp from "./components/auth/signUp.jsx";
 import LogIn from "./components/auth/logIn.jsx";
 import Search from "./components/user/search.jsx";
 import Profile from "./components/user/profile.jsx";
+import CreatePost from "./components/createPost.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const routes = createBrowserRouter([
     {
         path: "/user/:username",
         element: <Profile />,
+    },
+    {
+        path: "/post/create",
+        element: <CreatePost />,
     },
 ]);
 
