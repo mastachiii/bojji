@@ -31,7 +31,7 @@ const postTest = () => {
                     });
 
                 await request
-                    .get("/user/2")
+                    .get("/user/mastachii")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;
@@ -81,7 +81,7 @@ const postTest = () => {
                 await request.post(`/post/delete/${postId}`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
 
                 await request
-                    .get("/user/2")
+                    .get("/user/mastachii")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;

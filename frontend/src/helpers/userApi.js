@@ -65,6 +65,22 @@ class User {
             // Error page seriously
         }
     }
+
+    async getUserData({ id }) {
+        try {
+            const user = await fetch(`${this.userUrl}/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+                .then(response => response.json())
+                .then(data => data.user);
+
+            return user;
+        } catch {
+            //
+        }
+    }
 }
 
 export default new User();

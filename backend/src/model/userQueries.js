@@ -22,7 +22,7 @@ class User {
         });
     }
 
-    async getUser({ id }) {
+    async getUser({ username }) {
         const selectFields = {
             select: {
                 id: true,
@@ -32,7 +32,7 @@ class User {
         };
 
         const user = await prisma.user.findUnique({
-            where: { id },
+            where: { username },
             select: {
                 id: true,
                 fullName: true,

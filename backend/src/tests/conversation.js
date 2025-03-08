@@ -20,7 +20,7 @@ const conversationTest = () => {
         describe("Conversation CRUD", () => {
             it("Creates a conversation", async () => {
                 await request
-                    .get("/user/2")
+                    .get("/user/mastachii")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;
@@ -40,7 +40,7 @@ const conversationTest = () => {
                     });
 
                 await request
-                    .get("/user/1")
+                    .get("/user/audreyHepburn123")
                     .set("Authorization", `Bearer ${audreyToken}`)
                     .expect(200)
                     .then(response => {
@@ -54,7 +54,7 @@ const conversationTest = () => {
                 await request.post(`/conversation/${conversationId}/leave`).set("Authorization", `Bearer ${mastachiiToken}`);
 
                 await request
-                    .get("/user/2")
+                    .get("/user/mastachii")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .expect(200)
                     .then(response => {

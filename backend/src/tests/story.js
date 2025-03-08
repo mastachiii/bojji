@@ -31,7 +31,7 @@ const storyTest = () => {
                     });
 
                 await request
-                    .get("/user/2")
+                    .get("/user/mastachii")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .expect(200)
                     .then(response => {
@@ -47,7 +47,7 @@ const storyTest = () => {
                 await request.post(`/story/delete/${storyId}`).set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
 
                 await request
-                    .get("/user/2")
+                    .get("/user/mastachii")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .expect(200)
                     .then(response => {

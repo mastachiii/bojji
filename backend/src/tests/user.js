@@ -104,7 +104,7 @@ const userTest = () => {
                 await request.post("/user/follow/audreyHepburn123").set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
 
                 await request
-                    .get("/user/2")
+                    .get("/user/mastachii")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;
@@ -113,7 +113,7 @@ const userTest = () => {
                     });
 
                 await request
-                    .get("/user/1")
+                    .get("/user/audreyHepburn123")
                     .set("Authorization", `Bearer ${audreyToken}`)
                     .then(response => {
                         const { user } = response.body;
@@ -126,7 +126,7 @@ const userTest = () => {
                 await request.post("/user/unfollow/audreyHepburn123").set("Authorization", `Bearer ${mastachiiToken}`).expect(200);
 
                 await request
-                    .get("/user/2")
+                    .get("/user/mastachii")
                     .set("Authorization", `Bearer ${mastachiiToken}`)
                     .then(response => {
                         const { user } = response.body;
@@ -135,7 +135,7 @@ const userTest = () => {
                     });
 
                 await request
-                    .get("/user/1")
+                    .get("/user/audreyHepburn123")
                     .set("Authorization", `Bearer ${audreyToken}`)
                     .then(response => {
                         const { user } = response.body;
@@ -177,7 +177,7 @@ const userTest = () => {
                     .expect(200);
 
                 await request
-                    .get("/user/3")
+                    .get("/user/hasenborgs")
                     .set("Authorization", `Bearer ${userToken}`)
                     .expect(200)
                     .then(response => {

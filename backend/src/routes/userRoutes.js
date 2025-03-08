@@ -7,7 +7,7 @@ const passport = require("passport");
 const route = express.Router();
 
 // GET
-route.get("/:id", passport.authenticate("jwt", { session: false }), controller.getData);
+route.get("/:username", passport.authenticate("jwt", { session: false }), controller.getData);
 
 // POST
 route.post("/sign-up", controller.signUp);
