@@ -10,8 +10,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 const route = express.Router();
 
 // GET
-route.get("/:id", passport.authenticate("jwt", { session: false }), postController.getPost);
 route.get("/feed", passport.authenticate("jwt", { session: false }), postController.getPostFeed);
+route.get("/:id", passport.authenticate("jwt", { session: false }), postController.getPost);
 route.get("/comment/:id", passport.authenticate("jwt", { session: false }), commentController.getComment);
 route.get("/comment/:id/reply/:replyId", passport.authenticate("jwt", { session: false }), replyController.getReply);
 

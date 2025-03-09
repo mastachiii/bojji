@@ -88,20 +88,27 @@ class Post {
     }
 
     async getPostFeed({ userId }) {
-        await prisma.post.findMany({
+        const posts = await prisma.post.findMany({
             where: {
                 author: {
-                    followers: {
-                        every: {
-                            id: userId,
+                    OR: [
+                        { id: userId },
+                        {
+                            followers: {
+                                some: {
+                                    id: userId,
+                                },
+                            },
                         },
-                    },
+                    ],
                 },
             },
             orderBy: {
                 createdAt: "desc",
             },
         });
+
+        return posts;
     }
 }
 

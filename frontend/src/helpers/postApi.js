@@ -21,6 +21,18 @@ class Post {
             body: formData,
         });
     }
+
+    async getPostForFeed() {
+        const posts = await fetch(`${this.postUrl}/feed`, {
+            headers: {
+                Authorization: `Bearer ${this.token}`,
+            },
+        })
+            .then(response => response.json())
+            .then(data => data.posts);
+
+        return posts;
+    }
 }
 
 export default new Post();
