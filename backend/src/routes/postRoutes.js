@@ -14,7 +14,7 @@ route.get("/comment/:id", passport.authenticate("jwt", { session: false }), comm
 route.get("/comment/:id/reply/:replyId", passport.authenticate("jwt", { session: false }), replyController.getReply);
 
 // POST
-route.post("/create", passport.authenticate("jwt", { session: false }), upload.any(), postController.createPost);
+route.post("/create", passport.authenticate("jwt", { session: false }), upload.array("images", 20), postController.createPost);
 route.post("/update/:id", passport.authenticate("jwt", { session: false }), postController.updatePost);
 route.post("/delete/:id", passport.authenticate("jwt", { session: false }), postController.deletePost);
 route.post("/:id/like", passport.authenticate("jwt", { session: false }), postController.likePost);
