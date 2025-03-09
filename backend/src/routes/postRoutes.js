@@ -3,6 +3,8 @@ const postController = require("../controller/postController");
 const commentController = require("../controller/commentController");
 const replyController = require("../controller/replyController");
 const passport = require("passport");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 
 const route = express.Router();
 
@@ -12,7 +14,7 @@ route.get("/comment/:id", passport.authenticate("jwt", { session: false }), comm
 route.get("/comment/:id/reply/:replyId", passport.authenticate("jwt", { session: false }), replyController.getReply);
 
 // POST
-route.post("/create", passport.authenticate("jwt", { session: false }), postController.createPost);
+route.post("/create", passport.authenticate("jwt", { session: false }), upload.any(), postController.createPost);
 route.post("/update/:id", passport.authenticate("jwt", { session: false }), postController.updatePost);
 route.post("/delete/:id", passport.authenticate("jwt", { session: false }), postController.deletePost);
 route.post("/:id/like", passport.authenticate("jwt", { session: false }), postController.likePost);
