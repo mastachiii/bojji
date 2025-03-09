@@ -16,7 +16,7 @@ export default function CreatePost() {
             <h3>Create post</h3>
             <form onSubmit={handleSubmit} encType="multiple/form-data">
                 <textarea value={body} onChange={e => setBody(e.target.value)}></textarea>
-                <input type="file"  multiple onChange={e => setImages(e.target.files)} />
+                <input type="file" multiple onChange={e => setImages(e.target.files)} accept="image/*" />
                 <button>create post</button>
             </form>
         </div>

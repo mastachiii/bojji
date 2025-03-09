@@ -12,10 +12,11 @@ class Post {
     }
 
     async createPost(req, res) {
-        console.log(req.body)
-        // const post = await db.createPost({ body: req.body.body, images: req.body.images, id: req.user.id });
+        console.log(req.body);
 
-        // res.status(201).json({ post });
+        const post = await db.createPost({ body: req.body.body, images: req.body.images, id: req.user.id });
+
+        res.status(201).json({ post });
     }
 
     async updatePost(req, res) {
@@ -46,6 +47,13 @@ class Post {
         await db.dislikePost({ id: req.params.id, userId: req.user.id });
 
         res.sendStatus(200);
+    }
+
+    // Posts made by friends to populate user newsfeed
+    async getPostFeed(req, res) {
+        const posts = db.getPostFeed({ userId: req.user.id });
+
+        res.status(200).json({ posts });
     }
 }
 

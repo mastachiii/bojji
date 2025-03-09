@@ -86,6 +86,23 @@ class Post {
             },
         });
     }
+
+    async getPostFeed({ userId }) {
+        await prisma.post.findMany({
+            where: {
+                author: {
+                    followers: {
+                        every: {
+                            id: userId,
+                        },
+                    },
+                },
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+        });
+    }
 }
 
 module.exports = new Post();
