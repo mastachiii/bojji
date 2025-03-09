@@ -7,19 +7,17 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_API
 function uploadFiles(req, res, next) {
     if (!req.files) next();
 
-    Object.keys(req.files).forEach(key => {
-        const file = req.files[key][0];
-
+    req.files.forEach((file, index) => {
         const fileUpload = decode(file.buffer.toString("base64"));
-        const path = `${req.user.username}/${randomUUID()}`;
+        const path = `${req.user.username}/${randomUUID()}.${file.originalname.split(".")[1]}`;
 
-        supabase.storage.from("luna").upload(path, fileUpload, {
+        supabase.storage.from("bojji").upload(path, fileUpload, {
             contentType: "image",
         });
 
         const { data } = supabase.storage.from("bojji").getPublicUrl(path);
 
-        req.body[file.fieldName] = data.publicUrl;
+        req.body[index] = data.publicUrl;
     });
 
     next();
