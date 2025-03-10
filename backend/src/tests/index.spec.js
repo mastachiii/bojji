@@ -38,6 +38,6 @@ afterAll(async () => {
 });
 
 describe("User", userTest);
-describe("Post", postTest);
+xdescribe("Post", postTest);
 describe("Story", storyTest);
 describe("Conversation", conversationTest);

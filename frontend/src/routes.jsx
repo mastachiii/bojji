@@ -5,6 +5,7 @@ import Search from "./components/user/search.jsx";
 import Profile from "./components/user/profile.jsx";
 import CreatePost from "./components/createPost.jsx";
 import Feed from "./components/feed.jsx";
+import Chat from "./components/chat/chat.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const routes = createBrowserRouter([
     {
         path: "/post/create",
         element: <CreatePost />,
+    },
+    {
+        path: "/chat",
+        element: <Chat />,
     },
 ]);
 
