@@ -48,6 +48,13 @@ class User {
                 conversations: {
                     include: {
                         messages: true,
+                        users: {
+                            where: {
+                                username: {
+                                    not: username,
+                                },
+                            },
+                        },
                     },
                 },
             },

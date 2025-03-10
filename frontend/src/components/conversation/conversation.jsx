@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import userApi from "../../helpers/userApi";
 import conversationApi from "../../helpers/conversationApi";
+import UserContext from "../context/userContext";
+import { Link } from "react-router";
 
-export default function Chat() {
+export default function Conversation() {
     const [usersToShow, setUsersToShow] = useState(null);
     const [filter, setFilter] = useState("");
+    const userData = useContext(UserContext) || {};
 
     function handleSearch() {
         userApi.searchForUsers({ filter, handler: setUsersToShow });
@@ -29,6 +32,16 @@ export default function Chat() {
                     );
                 })}
             <h4>Messages</h4>
+            {userData.conversations &&
+                userData.conversations.map(c => {
+                    return (
+                        <div key={c.id}>
+                            <Link to={`/chat/${c.id}`} state={{ conversation: c }}>
+                                {c.users[0].username}
+                            </Link>
+                        </div>
+                    );
+                })}
         </div>
     );
 }

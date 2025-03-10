@@ -14,15 +14,13 @@ export default function Wrapper({ children }) {
                 setTrigger(trigger + 1);
             }, 3000);
 
-            console.log(1);
-
             setUserData(data);
         })();
     }, [trigger]);
 
     return (
         <UserContext.Provider value={userData}>
-            <>{children}</>;
+            <>{children}</>
         </UserContext.Provider>
     );
 }
