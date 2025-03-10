@@ -47,8 +47,14 @@ class User {
         },
     ];
 
-    async getData(req, res) {
-        const user = await db.getUser({ username: req.params.username });
+    async getUserData(req, res) {
+        const user = await db.getUserByUsername({ username: req.params.username });
+
+        res.status(200).json({ user });
+    }
+
+    async getUserSelfData(req, res) {
+        const user = await db.getUserByUsername({ username: req.user.username });
 
         res.status(200).json({ user });
     }
