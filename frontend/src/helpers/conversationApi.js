@@ -7,8 +7,13 @@ class Conversation {
     async createConversation({ receiverId }) {
         await fetch(`${this.conversationUrl}/create`, {
             method: "POST",
-            Authorization: `Bearer ${this.token}`,
+            headers: {
+                Authorization: `Bearer ${this.token}`,
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({ receiverId }),
         });
     }
 }
+
+export default new Conversation();

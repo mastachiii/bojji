@@ -12,8 +12,6 @@ class Post {
     }
 
     async createPost(req, res) {
-        console.log(req.body);
-
         const post = await db.createPost({ body: req.body.body, images: req.body.images, id: req.user.id });
 
         res.status(201).json({ post });
