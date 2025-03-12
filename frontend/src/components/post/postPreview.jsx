@@ -1,15 +1,18 @@
 import postApi from "../../helpers/postApi";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import PostFull from "./postFull";
+import userContext from "../context/userContext";
 
 export default function PostPreview({ post }) {
     const [likes, setLikes] = useState(post.likedBy.length);
+    const user = useContext(userContext) || {};
+    const [likedByUser, setLikedByUser] = useState(post.likedBy.find(u => u.id === user.id));
     const postFullRef = useRef();
 
-    function handleLike() {
-        postApi.likePost({ id: post.id });
-
-        setLikes(likes + 1);
+    function handleInteraction() {
+        postApi.interactOnPost({ id: post.id, type: likedByUser ? "dislike" : "like" });
+        setLikedByUser(!likedByUser);
+        setLikes(likedByUser ? likes - 1 : likes + 1);
     }
 
     return (
@@ -20,9 +23,9 @@ export default function PostPreview({ post }) {
             })}
             <p>{likes} likes</p>
             <p>{post.body}</p>
-            <button onClick={handleLike}>LIKE</button>
+            <button onClick={handleInteraction}>{likedByUser ? "DISLIKE" : "LIKE"}</button>
             <button onClick={() => postFullRef.current.showModal()}>OPEN</button>
-            <PostFull post={post} ref={postFullRef} likeHandler={handleLike} />
+            <PostFull post={post} ref={postFullRef} likeHandler={handleInteraction} />
         </div>
     );
 }

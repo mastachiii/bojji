@@ -42,9 +42,11 @@ class Post {
         }
     }
 
-    async likePost({ id }) {
+    async interactOnPost({ id, type }) {
+        const link = `${this.postUrl}/${id}/${type === "like" ? "like" : "dislike"}`;
+
         try {
-            await fetch(`${this.postUrl}/${id}/like`, {
+            await fetch(link, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${this.token}`,
@@ -65,7 +67,6 @@ class Post {
                 },
                 body: JSON.stringify({ body: comment }),
             });
-
         } catch {
             window.location.href = "/error";
         }
