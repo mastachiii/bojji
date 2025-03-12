@@ -3,6 +3,14 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 class Post {
+    constructor() {
+        this.selectFields = {
+            id: true,
+            username: true,
+            profilePicture: true,
+        };
+    }
+
     async createPost({ body, images, id }) {
         const post = await prisma.post.create({
             data: {
@@ -26,21 +34,13 @@ class Post {
     }
 
     async getPost({ id }) {
-        const selectFields = {
-            select: {
-                id: true,
-                username: true,
-                profilePicture: true,
-            },
-        };
-
         const post = await prisma.post.findUnique({
             where: { id },
             include: {
-                likedBy: selectFields,
+                likedBy: this.selectFields,
                 comments: {
                     include: {
-                        likedBy: selectFields,
+                        likedBy: this.selectFields,
                     },
                 },
             },
@@ -105,6 +105,12 @@ class Post {
             },
             orderBy: {
                 createdAt: "desc",
+            },
+            include: {
+                likedBy: true,
+                author: {
+                    select: this.selectFields,
+                },
             },
         });
 
