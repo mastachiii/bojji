@@ -28,6 +28,7 @@ class User {
                 id: true,
                 username: true,
                 profilePicture: true,
+                stories: true,
             },
         };
 
