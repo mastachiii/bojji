@@ -41,6 +41,19 @@ class Post {
             window.location.href = "/error";
         }
     }
+
+    async likePost({ id }) {
+        try {
+            await fetch(`${this.postUrl}/${id}/like`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            });
+        } catch {
+            window.location.href = "/error";
+        }
+    }
 }
 
 export default new Post();
