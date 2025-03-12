@@ -107,7 +107,16 @@ class Post {
                 createdAt: "desc",
             },
             include: {
-                likedBy: true,
+                likedBy: {
+                    select: this.selectFields,
+                },
+                comments: {
+                    include: {
+                        author: {
+                            select: this.selectFields,
+                        },
+                    },
+                },
                 author: {
                     select: this.selectFields,
                 },

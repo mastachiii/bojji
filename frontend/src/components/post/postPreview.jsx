@@ -1,8 +1,10 @@
 import postApi from "../../helpers/postApi";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import PostFull from "./postFull";
 
 export default function PostPreview({ post }) {
     const [likes, setLikes] = useState(post.likedBy.length);
+    const postFullRef = useRef();
 
     function handleLike() {
         postApi.likePost({ id: post.id });
@@ -19,6 +21,8 @@ export default function PostPreview({ post }) {
             <p>{likes} likes</p>
             <p>{post.body}</p>
             <button onClick={handleLike}>LIKE</button>
+            <button onClick={() => postFullRef.current.showModal()}>OPEN</button>
+            <PostFull post={post} ref={postFullRef} likeHandler={handleLike} />
         </div>
     );
 }

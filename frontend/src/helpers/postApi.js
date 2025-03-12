@@ -54,6 +54,22 @@ class Post {
             window.location.href = "/error";
         }
     }
+
+    async commentOnPost({ id, comment }) {
+        try {
+            await fetch(`${this.postUrl}/${id}/comment`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.token}`,
+                },
+                body: JSON.stringify({ body: comment }),
+            });
+
+        } catch {
+            window.location.href = "/error";
+        }
+    }
 }
 
 export default new Post();
