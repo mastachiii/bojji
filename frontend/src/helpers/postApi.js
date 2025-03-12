@@ -1,7 +1,3 @@
-import { useNavigate } from "react-router";
-
-const navigate = useNavigate();
-
 class Post {
     constructor() {
         this.postUrl = "http://localhost:8080/post";
@@ -26,7 +22,7 @@ class Post {
                 body: formData,
             });
         } catch {
-            navigate("/error");
+            window.location.href = "/error";
         }
     }
 
@@ -42,7 +38,7 @@ class Post {
 
             return posts;
         } catch {
-            navigate("/error");
+            window.location.href = "/error";
         }
     }
 }

@@ -4,7 +4,7 @@ const commentController = require("../controller/commentController");
 const replyController = require("../controller/replyController");
 const passport = require("passport");
 const multer = require("multer");
-const uploadFiles = require("../helpers/uploadSupabase");
+const { uploadFiles } = require("../helpers/uploadSupabase");
 const upload = multer({ storage: multer.memoryStorage() });
 
 const route = express.Router();

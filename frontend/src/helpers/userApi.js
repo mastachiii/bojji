@@ -1,7 +1,3 @@
-import { useNavigate } from "react-router";
-
-const navigate = useNavigate();
-
 class User {
     constructor() {
         this.userUrl = "http://localhost:8080/user";
@@ -25,7 +21,7 @@ class User {
                     window.location.href = "/log-in";
                 });
         } catch {
-            navigate("/error");
+            window.location.href = '/error'
         }
     }
 
@@ -66,7 +62,7 @@ class User {
                     handler(data.search);
                 });
         } catch {
-            navigate("/error");
+            window.location.href = '/error'
         }
     }
 
@@ -82,7 +78,7 @@ class User {
 
             return user;
         } catch {
-            navigate("/error");
+            window.location.href = '/error'
         }
     }
 
@@ -95,7 +91,7 @@ class User {
                 },
             });
         } catch {
-            navigate("/error");
+            window.location.href = '/error'
         }
     }
 }

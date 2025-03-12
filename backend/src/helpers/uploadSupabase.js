@@ -25,4 +25,19 @@ function uploadFiles(req, res, next) {
     next();
 }
 
-module.exports = uploadFiles;
+function uploadFile(req, res, next) {
+    const fileUpload = decode(req.file.buffer.toString("base64"));
+    const path = `${req.user.username}/${randomUUID()}.${req.file.originalname.split(".")[1]}`;
+
+    supabase.storage.from("bojji").upload(path, fileUpload, {
+        contentType: "image",
+    });
+
+    const { data } = supabase.storage.from("bojji").getPublicUrl(path);
+
+    req.body.image = data.publicUrl;
+
+    next();
+}
+
+module.exports = { uploadFiles, uploadFile };
