@@ -7,6 +7,7 @@ import CreatePost from "./components/createPost.jsx";
 import Feed from "./components/feed.jsx";
 import Conversation from "./components/conversation/conversation.jsx";
 import Chat from "./components/conversation/chat.jsx";
+import Error from "./components/error.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const routes = createBrowserRouter([
     {
         path: "/chat/:id",
         element: <Chat />,
+    },
+    {
+        path: "/error",
+        element: <Error />,
     },
 ]);
 

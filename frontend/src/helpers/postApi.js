@@ -1,3 +1,7 @@
+import { useNavigate } from "react-router";
+
+const navigate = useNavigate();
+
 class Post {
     constructor() {
         this.postUrl = "http://localhost:8080/post";
@@ -5,33 +9,41 @@ class Post {
     }
 
     async createPost({ body, images }) {
-        const formData = new FormData();
+        try {
+            const formData = new FormData();
 
-        formData.append("body", body);
+            formData.append("body", body);
 
-        for (let i = 0; i < images.length; i++) {
-            formData.append(`images`, images[i]);
+            for (let i = 0; i < images.length; i++) {
+                formData.append(`images`, images[i]);
+            }
+
+            await fetch(`${this.postUrl}/create`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+                body: formData,
+            });
+        } catch {
+            navigate("/error");
         }
-
-        await fetch(`${this.postUrl}/create`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${this.token}`,
-            },
-            body: formData,
-        });
     }
 
     async getPostForFeed() {
-        const posts = await fetch(`${this.postUrl}/feed`, {
-            headers: {
-                Authorization: `Bearer ${this.token}`,
-            },
-        })
-            .then(response => response.json())
-            .then(data => data.posts);
+        try {
+            const posts = await fetch(`${this.postUrl}/feed`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+                .then(response => response.json())
+                .then(data => data.posts);
 
-        return posts;
+            return posts;
+        } catch {
+            navigate("/error");
+        }
     }
 }
 
