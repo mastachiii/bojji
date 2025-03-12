@@ -39,6 +39,7 @@ class User {
                 id: true,
                 fullName: true,
                 username: true,
+                password: true,
                 profilePicture: true,
                 bio: true,
                 followers: selectFields,
