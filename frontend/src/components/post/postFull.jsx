@@ -1,5 +1,6 @@
 import { useState } from "react";
 import postApi from "../../helpers/postApi";
+import Comment from "../comment/comment";
 
 export default function PostFull({ post, ref, likeHandler }) {
     const [comment, setComment] = useState("");
@@ -15,12 +16,7 @@ export default function PostFull({ post, ref, likeHandler }) {
             })}
             <p>PSOT FULL</p>
             {post.comments.map(c => {
-                return (
-                    <span>
-                        <p>{c.author.username}</p>
-                        <p>{c.body}</p>
-                    </span>
-                );
+                return <Comment comment={c} key={c.id} />;
             })}
             <button onClick={likeHandler}>like</button>
             <input type="text" value={comment} onChange={e => setComment(e.target.value)} />
