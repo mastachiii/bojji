@@ -21,6 +21,22 @@ class Story {
             window.location.href = "/error";
         }
     }
+
+    async getStories({ userId }) {
+        try {
+            const stories = await fetch(`${this.storyUrl}/user/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+                .then(response => response.json())
+                .then(data => data.stories);
+
+            return stories
+        } catch {
+            window.location.href = "/error";
+        }
+    }
 }
 
 export default new Story();

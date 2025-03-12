@@ -19,13 +19,13 @@ class Story {
     }
 
     async getStory(req, res) {
-        const story = await db.getStory({ id: req.params.id });
+        const story = await db.getStory({ id: +req.params.id });
 
         res.status(200).json({ story });
     }
 
     async getUserStories(req, res) {
-        const stories = await db.getUserStories({ id: req.params.id });
+        const stories = await db.getUserStories({ id: +req.params.id });
 
         res.status(200).json({ stories });
     }

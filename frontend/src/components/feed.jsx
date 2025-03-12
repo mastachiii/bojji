@@ -29,7 +29,7 @@ export default function Feed() {
                 })}
             {posts.map(p => {
                 return (
-                    <div>
+                    <div key={p.id}>
                         <h3>{p.body}</h3>
                         <div>
                             {p.images.map(i => {
