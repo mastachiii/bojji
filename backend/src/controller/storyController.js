@@ -24,6 +24,12 @@ class Story {
         res.status(200).json({ story });
     }
 
+    async getUserStories(req, res) {
+        const stories = await db.getUserStories({ id: req.params.id });
+
+        res.status(200).json({ stories });
+    }
+
     async likeStory(req, res) {
         await db.likeStory({ id: req.params.id, userId: req.user.id });
 

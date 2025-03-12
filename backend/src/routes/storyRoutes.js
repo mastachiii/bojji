@@ -9,6 +9,7 @@ const route = express.Router();
 
 // GET
 route.get("/:id", passport.authenticate("jwt", { session: false }), controller.getStory);
+route.get("/user/:id", passport.authenticate("jwt", { session: false }), controller.getUserStories);
 
 // POST
 route.post("/create", passport.authenticate("jwt", { session: false }), upload.single("image"), uploadFile, controller.createStory);

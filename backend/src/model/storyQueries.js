@@ -75,6 +75,27 @@ class Story {
             },
         });
     }
+
+    async getUserStories({ id }) {
+        const stories = await prisma.story.findMany({
+            where: {
+                author: {
+                    id,
+                },
+            },
+            include: {
+                likedBy: {
+                    select: {
+                        id: true,
+                        username: true,
+                        profilePicture: true,
+                    },
+                },
+            },
+        });
+
+        return stories;
+    }
 }
 
 module.exports = new Story();
