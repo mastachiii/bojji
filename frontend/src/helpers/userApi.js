@@ -21,7 +21,7 @@ class User {
                     window.location.href = "/log-in";
                 });
         } catch {
-            window.location.href = '/error'
+            window.location.href = "/error";
         }
     }
 
@@ -62,7 +62,7 @@ class User {
                     handler(data.search);
                 });
         } catch {
-            window.location.href = '/error'
+            window.location.href = "/error";
         }
     }
 
@@ -91,7 +91,29 @@ class User {
                 },
             });
         } catch {
-            window.location.href = '/error'
+            window.location.href = "/error";
+        }
+    }
+
+    async updateProfile({ username, fullName, bio, profilePicture }) {
+        try {
+            const formData = new FormData();
+
+            formData.append("username", username);
+            formData.append("fullName", fullName);
+            formData.append("bio", bio);
+            formData.append("profilePicture", profilePicture);
+
+            console.log({ formData });
+
+            // await fetch(`${this.userUrl}/update`, {
+            //     method: "POST",
+            //     headers: {
+            //         Authorization: `Bearer ${this.token}`,
+            //     },
+            // });
+        } catch {
+            window.location.href = "/error";
         }
     }
 }
