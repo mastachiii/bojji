@@ -78,7 +78,7 @@ class User {
 
             return user;
         } catch {
-            window.location.href = '/error'
+            // window.location.href = '/error'
         }
     }
 
