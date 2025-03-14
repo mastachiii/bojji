@@ -20,19 +20,19 @@ class Reply {
     }
 
     async getReply(req, res) {
-        const reply = await db.getReply({ id: req.params.replyId });
+        const reply = await db.getReply({ id: req.params.id });
 
         res.status(200).json({ reply });
     }
 
     async likeReply(req, res) {
-        await db.likeReply({ id: req.params.replyId, userId: req.user.id });
+        await db.likeReply({ id: req.params.id, userId: req.user.id });
 
         res.sendStatus(200);
     }
 
     async dislikeReply(req, res) {
-        await db.dislikeReply({ id: req.params.replyId, userId: req.user.id });
+        await db.dislikeReply({ id: req.params.id, userId: req.user.id });
 
         res.sendStatus(200);
     }

@@ -10,6 +10,7 @@ import Chat from "./components/conversation/chat.jsx";
 import Error from "./components/error.jsx";
 import CreateStory from "./components/story/createStory.jsx";
 import ViewStory from "./components/story/viewStory.jsx";
+import EditProfile from "./components/user/editProfile.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
     {
         path: "/search",
         element: <Search />,
+    },
+    {
+        path: "/user/edit",
+        element: <EditProfile />,
     },
     {
         path: "/user/:username",

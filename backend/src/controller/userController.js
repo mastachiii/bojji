@@ -76,6 +76,10 @@ class User {
     }
 
     async updateProfile(req, res) {
+        const user = await db.getUserByUsername({ username: req.body.username });
+
+        if (user && req.user.username !== user.username) return res.status(400).send({ msg: "Username is already taken." });
+
         await db.updateUser({
             profilePicture: req.body.profilePicture || req.user.profilePicture,
             username: req.body.username || req.user.username,
