@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import userContext from "../context/userContext";
 import commentApi from "../../helpers/commentApi";
+import replyApi from "../../helpers/replyApi";
+import Reply from "../reply/reply";
 
 export default function Comment({ comment }) {
     const user = useContext(userContext);
@@ -15,21 +17,16 @@ export default function Comment({ comment }) {
     }
 
     function handleReply() {
-        commentApi.replyOnComment({ id: comment.id, reply });
+        replyApi.createReply({ id: comment.id, reply });
     }
-    console.log({ comment });
+
     return (
         <span>
             <p>{comment.author.username}</p>
             <p>{comment.body}</p>
             <p>{likes} likes</p>
             {comment.replies.map(r => {
-                return (
-                    <span>
-                        <p>{r.author.username}</p>
-                        <p>{r.body}</p>
-                    </span>
-                );
+                return <Reply reply={r} key={r.id} />;
             })}
             <input type="text" value={reply} onChange={e => setReply(e.target.value)} />
             <button onClick={handleReply}>reply</button>

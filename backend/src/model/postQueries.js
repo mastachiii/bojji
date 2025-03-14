@@ -123,6 +123,9 @@ class Post {
                                 author: {
                                     select: this.selectFields,
                                 },
+                                likedBy: {
+                                    select: this.selectFields,
+                                },
                             },
                         },
                     },

@@ -4,7 +4,7 @@ class Comment {
         this.token = localStorage.getItem("token");
     }
 
-    async commentOnPost({ id, comment }) {
+    async createComment({ id, comment }) {
         try {
             await fetch(`${this.postUrl}/${id}/comment`, {
                 method: "POST",
@@ -26,21 +26,6 @@ class Comment {
                 headers: {
                     Authorization: `Bearer ${this.token}`,
                 },
-            });
-        } catch {
-            window.location.href = "/error";
-        }
-    }
-
-    async replyOnComment({ id, reply }) {
-        try {
-            await fetch(`${this.commentUrl}/comment/${id}/reply`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${this.token}`,
-                },
-                body: JSON.stringify({ body: reply }),
             });
         } catch {
             window.location.href = "/error";
