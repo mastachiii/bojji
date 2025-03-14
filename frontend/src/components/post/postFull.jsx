@@ -1,12 +1,12 @@
 import { useState } from "react";
-import postApi from "../../helpers/postApi";
+import commentApi from "../../helpers/commentApi";
 import Comment from "../comment/comment";
 
 export default function PostFull({ post, ref, likeHandler }) {
     const [comment, setComment] = useState("");
 
     function handleComment() {
-        postApi.commentOnPost({ id: post.id, comment });
+        commentApi.commentOnPost({ id: post.id, comment });
     }
 
     return (

@@ -34,7 +34,7 @@ class Comment {
 
     async replyOnComment({ id, reply }) {
         try {
-            await fetch(`${this.postUrl}/comment/${id}/reply`, {
+            await fetch(`${this.commentUrl}/comment/${id}/reply`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -47,3 +47,5 @@ class Comment {
         }
     }
 }
+
+export default new Comment();

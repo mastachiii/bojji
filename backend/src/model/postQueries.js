@@ -118,6 +118,13 @@ class Post {
                         likedBy: {
                             select: this.selectFields,
                         },
+                        replies: {
+                            include: {
+                                author: {
+                                    select: this.selectFields,
+                                },
+                            },
+                        },
                     },
                 },
                 author: {

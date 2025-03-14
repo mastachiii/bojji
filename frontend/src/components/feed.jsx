@@ -28,7 +28,7 @@ export default function Feed() {
                         </Link>
                     );
                 })}
-            {posts.map(p => {
+            { posts.map(p => {
                 return <PostPreview post={p} />;
             })}
         </div>
