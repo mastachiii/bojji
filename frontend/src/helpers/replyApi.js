@@ -18,6 +18,19 @@ class Reply {
             window.location.href = "/error";
         }
     }
+
+    async interactOnReply({ id, type }) {
+        try {
+            await fetch(`${this.replyUrl}/reply/${id}/${type}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            });
+        } catch {
+            window.location.href = "/error";
+        }
+    }
 }
 
 export default new Reply();
