@@ -15,10 +15,11 @@ export default function Profile() {
     }, [params.username]);
 
     if (user) {
-        console.log({ user });
         return (
             <div>
                 <h3>{user.username}</h3>
+                <img src={user.profilePicture} style={{ width: "100px" }} />
+                <p>{user.bio}</p>
                 <p>FOLLOWERS - {user.followers && user.followers.length}</p>
                 <p>FOLLOWING - {user.following && user.following.length}</p>
                 <button onClick={() => userApi.followUser({ username: user.username })}>FOLLOW USER</button>

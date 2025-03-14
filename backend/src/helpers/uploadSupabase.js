@@ -5,7 +5,7 @@ const { randomUUID } = require("node:crypto");
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_API_KEY);
 
 function uploadFiles(req, res, next) {
-    if (!req.files) next();
+    if (!req.files) return next();
 
     req.body.images = [];
 
@@ -26,6 +26,8 @@ function uploadFiles(req, res, next) {
 }
 
 function uploadFile(req, res, next) {
+    if (!req.file) return next();
+
     const fileUpload = decode(req.file.buffer.toString("base64"));
     const path = `${req.user.username}/${randomUUID()}.${req.file.originalname.split(".")[1]}`;
 
@@ -35,7 +37,7 @@ function uploadFile(req, res, next) {
 
     const { data } = supabase.storage.from("bojji").getPublicUrl(path);
 
-    req.body.image = data.publicUrl;
+    req.body[req.file.fieldname] = data.publicUrl;
 
     next();
 }

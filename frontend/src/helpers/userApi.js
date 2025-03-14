@@ -104,14 +104,13 @@ class User {
             formData.append("bio", bio);
             formData.append("profilePicture", profilePicture);
 
-            console.log({ formData });
-
-            // await fetch(`${this.userUrl}/update`, {
-            //     method: "POST",
-            //     headers: {
-            //         Authorization: `Bearer ${this.token}`,
-            //     },
-            // });
+            await fetch(`${this.userUrl}/update`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+                body: formData,
+            });
         } catch {
             window.location.href = "/error";
         }

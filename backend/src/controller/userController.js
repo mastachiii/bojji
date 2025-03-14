@@ -81,7 +81,7 @@ class User {
         if (user && req.user.username !== user.username) return res.status(400).send({ msg: "Username is already taken." });
 
         await db.updateUser({
-            profilePicture: req.body.profilePicture || req.user.profilePicture,
+            profilePicture: req.body.profilePicture !== "null" ? req.body.profilePicture : req.user.profilePicture,
             username: req.body.username || req.user.username,
             fullName: req.body.fullName || req.user.fullName,
             bio: req.body.bio || req.user.bio,
