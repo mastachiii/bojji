@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 export default function Form({ children, submitHandler, errors, label }) {
     return (
-        <form onSubmit={submitHandler} className="w-full h-full bg-amber-300">
+        <form onSubmit={submitHandler} className="w-full">
             <div>
                 <div>
                     {errors.map(e => {
@@ -10,7 +10,7 @@ export default function Form({ children, submitHandler, errors, label }) {
                     })}
                 </div>
                 <h3>{label}</h3>
-                {children}
+                <div className="flex flex-col items-center gap-3">{children}</div>
             </div>
         </form>
     );
