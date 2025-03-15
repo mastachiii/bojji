@@ -23,7 +23,7 @@ export default function LogIn() {
 
     return (
         <div className="w-full h-screen flex flex-col bg-stone-950 font-sans text-white">
-            <div className="w-full flex flex-col items-center gap-13 pt-[50%] md:pt-8 md:p-8 md:mt-[10%] md:w-[20%] md:ml-auto md:mr-auto md:border-1 md:border-zinc-600">
+            <div className="w-full flex flex-col items-center gap-13 pt-[50%] md:pt-8 md:pb-8 md:mt-[10%] md:w-[20%] md:ml-auto md:mr-auto md:border-1 md:border-zinc-600">
                 <h1 className="font-[Pacifico] text-[2.8rem] text-white md:text-[2.2rem]">Bojji</h1>
                 <Form submitHandler={handleSubmit} errors={errors} label={""}>
                     <FormField id={"username"} label={"Username"} type={"text"} value={username} valueHandler={setUsername} />

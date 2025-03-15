@@ -16,7 +16,7 @@ export default function FormField({ id, label, type, value, valueHandler }) {
                     name={id}
                     id={id}
                     placeholder={label}
-                    className="w-[85%] mr-auto text-xs outline-0"
+                    className="w-[85%] mr-auto text-xs outline-0 "
                 />
                 {type === "password" && (
                     <button
