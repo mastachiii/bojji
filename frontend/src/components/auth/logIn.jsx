@@ -15,10 +15,13 @@ export default function LogIn() {
     }
 
     return (
-        <Form submitHandler={handleSubmit} errors={errors} label={"LOG IN"}>
-            <FormField id={"username"} label={"Username: "} type={"text"} value={username} valueHandler={setUsername} />
-            <FormField id={"password"} label={"Password: "} type={"password"} value={password} valueHandler={setPassword} />
-            <button>Log In</button>
-        </Form>
+        <div>
+            <h1>Bojji</h1>
+            <Form submitHandler={handleSubmit} errors={errors} label={''}>
+                <FormField id={"username"} label={"Username"} type={"text"} value={username} valueHandler={setUsername} />
+                <FormField id={"password"} label={"Password"} type={"password"} value={password} valueHandler={setPassword} />
+                <button>Log In</button>
+            </Form>
+        </div>
     );
 }

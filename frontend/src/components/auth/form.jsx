@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 export default function Form({ children, submitHandler, errors, label }) {
     return (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler} className="w-full h-full bg-amber-300">
             <div>
                 <div>
                     {errors.map(e => {
