@@ -25,7 +25,7 @@ class User {
         }
     }
 
-    async logIn({ username, password, errorHandler }) {
+    async logIn({ username, password, errorHandler, statusHandler }) {
         try {
             fetch(`${this.userUrl}/log-in`, {
                 method: "POST",
@@ -36,11 +36,14 @@ class User {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.error) return errorHandler([{ msg: data.error }]);
+                    if (data.error) {
+                        statusHandler("");
+                        errorHandler([{ msg: data.error }]);
+                    } else {
+                        localStorage.setItem("token", data.token);
 
-                    localStorage.setItem("token", data.token);
-
-                    window.location.href = "/";
+                        window.location.href = "/";
+                    }
                 });
         } catch {
             window.location.href = "/log-in";
