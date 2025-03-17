@@ -2,6 +2,7 @@ import user from "../../helpers/userApi";
 import { useState } from "react";
 import Form from "./form";
 import FormField from "./formField";
+import FormWrapper from "./formWrapper";
 
 export default function SignUp() {
     const [username, setUsername] = useState("");
@@ -18,7 +19,7 @@ export default function SignUp() {
     }
 
     return (
-        <div>
+        <FormWrapper>
             <Form submitHandler={handleSubmit} errors={errors} label={"SIGN UP"}>
                 <FormField id={"username"} label={"Username: "} type={"text"} value={username} valueHandler={setUsername} />
                 <FormField id={"email"} label={"Email: "} type={"email"} value={email} valueHandler={setEmail} />
@@ -33,7 +34,6 @@ export default function SignUp() {
                 />
                 <button>Sign Up</button>
             </Form>
-            
-        </div>
+        </FormWrapper>
     );
 }
