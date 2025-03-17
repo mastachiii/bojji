@@ -4,7 +4,7 @@ class User {
         this.token = localStorage.getItem("token");
     }
 
-    async signUp({ username, email, password, passwordConfirm, fullName, errorHandler }) {
+    async signUp({ username, email, password, passwordConfirm, fullName, errorHandler, statusHandler }) {
         try {
             fetch(`${this.userUrl}/sign-up`, {
                 method: "POST",
@@ -15,10 +15,15 @@ class User {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.errors) return errorHandler(data.errors);
+                    if (data.errors) {
+                        const errors = {};
+                        statusHandler("");
+                        data.errors.map(e => (errors[e.path] = e.msg));
 
-                    // TODO: Redirect user to index page when sign up is successful.
-                    window.location.href = "/log-in";
+                        return errorHandler(errors);
+                    } else {
+                        this.logIn({ username, password });
+                    }
                 });
         } catch {
             window.location.href = "/error";
@@ -36,8 +41,9 @@ class User {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.error) {
+                    if (data.error.length !== 0) {
                         statusHandler("");
+
                         errorHandler([{ msg: data.error }]);
                     } else {
                         localStorage.setItem("token", data.token);

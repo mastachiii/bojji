@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { RotatingLines } from "react-loader-spinner";
 
-export default function FormWrapper({ children, label, btnActiveStatus }) {
+export default function FormWrapper({ children, label, btnActiveStatus, btnLabel, btnHandler, redirectLink }) {
     return (
         <>
             <div className="w-full h-screen flex flex-col bg-stone-950 font-sans text-white">
@@ -11,13 +11,14 @@ export default function FormWrapper({ children, label, btnActiveStatus }) {
                     <button
                         className="w-[80%] flex justify-center mt-2 p-2 bg-sky-500 rounded-md text-sm font-semibold cursor-pointer hover:bg-sky-800"
                         disabled={btnActiveStatus}
+                        onClick={btnHandler}
                     >
-                        {btnActiveStatus ? label : <RotatingLines strokeColor="white" width="20" />}
+                        {!btnActiveStatus ? btnLabel : <RotatingLines strokeColor="white" width="20" />}
                     </button>
                 </div>
                 <span className="w-full flex justify-center gap-1 p-5 mt-auto mb-2 text-xs border-t-1 border-zinc-500 md:w-[20%]  md:self-center md:mt-4 md:border-1 md:border-zinc-600">
                     <p>Don't have an account? </p>
-                    <Link to="/sign-up" className="text-sky-500 font-semibold">
+                    <Link to={redirectLink} className="text-sky-500 font-semibold">
                         {label}
                     </Link>
                 </span>

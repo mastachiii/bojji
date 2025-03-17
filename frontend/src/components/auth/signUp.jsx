@@ -10,29 +10,49 @@ export default function SignUp() {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [fullName, setFullName] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [status, setStatus] = useState("");
+    const [errors, setErrors] = useState({});
+    const allFieldsFilled = username && email && password && passwordConfirm && fullName;
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        user.signUp({ username, email, password, fullName, passwordConfirm, errorHandler: setErrors });
+        if (!allFieldsFilled) return;
+
+        setStatus("SIGNING UP");
+        user.signUp({ username, email, password, fullName, passwordConfirm, errorHandler: setErrors, statusHandler: setStatus });
     }
 
+    console.log(errors);
+
     return (
-        <FormWrapper>
-            <Form submitHandler={handleSubmit} errors={errors} label={"SIGN UP"}>
-                <FormField id={"username"} label={"Username: "} type={"text"} value={username} valueHandler={setUsername} />
-                <FormField id={"email"} label={"Email: "} type={"email"} value={email} valueHandler={setEmail} />
-                <FormField id={"fullName"} label={"Full Name: "} type={"text"} value={fullName} valueHandler={setFullName} />
-                <FormField id={"password"} label={"Password: "} type={"password"} value={password} valueHandler={setPassword} />
+        <FormWrapper
+            label={"Log In"}
+            btnActiveStatus={status === "SIGINING UP"}
+            btnLabel={"Sign Up"}
+            btnHandler={handleSubmit}
+            redirectLink={"/log-in"}
+        >
+            <Form submitHandler={handleSubmit} errors={errors}>
+                <FormField id={"username"} label={"Username: "} type={"text"} value={username} valueHandler={setUsername} error={errors.username} />
+                <FormField id={"email"} label={"Email: "} type={"email"} value={email} valueHandler={setEmail} error={errors.email} />
+                <FormField id={"fullName"} label={"Full Name: "} type={"text"} value={fullName} valueHandler={setFullName} error={errors.fullName} />
+                <FormField
+                    id={"password"}
+                    label={"Password: "}
+                    type={"password"}
+                    value={password}
+                    valueHandler={setPassword}
+                    error={errors.password}
+                />
                 <FormField
                     id={"passwordConfirm"}
                     label={"Confirm Password: "}
                     type={"password"}
                     value={passwordConfirm}
                     valueHandler={setPasswordConfirm}
+                    error={errors.passwordConfirm}
                 />
-                <button>Sign Up</button>
             </Form>
         </FormWrapper>
     );
