@@ -11,6 +11,8 @@ import FollowDialog from "./followDialog";
 export default function Profile() {
     const [user, setUser] = useState(null);
     const [status, setStatus] = useState();
+    const [following, setFollowing] = useState(0);
+    const [followers, setFollowers] = useState(0);
     const params = useParams();
     const userData = useContext(userContext);
     const followerDialogRef = useRef();
@@ -21,15 +23,18 @@ export default function Profile() {
             const data = await userApi.getUserData({ username: params.username });
 
             setUser(data);
+            setFollowing(data.following.length);
+            setFollowers(data.followers.length);
         })();
-    }, [params.username]);
+    }, [params.username, following, followers]);
 
     if (user && userData) {
-        console.log({ user });
+        console.log({ following });
         const isUser = user.id === userData.id;
         const followingUser = userData.following.find(u => u.id === user.id);
 
         function handleInteraction() {
+            followingUser ? setFollowing(following - 1) : setFollowing(following + 1);
             setStatus("INTERACTING");
             userApi.interactWithUser({ username: user.username, type: followingUser ? "unfollow" : "follow", statusHandler: setStatus });
         }
@@ -66,11 +71,11 @@ export default function Profile() {
                                 <p className="text-neutral-500">posts</p>
                             </span>
                             <span className="flex flex-col items-center text-xs md:flex-row md:gap-1">
-                                <p className="font-semibold">{user.followers.length}</p>
+                                <p className="font-semibold">{followers}</p>
                                 <p className="text-neutral-500">followers</p>
                             </span>
                             <span className="flex flex-col items-center text-xs md:flex-row md:gap-1">
-                                <p className="font-semibold">{user.following.length}</p>
+                                <p className="font-semibold">{following}</p>
                                 <p className="text-neutral-500">following</p>
                             </span>
                         </span>
@@ -90,7 +95,8 @@ export default function Profile() {
                         <EmptyPosts />
                     )}
                 </div>
-                <FollowDialog follows={user.following} ref={followingDialogRef} user={userData} />
+                <FollowDialog follows={user.following} ref={followingDialogRef} user={userData} followingHandler={setFollowing} />
+                <FollowDialog follows={user.followers} ref={followerDialogRef} user={userData} followingHandler={setFollowing} />
             </div>
         );
     }

@@ -105,7 +105,8 @@ class User {
                     Authorization: `Bearer ${this.token}`,
                 },
             });
-            statusHandler("");
+
+            if (statusHandler) statusHandler("");
         } catch {
             window.location.href = "/error";
         }
