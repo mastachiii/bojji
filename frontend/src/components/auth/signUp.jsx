@@ -32,20 +32,13 @@ export default function SignUp() {
             redirectLink={"/log-in"}
         >
             <Form submitHandler={handleSubmit} errors={errors}>
-                <FormField id={"username"} label={"Username: "} type={"text"} value={username} valueHandler={setUsername} error={errors.username} />
-                <FormField id={"email"} label={"Email: "} type={"email"} value={email} valueHandler={setEmail} error={errors.email} />
-                <FormField id={"fullName"} label={"Full Name: "} type={"text"} value={fullName} valueHandler={setFullName} error={errors.fullName} />
-                <FormField
-                    id={"password"}
-                    label={"Password: "}
-                    type={"password"}
-                    value={password}
-                    valueHandler={setPassword}
-                    error={errors.password}
-                />
+                <FormField id={"username"} label={"Username"} type={"text"} value={username} valueHandler={setUsername} error={errors.username} />
+                <FormField id={"email"} label={"Email"} type={"email"} value={email} valueHandler={setEmail} error={errors.email} />
+                <FormField id={"fullName"} label={"Full Name"} type={"text"} value={fullName} valueHandler={setFullName} error={errors.fullName} />
+                <FormField id={"password"} label={"Password"} type={"password"} value={password} valueHandler={setPassword} error={errors.password} />
                 <FormField
                     id={"passwordConfirm"}
-                    label={"Confirm Password: "}
+                    label={"Confirm Password"}
                     type={"password"}
                     value={passwordConfirm}
                     valueHandler={setPasswordConfirm}
