@@ -1,4 +1,5 @@
 const db = require("../model/postQueries");
+const notificationDb = require("../model/notificationQueries");
 
 function checkIfUserPost({ user, postId }) {
     return user.posts.find(p => p.id === postId);
@@ -37,6 +38,7 @@ class Post {
 
     async likePost(req, res) {
         await db.likePost({ id: req.params.id, userId: req.user.id });
+        await notificationDb.createNotification({ userId: req.user.id, id: req.params.id, type: "LIKE POST" });
 
         res.sendStatus(200);
     }

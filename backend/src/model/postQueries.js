@@ -60,6 +60,7 @@ class Post {
                 },
             },
         });
+
     }
 
     async dislikePost({ id, userId }) {

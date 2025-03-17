@@ -14,29 +14,30 @@ datasource db {
 }
 
 model User {
-  id             Int            @id @default(autoincrement())
-  fullName       String
-  username       String         @unique
-  email          String         @unique
-  password       String
-  profilePicture String?
-  bio            String?
-  followers      User[]         @relation("followers")
-  following      User[]         @relation("following")
-  posts          Post[]
-  comments       Comment[]
-  commentReplies Reply[]
-  stories        Story[]
-  conversations  Conversation[]
-  messages       Message[]
-  likedPosts     Post[]         @relation("liked post")
-  likedComments  Comment[]      @relation("liked comment")
-  likedReplies   Reply[]        @relation("liked replies")
-  likedStories   Story[]        @relation("liked stories")
+  id                  Int            @id @default(autoincrement())
+  fullName            String
+  username            String         @unique
+  email               String         @unique
+  password            String
+  profilePicture      String?
+  bio                 String?
+  followers           User[]         @relation("followers")
+  following           User[]         @relation("following")
+  posts               Post[]
+  comments            Comment[]
+  commentReplies      Reply[]
+  stories             Story[]
+  conversations       Conversation[]
+  messages            Message[]
+  likedPosts          Post[]         @relation("liked post")
+  likedComments       Comment[]      @relation("liked comment")
+  likedReplies        Reply[]        @relation("liked replies")
+  likedStories        Story[]        @relation("liked stories")
+  notifications       Notification[] @relation("TARGET USER")
+  notificationsPushed Notification[] @relation("USER")
 
-  symmetricFollowers User[]         @relation("followers")
-  symmetricFollowing User[]         @relation("following")
-  Notification       Notification[]
+  symmetricFollowers User[] @relation("followers")
+  symmetricFollowing User[] @relation("following")
 }
 
 model Post {
@@ -103,11 +104,13 @@ model Message {
 }
 
 model Notification {
-  id        String   @id @default(uuid())
-  type      String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  post      Post?    @relation(fields: [postId], references: [id])
-  postId    String?
+  id         String   @id @default(uuid())
+  type       String
+  createdAt  DateTime @default(now())
+  targetUser User     @relation("TARGET USER", fields: [targetId], references: [id])
+  user       User     @relation("USER", fields: [userId], references: [id])
+  userId     Int
+  targetId   Int
+  post       Post?    @relation(fields: [postId], references: [id])
+  postId     String?
 }
