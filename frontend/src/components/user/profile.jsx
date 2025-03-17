@@ -7,6 +7,7 @@ import ProfileButton from "./profileButton";
 
 export default function Profile() {
     const [user, setUser] = useState(null);
+    const [status, setStatus] = useState();
     const params = useParams();
     const userData = useContext(userContext);
 
@@ -19,7 +20,14 @@ export default function Profile() {
     }, [params.username]);
 
     if (user) {
+        console.log({ user });
         const isUser = user.id === userData.id;
+        const followingUser = userData.following.find(u => u.id === user.id);
+
+        function handleInteraction() {
+            setStatus("INTERACTING");
+            userApi.interactWithUser({ username: user.username, type: followingUser ? "unfollow" : "follow", statusHandler: setStatus });
+        }
 
         return (
             <div className="font-sans">
@@ -30,8 +38,8 @@ export default function Profile() {
                     <p className="w-[80%] text-sm font-semibold text-center">{user.username}</p>
                 </div>
                 <div className="flex items-center p-3">
-                    <img src={user.profilePicture} className="size-15 mt-3 rounded-full" />
-                    <span className="flex gap-10 justify-center ml-10">
+                    <img src={user.profilePicture} className="size-17 mt-3 rounded-full" />
+                    <span className="flex gap-7 justify-center ml-10">
                         <span className="flex flex-col items-center text-xs">
                             <p className="font-semibold">{user.posts.length}</p>
                             <p className="text-neutral-500">posts</p>
@@ -46,15 +54,23 @@ export default function Profile() {
                         </span>
                     </span>
                 </div>
-                <div>
-                    <h3>{user.username}</h3>
-                    <span className="flex mt-2 ">
-                        <ProfileButton label={isUser ? "Edit Profile" : "Following"} />
-                        {!isUser && <ProfileButton label={"Message"} />}
+                <div className="pl-4 pr-4 pb-7 border-b-1 border-neutral-200">
+                    <h3 className="text-xs font-semibold">{user.fullName}</h3>
+                    <p className="text-xs">{user.bio}</p>
+                    <span className="flex gap-2 mt-5">
+                        <ProfileButton
+                            label={isUser ? "Edit Profile" : followingUser ? "Unfollow" : "Follow"}
+                            handler={handleInteraction}
+                            btnActive={status !== "INTERACTING"}
+                        />
+                        {!isUser && <ProfileButton label={"Message"} btnActive={true}/>}
                     </span>
                 </div>
-                <p>{user.fullName}</p>
-                <p>{user.bio}</p>
+                <div className="grid grid-cols-3 gap-1 mt-1">
+                    {user.posts.map(p => {
+                        return <img src={p.images[0]} className="w-full min-h-40 max-h-40" />;
+                    })}
+                </div>
             </div>
         );
     }

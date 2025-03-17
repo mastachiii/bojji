@@ -97,14 +97,15 @@ class User {
         }
     }
 
-    async followUser({ username }) {
+    async interactWithUser({ username, type, statusHandler }) {
         try {
-            await fetch(`${this.userUrl}/follow/${username}`, {
+            await fetch(`${this.userUrl}/${type}/${username}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${this.token}`,
                 },
             });
+            statusHandler("");
         } catch {
             window.location.href = "/error";
         }
