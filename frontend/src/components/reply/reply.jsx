@@ -5,7 +5,7 @@ import userContext from "../context/userContext";
 export default function Reply({ reply }) {
     const user = useContext(userContext);
     const [likes, setLikes] = useState(reply.likedBy.length);
-    const [likedByUser, setLikedByUser] = useState(reply.likedBy.find(u => u.id === user.id));
+    const [likedByUser, setLikedByUser] = useState(user && reply.likedBy.find(u => u.id === user.id));
 
     function handleInteraction() {
         replyApi.interactOnReply({ id: reply.id, type: likedByUser ? "dislike" : "like" });
@@ -13,7 +13,6 @@ export default function Reply({ reply }) {
         setLikes(likedByUser ? likes - 1 : likes + 1);
     }
 
-    console.log({ reply });
     return (
         <span>
             <p>{reply.author.username}</p>

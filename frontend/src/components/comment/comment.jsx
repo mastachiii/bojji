@@ -11,7 +11,7 @@ export default function Comment({ comment }) {
     const [reply, setReply] = useState("");
 
     function handleInteraction() {
-        commentApi.interactOnComment({ id: comment.id, type: likedByUser ? "dislike" : "like" });
+        commentApi.interactOnComment({ id: comment.id, type: likedByUser ? "dislike" : "like", authorId: comment.author.id });
         setLikedByUser(!likedByUser);
         setLikes(likedByUser ? likes - 1 : likes + 1);
     }

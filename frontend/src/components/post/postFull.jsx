@@ -6,7 +6,7 @@ export default function PostFull({ post, ref, likeHandler }) {
     const [comment, setComment] = useState("");
 
     function handleComment() {
-        commentApi.commentOnPost({ id: post.id, comment });
+        commentApi.createComment({ id: post.id, comment, authorId: post.author.id });
     }
 
     return (

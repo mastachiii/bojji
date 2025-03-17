@@ -10,7 +10,7 @@ export default function PostPreview({ post }) {
     const postFullRef = useRef();
 
     function handleInteraction() {
-        postApi.interactOnPost({ id: post.id, type: likedByUser ? "dislike" : "like" });
+        postApi.interactOnPost({ id: post.id, type: likedByUser ? "dislike" : "like", authorId: post.author.id });
         setLikedByUser(!likedByUser);
         setLikes(likedByUser ? likes - 1 : likes + 1);
     }
