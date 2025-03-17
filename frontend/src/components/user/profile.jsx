@@ -4,6 +4,7 @@ import userApi from "../../helpers/userApi";
 import userContext from "../context/userContext";
 import Back from "../../assets/back.svg";
 import ProfileButton from "./profileButton";
+import EmptyPosts from "./emptyPosts";
 
 export default function Profile() {
     const [user, setUser] = useState(null);
@@ -67,9 +68,9 @@ export default function Profile() {
                     </span>
                 </div>
                 <div className="grid grid-cols-3 gap-1 mt-1">
-                    {user.posts.map(p => {
+                    {user.posts.length >= 1 ? user.posts.map(p => {
                         return <img src={p.images[0]} className="w-full min-h-40 max-h-40" />;
-                    })}
+                    }) : <EmptyPosts />}
                 </div>
             </div>
         );
