@@ -29,21 +29,30 @@ export default function Profile() {
                     </button>
                     <p className="w-[80%] text-sm font-semibold text-center">{user.username}</p>
                 </div>
-                <div className="flex items-center gap-5 p-3">
+                <div className="flex items-center p-3">
                     <img src={user.profilePicture} className="size-15 mt-3 rounded-full" />
-                    <div>
-                        <h3>{user.username}</h3>
-                        <span className="flex">
-                            <ProfileButton label={isUser ? "Edit Profile" : "Following"} />
-                            {!isUser && <ProfileButton label={"Message"} />}
+                    <span className="flex gap-10 justify-center ml-10">
+                        <span className="flex flex-col items-center text-xs">
+                            <p className="font-semibold">{user.posts.length}</p>
+                            <p className="text-neutral-500">posts</p>
                         </span>
-                    </div>
+                        <span className="flex flex-col items-center text-xs">
+                            <p className="font-semibold">{user.followers.length}</p>
+                            <p className="text-neutral-500">followers</p>
+                        </span>
+                        <span className="flex flex-col items-center text-xs">
+                            <p className="font-semibold">{user.following.length}</p>
+                            <p className="text-neutral-500">following</p>
+                        </span>
+                    </span>
                 </div>
-                <span className="flex">
-                    <p>{user.posts.length} posts</p>
-                    <p>{user.following.length} following</p>
-                    <p>{user.followers.length} followers</p>
-                </span>
+                <div>
+                    <h3>{user.username}</h3>
+                    <span className="flex mt-2 ">
+                        <ProfileButton label={isUser ? "Edit Profile" : "Following"} />
+                        {!isUser && <ProfileButton label={"Message"} />}
+                    </span>
+                </div>
                 <p>{user.fullName}</p>
                 <p>{user.bio}</p>
             </div>
