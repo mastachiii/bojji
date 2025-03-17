@@ -13,7 +13,15 @@ class User {
                 },
                 body: JSON.stringify({ username, email, password, fullName, passwordConfirm }),
             })
-                .then(response => response.json())
+                .then(response => {
+                    console.log({ response });
+                    console.log(response.status);
+                    if (response.status === 201) {
+                        this.logIn({ username, password });
+                    } else {
+                        return response.json();
+                    }
+                })
                 .then(data => {
                     if (data.errors) {
                         const errors = {};
@@ -21,8 +29,6 @@ class User {
                         data.errors.map(e => (errors[e.path] = e.msg));
 
                         return errorHandler(errors);
-                    } else {
-                        this.logIn({ username, password });
                     }
                 });
         } catch {
@@ -41,7 +47,7 @@ class User {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.error.length !== 0) {
+                    if (data.error) {
                         statusHandler("");
 
                         errorHandler([{ msg: data.error }]);

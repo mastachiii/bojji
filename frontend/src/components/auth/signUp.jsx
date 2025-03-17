@@ -23,12 +23,10 @@ export default function SignUp() {
         user.signUp({ username, email, password, fullName, passwordConfirm, errorHandler: setErrors, statusHandler: setStatus });
     }
 
-    console.log(errors);
-
     return (
         <FormWrapper
             label={"Log In"}
-            btnActiveStatus={status === "SIGINING UP"}
+            btnActiveStatus={status === "SIGNING UP"}
             btnLabel={"Sign Up"}
             btnHandler={handleSubmit}
             redirectLink={"/log-in"}

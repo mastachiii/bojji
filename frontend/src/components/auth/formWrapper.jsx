@@ -10,7 +10,7 @@ export default function FormWrapper({ children, label, btnActiveStatus, btnLabel
                     {children}
                     <button
                         className="w-[80%] flex justify-center mt-2 p-2 bg-sky-500 rounded-md text-sm font-semibold cursor-pointer hover:bg-sky-800"
-                        disabled={btnActiveStatus}
+                        // disabled={btnActiveStatus}
                         onClick={btnHandler}
                     >
                         {!btnActiveStatus ? btnLabel : <RotatingLines strokeColor="white" width="20" />}
