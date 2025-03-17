@@ -42,15 +42,17 @@ class Post {
         }
     }
 
-    async interactOnPost({ id, type }) {
+    async interactOnPost({ id, authorId, type }) {
         try {
             const link = `${this.postUrl}/${id}/${type}`;
 
             await fetch(link, {
                 method: "POST",
                 headers: {
+                    "Content-Type": "application/json",
                     Authorization: `Bearer ${this.token}`,
                 },
+                body: JSON.stringify({ receiverId: authorId }),
             });
         } catch {
             window.location.href = "/error";

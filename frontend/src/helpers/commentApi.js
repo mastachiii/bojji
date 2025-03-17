@@ -4,7 +4,7 @@ class Comment {
         this.token = localStorage.getItem("token");
     }
 
-    async createComment({ id, comment }) {
+    async createComment({ id, comment, authorId }) {
         try {
             await fetch(`${this.postUrl}/${id}/comment`, {
                 method: "POST",
@@ -12,20 +12,22 @@ class Comment {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${this.token}`,
                 },
-                body: JSON.stringify({ body: comment }),
+                body: JSON.stringify({ body: comment, receiverId: authorId }),
             });
         } catch {
             window.location.href = "/error";
         }
     }
 
-    async interactOnComment({ id, type }) {
+    async interactOnComment({ id, authorId, type }) {
         try {
             await fetch(`${this.postUrl}/comment/${id}/${type}`, {
                 method: "POST",
                 headers: {
+                    "Content-Type": "application/json",
                     Authorization: `Bearer ${this.token}`,
                 },
+                body: JSON.stringify({ receiverId: authorId }),
             });
         } catch {
             window.location.href = "/error";

@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 class Notification {
-    async createNotification({ userId, postId, type }) {
+    async createNotification({ userId, postId, targetId, type }) {
         await prisma.notification.create({
             data: {
                 type,
@@ -13,9 +13,12 @@ class Notification {
                 post: {
                     connect: postId,
                 },
+                targetUser: {
+                    connect: targetId,
+                },
             },
         });
     }
 }
 
-export default new Notification();
+module.exports = new Notification();

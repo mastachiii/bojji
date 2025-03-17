@@ -8,7 +8,7 @@ function checkIfUserComment({ user, commentId }) {
 class Comment {
     async createComment(req, res) {
         const comment = await db.createComment({ body: req.body.body, userId: req.user.id, postId: req.params.id });
-        await notificationDb.createNotification({ userId: req.user.id, postId: req.params.id, type: "COMMENT POST" });
+        await notificationDb.createNotification({ userId: req.user.id, postId: req.params.id, type: "COMMENT POST", targetId: req.body.receiverId });
 
         res.status(201).json({ comment });
     }
@@ -23,7 +23,7 @@ class Comment {
 
     async likeComment(req, res) {
         await db.likeComment({ id: req.params.id, userId: req.user.id });
-        await notificationDb.createNotification({ userId: req.user.id, postId: req.params.id, type: "LIKE COMMENT" });
+        await notificationDb.createNotification({ userId: req.user.id, postId: req.params.id, type: "LIKE COMMENT", targetId: req.body.receiverId });
 
         res.sendStatus(200);
     }
