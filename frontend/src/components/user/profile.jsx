@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import userApi from "../../helpers/userApi";
 import userContext from "../context/userContext";
@@ -6,12 +6,15 @@ import Back from "../../assets/back.svg";
 import ProfileButton from "./profileButton";
 import EmptyPosts from "./emptyPosts";
 import { Link } from "react-router";
+import FollowDialog from "./followDialog";
 
 export default function Profile() {
     const [user, setUser] = useState(null);
     const [status, setStatus] = useState();
     const params = useParams();
     const userData = useContext(userContext);
+    const followerDialogRef = useRef();
+    const followingDialogRef = useRef();
 
     useEffect(() => {
         (async () => {
@@ -73,7 +76,7 @@ export default function Profile() {
                         </span>
                     </div>
                 </div>
-                <div className="pl-4 pr-4 pb-7 border-b-1 border-neutral-200 md:pl-41">
+                <div className="pl-4 pr-4 pb-7 border-b-1 border-neutral-200 md:pl-38">
                     <h3 className="text-xs font-semibold">{user.fullName}</h3>
                     <p className="text-xs">{user.bio}</p>
                     <span className="flex gap-2 mt-5 md:hidden">{interactBtns}</span>
@@ -87,6 +90,7 @@ export default function Profile() {
                         <EmptyPosts />
                     )}
                 </div>
+                <FollowDialog follows={user.following} ref={followingDialogRef} user={userData} />
             </div>
         );
     }
