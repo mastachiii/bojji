@@ -4,6 +4,7 @@ import { RotatingLines } from "react-loader-spinner";
 import cancel from "../../assets/cancel.svg";
 import searchImg from "../../assets/search.svg";
 import clear from "../../assets/clear.svg";
+import { Link } from "react-router";
 
 export default function FollowDialog({ follows, ref, user, label }) {
     const [activeBtn, setActiveBtn] = useState(null);
@@ -43,20 +44,24 @@ export default function FollowDialog({ follows, ref, user, label }) {
                     {usersToShow.map(f => {
                         const isFollowing = user.following.find(u => u.id === f.id);
                         const isUser = f.id === user.id;
-                        
+
                         return (
-                            <div key={f.id} className="flex p-2">
-                                <img src={f.profilePicture} className="size-10" />
-                                <span>
-                                    <p>{f.username}</p>
-                                    <p>{f.fullName}</p>
-                                </span>
+                            <div key={f.id} className="flex items-center p-2 pl-3 pr-3">
+                                <Link to={`/user/${f.username}`} className="w-[70%] flex items-center" onClick={() => ref.current.close()}>
+                                    <img src={f.profilePicture} className="size-14 rounded-full" />
+                                    <span className="ml-2 text-sm overflow-hidden overflow-ellipsis">
+                                        <p className="font-semibold">{f.username}</p>
+                                        <p className="text-[11px] text-neutral-600">{f.fullName}</p>
+                                    </span>
+                                </Link>
                                 <button
                                     onClick={() => handleInteraction({ username: f.username, following: isFollowing })}
                                     disabled={activeBtn}
-                                    className={`${isUser && "hidden"}`}
+                                    className={`ml-auto mr-2 p-3 pt-[5px] pb-[5px] rounded-md text-sm font-semibold cursor-pointer ${
+                                        isFollowing ? "bg-neutral-200" : "bg-sky-500 text-white"
+                                    }  ${isUser && "hidden"}`}
                                 >
-                                    {activeBtn === f.username ? <RotatingLines width="10" /> : isFollowing ? "Unfollow" : "Follow"}
+                                    {activeBtn === f.username ? <RotatingLines width="10" /> : isFollowing ? "Following" : "Follow"}
                                 </button>
                             </div>
                         );

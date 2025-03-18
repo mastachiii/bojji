@@ -20,6 +20,8 @@ export default function Profile() {
         (async () => {
             const data = await userApi.getUserData({ username: params.username });
 
+            if (!data) return (window.location.href = "/");
+
             setUser(data);
         })();
     }, [params.username]);
@@ -64,7 +66,10 @@ export default function Profile() {
                                 <p className="font-semibold">{user.posts.length}</p>
                                 <p className="text-neutral-500">posts</p>
                             </span>
-                            <span className="flex flex-col items-center text-xs cursor-pointer md:flex-row md:gap-1">
+                            <span
+                                onClick={() => followerDialogRef.current.showModal()}
+                                className="flex flex-col items-center text-xs cursor-pointer md:flex-row md:gap-1"
+                            >
                                 <p className="font-semibold">{user.followers.length}</p>
                                 <p className="text-neutral-500">followers</p>
                             </span>
