@@ -88,10 +88,10 @@ export default function Profile() {
                     <p className="text-xs">{user.bio}</p>
                     <span className="flex gap-2 mt-5 md:hidden">{interactBtns}</span>
                 </div>
-                <div className="grid grid-cols-3 gap-1 mt-1 justify-center">
+                <div className="grid grid-cols-3 gap-1 mt-2 justify-center">
                     {user.posts.length >= 1 ? (
                         user.posts.map(p => {
-                            return <img src={p.images[0]} className="w-full min-h-40 md:min-h-90" />;
+                            return <img src={p.images[0]} className="w-full min-h-40 md:min-h-80" />;
                         })
                     ) : (
                         <EmptyPosts />

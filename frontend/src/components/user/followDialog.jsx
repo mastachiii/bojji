@@ -16,8 +16,13 @@ export default function FollowDialog({ follows, ref, user, label }) {
         setActiveBtn(username);
     }
 
+    if (follows.length === 0) return;
+
     return (
-        <dialog ref={ref} className="relative min-w-screen min-h-screen">
+        <dialog
+            ref={ref}
+            className="relative min-w-screen min-h-screen shadow-md shadow-neutral-600 rounded-xl md:min-w-[30%] md:min-h-[50%] md:max-h-[50%] md:m-auto"
+        >
             <div>
                 <span className="flex pt-2 pb-4 border-b-1 border-neutral-200">
                     <p className="w-[100%] mt-1 font-semibold text-center">{label}</p>
@@ -46,9 +51,9 @@ export default function FollowDialog({ follows, ref, user, label }) {
                         const isUser = f.id === user.id;
 
                         return (
-                            <div key={f.id} className="flex items-center p-2 pl-3 pr-3">
+                            <div key={f.id} className="flex items-center p-2 pl-3 pr-3 mb-3 ">
                                 <Link to={`/user/${f.username}`} className="w-[70%] flex items-center" onClick={() => ref.current.close()}>
-                                    <img src={f.profilePicture} className="size-14 rounded-full" />
+                                    <img src={f.profilePicture} className="size-12 rounded-full" />
                                     <span className="ml-2 text-sm overflow-hidden overflow-ellipsis">
                                         <p className="font-semibold">{f.username}</p>
                                         <p className="text-[11px] text-neutral-600">{f.fullName}</p>
