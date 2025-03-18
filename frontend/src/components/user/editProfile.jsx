@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FormField from "../auth/formField";
 import userApi from "../../helpers/userApi";
+import EditProfileField from "./editProfileField";
 
 export default function EditProfile() {
     const [username, setUsername] = useState("");
@@ -16,13 +17,14 @@ export default function EditProfile() {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <FormField type={"text"} label={"Username:"} id={"username"} value={username} valueHandler={setUsername} />
-                <FormField type={"text"} label={"Full name:"} id={"fullName"} value={fullName} valueHandler={setFullName} />
-                <FormField type={"text"} label={"Bio:"} id={"bio"} maxLength={150} value={bio} valueHandler={setBio} />
+            <div>
+                <h1>Profile picture</h1>
+                <img src={profilePicture && URL.createObjectURL(profilePicture)} />
                 <input type="file" onChange={e => setProfilePicture(e.target.files[0])} />
-                <button>update</button>
-            </form>
+            </div>
+            <EditProfileField value={fullName} handler={setFullName} label={"Full Name:"} />
+            <EditProfileField value={bio} handler={setBio} label={"Bio:"} />
+            <EditProfileField value={username} handler={setUsername} label={"Username:"} />
         </div>
     );
 }
