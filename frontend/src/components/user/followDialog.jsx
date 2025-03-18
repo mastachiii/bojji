@@ -2,6 +2,8 @@ import { useState } from "react";
 import userApi from "../../helpers/userApi";
 import { RotatingLines } from "react-loader-spinner";
 import cancel from "../../assets/cancel.svg";
+import searchImg from "../../assets/search.svg";
+import clear from "../../assets/clear.svg";
 
 export default function FollowDialog({ follows, ref, user, label }) {
     const [activeBtn, setActiveBtn] = useState(null);
@@ -17,21 +19,38 @@ export default function FollowDialog({ follows, ref, user, label }) {
         <dialog ref={ref} className="relative min-w-screen min-h-screen">
             <div>
                 <span className="flex pt-2 pb-4 border-b-1 border-neutral-200">
-                    <p className="w-[100%] font-semibold text-center">{label}</p>
+                    <p className="w-[100%] mt-1 font-semibold text-center">{label}</p>
                     <button onClick={() => ref.current.close()} className="absolute right-2 cursor-pointer">
-                        <img src={cancel} className="size-8"/>
+                        <img src={cancel} className="size-8" />
                     </button>
                 </span>
-                <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
+                <div className="w-[95%] flex p-2 ml-auto mr-auto mt-3 mb-4 rounded-md bg-neutral-100">
+                    <button>
+                        <img src={searchImg} className="size-5" />
+                    </button>
+                    <input
+                        type="text"
+                        value={search}
+                        placeholder={"Search"}
+                        onChange={e => setSearch(e.target.value)}
+                        className="w-full ml-1 mr-1 text-[14px] outline-0"
+                    />
+                    <button onClick={() => setSearch("")}>
+                        <img src={clear} className="size-5 cursor-pointer" />
+                    </button>
+                </div>
                 <div>
                     {usersToShow.map(f => {
                         const isFollowing = user.following.find(u => u.id === f.id);
                         const isUser = f.id === user.id;
-
+                        
                         return (
-                            <div key={f.id}>
+                            <div key={f.id} className="flex p-2">
                                 <img src={f.profilePicture} className="size-10" />
-                                <p>{f.username}</p>
+                                <span>
+                                    <p>{f.username}</p>
+                                    <p>{f.fullName}</p>
+                                </span>
                                 <button
                                     onClick={() => handleInteraction({ username: f.username, following: isFollowing })}
                                     disabled={activeBtn}

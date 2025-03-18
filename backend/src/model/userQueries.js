@@ -27,6 +27,7 @@ class User {
             select: {
                 id: true,
                 username: true,
+                fullName: true,
                 profilePicture: true,
                 stories: true,
             },
