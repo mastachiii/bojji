@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-export default function FormField({ id, label, type, value, valueHandler, error }) {
+export default function FormField({ id, label, type, value, valueHandler, maxLength, error }) {
     const [showField, setShowField] = useState(false);
     const inputType = type === "password" ? (showField ? "text" : "password") : type;
 
@@ -23,6 +23,7 @@ export default function FormField({ id, label, type, value, valueHandler, error 
                         name={id}
                         id={id}
                         placeholder={label}
+                        maxLength={maxLength}
                         className="w-[85%] mr-auto text-xs outline-0 "
                     />
                     {type === "password" && (

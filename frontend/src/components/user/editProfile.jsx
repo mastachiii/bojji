@@ -19,7 +19,7 @@ export default function EditProfile() {
             <form onSubmit={handleSubmit}>
                 <FormField type={"text"} label={"Username:"} id={"username"} value={username} valueHandler={setUsername} />
                 <FormField type={"text"} label={"Full name:"} id={"fullName"} value={fullName} valueHandler={setFullName} />
-                <FormField type={"text"} label={"Bio:"} id={"bio"} value={bio} valueHandler={setBio} />
+                <FormField type={"text"} label={"Bio:"} id={"bio"} maxLength={150} value={bio} valueHandler={setBio} />
                 <input type="file" onChange={e => setProfilePicture(e.target.files[0])} />
                 <button>update</button>
             </form>

@@ -11,8 +11,6 @@ import FollowDialog from "./followDialog";
 export default function Profile() {
     const [user, setUser] = useState(null);
     const [status, setStatus] = useState();
-    const [following, setFollowing] = useState(0);
-    const [followers, setFollowers] = useState(0);
     const params = useParams();
     const userData = useContext(userContext);
     const followerDialogRef = useRef();
@@ -23,18 +21,14 @@ export default function Profile() {
             const data = await userApi.getUserData({ username: params.username });
 
             setUser(data);
-            setFollowing(data.following.length);
-            setFollowers(data.followers.length);
         })();
-    }, [params.username, following, followers]);
+    }, [params.username]);
 
     if (user && userData) {
-        console.log({ following });
         const isUser = user.id === userData.id;
         const followingUser = userData.following.find(u => u.id === user.id);
 
         function handleInteraction() {
-            followingUser ? setFollowing(following - 1) : setFollowing(following + 1);
             setStatus("INTERACTING");
             userApi.interactWithUser({ username: user.username, type: followingUser ? "unfollow" : "follow", statusHandler: setStatus });
         }
@@ -60,22 +54,25 @@ export default function Profile() {
                 </div>
                 <div className="flex items-center p-3">
                     <img src={user.profilePicture} className="size-17 mt-3 rounded-full md:size-25" />
-                    <div>
-                        <span className={`hidden ml-10 md:flex`}>
+                    <div className="md:flex md:flex-col md:ml-10">
+                        <span className={`hidden md:flex`}>
                             <p className="mr-4">{user.username}</p>
                             <span className="flex gap-2 mb-4">{interactBtns}</span>
                         </span>
-                        <span className="flex gap-7 justify-center ml-10 ">
+                        <span className="flex gap-7 justify-center ml-10 md:ml-0 md:justify-start">
                             <span className="flex flex-col items-center text-xs md:flex-row md:gap-1">
                                 <p className="font-semibold">{user.posts.length}</p>
                                 <p className="text-neutral-500">posts</p>
                             </span>
-                            <span className="flex flex-col items-center text-xs md:flex-row md:gap-1">
-                                <p className="font-semibold">{followers}</p>
+                            <span className="flex flex-col items-center text-xs cursor-pointer md:flex-row md:gap-1">
+                                <p className="font-semibold">{user.followers.length}</p>
                                 <p className="text-neutral-500">followers</p>
                             </span>
-                            <span className="flex flex-col items-center text-xs md:flex-row md:gap-1">
-                                <p className="font-semibold">{following}</p>
+                            <span
+                                className="flex flex-col items-center text-xs cursor-pointer md:flex-row md:gap-1"
+                                onClick={() => followingDialogRef.current.showModal()}
+                            >
+                                <p className="font-semibold">{user.following.length}</p>
                                 <p className="text-neutral-500">following</p>
                             </span>
                         </span>
@@ -89,14 +86,14 @@ export default function Profile() {
                 <div className="grid grid-cols-3 gap-1 mt-1 justify-center">
                     {user.posts.length >= 1 ? (
                         user.posts.map(p => {
-                            return <img src={p.images[0]} className="w-full min-h-40 md:min-h-70" />;
+                            return <img src={p.images[0]} className="w-full min-h-40 md:min-h-90" />;
                         })
                     ) : (
                         <EmptyPosts />
                     )}
                 </div>
-                <FollowDialog follows={user.following} ref={followingDialogRef} user={userData} followingHandler={setFollowing} />
-                <FollowDialog follows={user.followers} ref={followerDialogRef} user={userData} followingHandler={setFollowing} />
+                <FollowDialog follows={user.following} ref={followingDialogRef} user={userData} label={"Following"} />
+                <FollowDialog follows={user.followers} ref={followerDialogRef} user={userData} label={"Followers"} />
             </div>
         );
     }
