@@ -54,36 +54,41 @@ export default function Profile() {
                     </Link>
                     <p className="w-[80%] text-sm font-semibold text-center">{user.username}</p>
                 </div>
-                <div className="flex items-center p-3">
-                    <img src={user.profilePicture} className="size-17 mt-3 rounded-full md:size-25" />
-                    <div className="md:flex md:flex-col md:ml-10">
-                        <span className={`hidden md:flex`}>
+                <div className="flex items-center p-3 md:border-b-1 md:border-neutral-200">
+                    <img src={user.profilePicture} className="size-17 mt-3 rounded-full md:size-33" />
+                    <div className="md:flex md:flex-col md:ml-15 md:mb-12 md:mt-10">
+                        <span className={`hidden mb-2 text-lg md:flex`}>
                             <p className="mr-4">{user.username}</p>
                             <span className="flex gap-2 mb-4">{interactBtns}</span>
                         </span>
-                        <span className="flex gap-7 justify-center ml-10 md:ml-0 md:justify-start">
-                            <span className="flex flex-col items-center text-xs md:flex-row md:gap-1">
+                        <span className="flex gap-7 justify-center ml-10 text-xs md:ml-0 md:justify-start md:text-[14px]">
+                            <span className="flex flex-col items-center md:flex-row md:gap-1">
                                 <p className="font-semibold">{user.posts.length}</p>
                                 <p className="text-neutral-500">posts</p>
                             </span>
                             <span
                                 onClick={() => followerDialogRef.current.showModal()}
-                                className="flex flex-col items-center text-xs cursor-pointer md:flex-row md:gap-1"
+                                className="flex flex-col items-center cursor-pointer md:flex-row md:gap-1"
                             >
                                 <p className="font-semibold">{user.followers.length}</p>
                                 <p className="text-neutral-500">followers</p>
                             </span>
                             <span
-                                className="flex flex-col items-center text-xs cursor-pointer md:flex-row md:gap-1"
+                                className="flex flex-col items-center cursor-pointer md:flex-row md:gap-1"
                                 onClick={() => followingDialogRef.current.showModal()}
                             >
                                 <p className="font-semibold">{user.following.length}</p>
                                 <p className="text-neutral-500">following</p>
                             </span>
                         </span>
+                        <div className="hidden pr-4 pb-7 pl-0 mt-5 text-sm md:block">
+                            <h3 className="font-semibold">{user.fullName}</h3>
+                            <p>{user.bio}</p>
+                            <span className="flex gap-2 mt-5 md:hidden">{interactBtns}</span>
+                        </div>
                     </div>
                 </div>
-                <div className="pl-4 pr-4 pb-7 border-b-1 border-neutral-200 md:pl-38">
+                <div className="pl-4 pr-4 pb-7 border-b-1 border-neutral-200 md:hidden">
                     <h3 className="text-xs font-semibold">{user.fullName}</h3>
                     <p className="text-xs">{user.bio}</p>
                     <span className="flex gap-2 mt-5 md:hidden">{interactBtns}</span>
