@@ -23,7 +23,7 @@ export default function EditProfile({ ref }) {
     }, [userData.bio]);
 
     return (
-        <dialog ref={ref} className="min-w-screen min-h-screen">
+        <dialog ref={ref} className="min-w-screen min-h-screen md:min-w-[40%] md:min-h-[50%] md:m-auto md:rounded-md md:shadow-sm md:shadow-neutral-600">
             <span className="flex pt-2 pb-4 border-b-1 border-neutral-200">
                 <p className="w-[100%] mt-1 font-semibold text-center">Edit Profile</p>
                 <button onClick={() => ref.current.close()} className="absolute right-2 cursor-pointer">
