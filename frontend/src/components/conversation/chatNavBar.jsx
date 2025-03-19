@@ -1,11 +1,13 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { Link } from "react-router";
 import userContext from "../context/userContext";
 import back from "../../assets/back.svg";
 import createConvo from "../../assets/createConversation.svg";
+import CreateConversation from "./createConversation";
 
 export default function ChatNavBar({ chats, chatHandler }) {
     const user = useContext(userContext) || {};
+    const createConvoRef = useRef();
 
     return (
         <div className="w-screen h-screen ">
@@ -14,7 +16,7 @@ export default function ChatNavBar({ chats, chatHandler }) {
                     <img src={back} className="size-6" />
                 </Link>
                 <p className="ml-3 text-lg font-semibold">{user.username}</p>
-                <button className="ml-auto">
+                <button onClick={() => createConvoRef.current.showModal()} className="ml-auto">
                     <img src={createConvo} className="mt-1 size-6" />
                 </button>
             </div>
@@ -40,6 +42,7 @@ export default function ChatNavBar({ chats, chatHandler }) {
                     )}
                 </div>
             </div>
+            <CreateConversation ref={createConvoRef} />
         </div>
     );
 }
