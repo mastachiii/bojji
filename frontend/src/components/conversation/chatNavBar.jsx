@@ -18,9 +18,9 @@ export default function ChatNavBar({ chats, chatHandler }) {
                     <img src={createConvo} className="mt-1 size-6" />
                 </button>
             </div>
-            <div className="flex flex-col gap-2 p-3 mt-5">
+            <div className="p-3 mt-5">
                 <h1 className="text-md font-semibold">Messages</h1>
-                <div className="mt-3">
+                <div className="flex flex-col gap-4 mt-3">
                     {chats &&
                         chats.map(c => {
                             const latestMessage = c.messages[c.messages.length - 1];
