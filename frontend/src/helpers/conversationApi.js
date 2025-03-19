@@ -15,7 +15,7 @@ class Conversation {
         });
     }
 
-    async messageConversation({ id, message }) {
+    async messageConversation({ id, message, statusHandler }) {
         await fetch(`${this.conversationUrl}/${id}/message`, {
             method: "POST",
             headers: {
@@ -23,7 +23,7 @@ class Conversation {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ message }),
-        });
+        }).then(res => statusHandler(""));
     }
 }
 
