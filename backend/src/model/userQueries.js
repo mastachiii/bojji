@@ -11,13 +11,14 @@ const prisma = new PrismaClient({
 });
 
 class User {
-    async createUser({ fullName, email, username, password }) {
+    async createUser({ fullName, email, username, password, profilePicture }) {
         await prisma.user.create({
             data: {
                 fullName,
                 email,
                 username,
                 password,
+                profilePicture,
             },
         });
     }

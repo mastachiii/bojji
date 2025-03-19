@@ -12,6 +12,10 @@ class User {
 
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
+            // Default profile
+            req.body.profilePicture =
+                "https://twacmlphonvffvohkpbj.supabase.co/storage/v1/object/public/bojji//360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg";
+
             bcrypt.hash(req.body.password, 10, async (err, hash) => {
                 if (err) return next(err);
 

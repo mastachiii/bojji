@@ -19,7 +19,7 @@ export default function EditProfile({ ref }) {
     }
 
     useEffect(() => {
-        setBio(userData.bio);
+        setBio(userData.bio || "");
     }, [userData.bio]);
 
     return (
