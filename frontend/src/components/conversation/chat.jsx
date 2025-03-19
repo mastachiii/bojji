@@ -1,6 +1,6 @@
 import { useState } from "react";
 import conversationApi from "../../helpers/conversationApi";
-import UserContext from "../context/userContext";
+import back from "../../assets/back.svg";
 
 export default function Chat({ chat }) {
     const [message, setMessage] = useState("");
@@ -13,7 +13,12 @@ export default function Chat({ chat }) {
 
     return (
         <div>
-            <h3>{chat.users[0].username}</h3>
+            <div>
+                <button className="size-10">
+                    <img src={back} />
+                </button>
+                <h3>{chat.users[0].username}</h3>
+            </div>
             {chat.messages.map(m => {
                 return <p key={m.id}>{m.message}</p>;
             })}

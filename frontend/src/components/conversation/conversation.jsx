@@ -21,7 +21,9 @@ export default function Conversation() {
 
     return (
         <div>
-            <ChatNavBar chats={userData.conversations} chatHandler={setChatSelected} />
+            <div className={`${chatSelected && 'hidden'}`}>
+                <ChatNavBar chats={userData.conversations} chatHandler={setChatSelected} />
+            </div>
             <Chat chat={chatSelected} />
             <h4>Search for users</h4>
             <input type="text" value={filter} onChange={e => setFilter(e.target.value)} />

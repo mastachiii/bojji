@@ -8,7 +8,7 @@ export default function ChatNavBar({ chats, chatHandler }) {
     const user = useContext(userContext) || {};
 
     return (
-        <div>
+        <div className="w-screen h-screen ">
             <div className="flex p-2 items-center">
                 <Link to="/">
                     <img src={back} className="size-6" />
@@ -21,7 +21,7 @@ export default function ChatNavBar({ chats, chatHandler }) {
             <div className="p-3 mt-5">
                 <h1 className="text-md font-semibold">Messages</h1>
                 <div className="flex flex-col gap-4 mt-3">
-                    {chats &&
+                    {chats && chats.length !== 0 ? (
                         chats.map(c => {
                             const latestMessage = c.messages[c.messages.length - 1];
 
@@ -34,7 +34,10 @@ export default function ChatNavBar({ chats, chatHandler }) {
                                     </span>
                                 </div>
                             );
-                        })}
+                        })
+                    ) : (
+                        <p className="mt-30 text-lg text-center text-neutral-600 italic">You currently have no conversations</p>
+                    )}
                 </div>
             </div>
         </div>
