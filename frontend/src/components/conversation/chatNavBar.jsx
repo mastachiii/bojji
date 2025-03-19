@@ -10,25 +10,25 @@ export default function ChatNavBar({ chats, chatHandler }) {
     const createConvoRef = useRef();
 
     return (
-        <div className="w-screen h-screen ">
+        <div className="w-screen h-screen md:text-lg md:w-[30%] md:pt-8 md:pl-4 md:pr-4 md:border-r-2 md:border-neutral-300">
             <div className="flex p-2 items-center">
                 <Link to="/">
-                    <img src={back} className="size-6" />
+                    <img src={back} className="size-6 md:hidden" />
                 </Link>
-                <p className="ml-3 text-lg font-semibold">{user.username}</p>
+                <p className="ml-3 text-lg font-bold md:text-2xl">{user.username}</p>
                 <button onClick={() => createConvoRef.current.showModal()} className="ml-auto">
-                    <img src={createConvo} className="mt-1 size-6" />
+                    <img src={createConvo} className="mt-1 size-6 md:mb-1" />
                 </button>
             </div>
             <div className="p-3 mt-5">
                 <h1 className="text-md font-semibold">Messages</h1>
-                <div className="flex flex-col gap-4 mt-3">
+                <div className="flex flex-col gap-5 mt-6">
                     {chats && chats.length !== 0 ? (
                         chats.map(c => {
                             const latestMessage = c.messages[c.messages.length - 1];
 
                             return (
-                                <div onClick={() => chatHandler(c)} className="flex">
+                                <div key={c.id} onClick={() => chatHandler(c)} className="flex md:text-sm">
                                     <img src={c.users[0].profilePicture} className="size-13 rounded-full" />
                                     <span className="ml-2">
                                         <p className="font-semibold">{c.users[0].username}</p>

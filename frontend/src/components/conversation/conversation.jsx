@@ -9,7 +9,7 @@ export default function Conversation() {
 
     return (
         <div>
-            <div className={`${chatSelected && "hidden"}`}>
+            <div className={`${chatSelected && "hidden md:block"}`}>
                 <ChatNavBar chats={userData.conversations} chatHandler={setChatSelected} />
             </div>
             {chatSelected && <Chat chat={chatSelected} chatHandler={setChatSelected} />}
