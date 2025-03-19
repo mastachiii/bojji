@@ -21,6 +21,13 @@ class Message {
             },
         });
 
+        await prisma.conversation.update({
+            where: { id: conversationId },
+            data: {
+                updatedAt: new Date(),
+            },
+        });
+
         return body;
     }
 

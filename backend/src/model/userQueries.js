@@ -50,7 +50,11 @@ class User {
                 stories: true,
                 conversations: {
                     include: {
-                        messages: true,
+                        messages: {
+                            include: {
+                                sender: selectFields,
+                            },
+                        },
                         users: {
                             where: {
                                 username: {
@@ -58,6 +62,9 @@ class User {
                                 },
                             },
                         },
+                    },
+                    orderBy: {
+                        updatedAt: "desc",
                     },
                 },
             },

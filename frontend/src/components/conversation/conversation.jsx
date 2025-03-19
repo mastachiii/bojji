@@ -2,11 +2,13 @@ import { useContext, useState } from "react";
 import userApi from "../../helpers/userApi";
 import conversationApi from "../../helpers/conversationApi";
 import UserContext from "../context/userContext";
-import { Link } from "react-router";
+import ChatNavBar from "./chatNavBar";
+import Chat from "./chat";
 
 export default function Conversation() {
     const [usersToShow, setUsersToShow] = useState(null);
     const [filter, setFilter] = useState("");
+    const [chatSelected, setChatSelected] = useState(null);
     const userData = useContext(UserContext) || {};
 
     function handleSearch() {
@@ -19,8 +21,11 @@ export default function Conversation() {
 
     return (
         <div>
+            <ChatNavBar chats={userData.conversations} chatHandler={setChatSelected} />
+            <Chat chat={chatSelected} />
             <h4>Search for users</h4>
             <input type="text" value={filter} onChange={e => setFilter(e.target.value)} />
+            <h4>Messages</h4>
             <button onClick={handleSearch}>search</button>
             {usersToShow &&
                 usersToShow.map(u => {
@@ -29,17 +34,6 @@ export default function Conversation() {
                             <p>{u.username}</p>
                             <button onClick={() => handleCreateConversation(u.id)}>Create conversation</button>
                         </span>
-                    );
-                })}
-            <h4>Messages</h4>
-            {userData.conversations &&
-                userData.conversations.map(c => {
-                    return (
-                        <div key={c.id}>
-                            <Link to={`/chat/${c.id}`} state={{ conversation: c }}>
-                                {c.users[0].username}
-                            </Link>
-                        </div>
                     );
                 })}
         </div>

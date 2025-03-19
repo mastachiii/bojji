@@ -87,9 +87,10 @@ model Story {
 }
 
 model Conversation {
-  id       String    @id @default(uuid())
-  messages Message[]
-  users    User[]
+  id        String    @id @default(uuid())
+  messages  Message[]
+  users     User[]
+  updatedAt DateTime? @default(now())
 }
 
 model Message {
