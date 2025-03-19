@@ -1,17 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import userApi from "../../helpers/userApi";
 import conversationApi from "../../helpers/conversationApi";
 import cancel from "../../assets/cancel.svg";
+import SearchDialog from "../searchDialog";
 
 export default function CreateConversation({ ref }) {
     const [usersToShow, setUsersToShow] = useState(null);
     const [filter, setFilter] = useState("");
-
-    function handleSearch() {
-        if (filter.length < 2) return;
-
-        userApi.searchForUsers({ filter, handler: setUsersToShow });
-    }
 
     async function handleCreateConversation(id) {
         await conversationApi.createConversation({ receiverId: id });
@@ -19,26 +14,35 @@ export default function CreateConversation({ ref }) {
         ref.current.close();
     }
 
+    useEffect(() => {
+        if (filter.length < 2) return setUsersToShow(null);
+
+        userApi.searchForUsers({ filter, handler: setUsersToShow });
+    }, [filter]);
+
     return (
         <dialog ref={ref} className="min-w-screen min-h-screen">
             <span className="relative flex items-center pt-2 pb-4 border-b-1 border-neutral-200">
                 <h4 className="w-[100%] mt-1 font-semibold text-center">Search for users</h4>
                 <button onClick={() => ref.current.close()} className="absolute top-2 right-1">
-                    <img src={cancel} className="size-8"/>
+                    <img src={cancel} className="size-8" />
                 </button>
             </span>
-            <input type="text" value={filter} onChange={e => setFilter(e.target.value)} />
-            <h4>Messages</h4>
-            <button onClick={handleSearch}>search</button>
-            {usersToShow &&
-                usersToShow.map(u => {
-                    return (
-                        <span>
-                            <p>{u.username}</p>
-                            <button onClick={() => handleCreateConversation(u.id)}>Create conversation</button>
-                        </span>
-                    );
-                })}
+            <SearchDialog value={filter} handler={setFilter} />
+            <div className="p-3">
+                {usersToShow &&
+                    usersToShow.map(u => {
+                        return (
+                            <div onClick={() => handleCreateConversation(u.id)} className="flex gap-2 mb-3">
+                                <img src={u.profilePicture} className="size-12 rounded-full" />
+                                <span>
+                                    <p className="font-semibold">{u.username}</p>
+                                    <p className="text-[11px] text-neutral-600">{u.fullName}</p>
+                                </span>
+                            </div>
+                        );
+                    })}
+            </div>
         </dialog>
     );
 }

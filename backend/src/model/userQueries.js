@@ -148,6 +148,7 @@ class User {
                 username: true,
                 id: true,
                 profilePicture: true,
+                fullName: true,
             },
         });
 
