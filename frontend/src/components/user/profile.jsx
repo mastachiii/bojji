@@ -7,6 +7,7 @@ import ProfileButton from "./profileButton";
 import EmptyPosts from "./emptyPosts";
 import { Link } from "react-router";
 import FollowDialog from "./followDialog";
+import EditProfile from "./editProfile";
 
 export default function Profile() {
     const [user, setUser] = useState(null);
@@ -15,6 +16,7 @@ export default function Profile() {
     const userData = useContext(userContext);
     const followerDialogRef = useRef();
     const followingDialogRef = useRef();
+    const editProfileRef = useRef();
 
     useEffect(() => {
         (async () => {
@@ -35,11 +37,15 @@ export default function Profile() {
             userApi.interactWithUser({ username: user.username, type: followingUser ? "unfollow" : "follow", statusHandler: setStatus });
         }
 
+        function handleShowProfileEditor() {
+            editProfileRef.current.showModal();
+        }
+
         const interactBtns = (
             <>
                 <ProfileButton
                     label={isUser ? "Edit Profile" : followingUser ? "Unfollow" : "Follow"}
-                    handler={handleInteraction}
+                    handler={isUser ? handleShowProfileEditor : handleInteraction}
                     btnActive={status !== "INTERACTING"}
                 />
                 {!isUser && <ProfileButton label={"Message"} btnActive={true} />}
@@ -104,6 +110,7 @@ export default function Profile() {
                 </div>
                 <FollowDialog follows={user.following} ref={followingDialogRef} user={userData} label={"Following"} />
                 <FollowDialog follows={user.followers} ref={followerDialogRef} user={userData} label={"Followers"} />
+                <EditProfile ref={editProfileRef}/>
             </div>
         );
     }

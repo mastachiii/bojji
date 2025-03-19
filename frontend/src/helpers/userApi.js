@@ -112,7 +112,7 @@ class User {
         }
     }
 
-    async updateProfile({ username, fullName, bio, profilePicture }) {
+    async updateProfile({ username, fullName, bio, profilePicture, statusHandler }) {
         try {
             const formData = new FormData();
 
@@ -128,6 +128,8 @@ class User {
                 },
                 body: formData,
             });
+
+            statusHandler("");
         } catch {
             window.location.href = "/error";
         }
