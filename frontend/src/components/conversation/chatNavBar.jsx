@@ -16,7 +16,7 @@ export default function ChatNavBar({ chats, chatHandler }) {
                     <img src={back} className="size-6 md:hidden" />
                 </Link>
                 <p className="ml-3 text-lg font-bold md:text-2xl">{user.username}</p>
-                <button onClick={() => createConvoRef.current.showModal()} className="ml-auto">
+                <button onClick={() => createConvoRef.current.showModal()} className="ml-auto cursor-pointer">
                     <img src={createConvo} className="mt-1 size-6 md:mb-1" />
                 </button>
             </div>
