@@ -10,7 +10,7 @@ export default function ChatNavBar({ chats, chatHandler }) {
     const createConvoRef = useRef();
 
     return (
-        <div className="w-screen h-screen md:text-lg md:w-[30%] md:pt-8 md:pl-4 md:pr-4 md:border-r-2 md:border-neutral-300">
+        <div className="w-screen h-screen md:text-lg md:w-full md:pt-8 md:pl-4 md:pr-4 md:border-r-1 md:border-neutral-300">
             <div className="flex p-2 items-center">
                 <Link to="/">
                     <img src={back} className="size-6 md:hidden" />
@@ -28,7 +28,7 @@ export default function ChatNavBar({ chats, chatHandler }) {
                             const latestMessage = c.messages[c.messages.length - 1];
 
                             return (
-                                <div key={c.id} onClick={() => chatHandler(c)} className="flex md:text-sm">
+                                <div key={c.id} onClick={() => chatHandler(c)} className="flex cursor-pointer md:text-sm">
                                     <img src={c.users[0].profilePicture} className="size-13 rounded-full" />
                                     <span className="ml-2">
                                         <p className="font-semibold">{c.users[0].username}</p>

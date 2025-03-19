@@ -30,9 +30,9 @@ export default function Chat({ chat, chatHandler }) {
     if (!chat) return;
 
     return (
-        <div className="w-screen h-screen relative overflow-y-hidden">
+        <div className="w-screen h-screen relative overflow-y-hidden md:grow">
             <div className="flex items-center p-2 border-b-1 border-neutral-200">
-                <button onClick={() => chatHandler(null)} className="size-8">
+                <button onClick={() => chatHandler(null)} className="size-8 md:hidden">
                     <img src={back} />
                 </button>
                 <span className="flex items-center gap-2 ml-4">
@@ -40,7 +40,7 @@ export default function Chat({ chat, chatHandler }) {
                     <h3 className="font-semibold">{currentChat.users[0].username}</h3>
                 </span>
             </div>
-            <div className="min-h-[50%] max-h-[50%] mt-7 overflow-hidden overflow-y-scroll">
+            <div className="min-h-[80%] max-h-[80%] mt-7 overflow-hidden overflow-y-scroll">
                 {currentChat.messages.map(m => {
                     const isUser = m.sender.id === user.id;
 
@@ -62,7 +62,7 @@ export default function Chat({ chat, chatHandler }) {
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                     rows={1}
-                    className="w-[88%] pt-2 pb-2 pl-1 outline-0"
+                    className="w-[88%] pt-2 pb-2 pl-1 outline-0 resize-none"
                 />
                 <button onClick={handleSend} disabled={status === "SENDING"} className="ml-auto">
                     {status === "SENDING" ? (
