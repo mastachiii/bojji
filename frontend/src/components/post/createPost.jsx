@@ -4,12 +4,13 @@ import cancel from "../../assets/cancel.svg";
 import image from "../../assets/image.svg";
 import next from "../../assets/next.svg";
 import prev from "../../assets/prev.svg";
+import back from "../../assets/back.svg";
 import userContext from "../context/userContext";
 import { RotatingLines } from "react-loader-spinner";
 import posted from "../../assets/posted.svg";
 
 export default function CreatePost({ ref }) {
-    const user = useContext(userContext);
+    const user = useContext(userContext) || {};
     const [body, setBody] = useState("");
     const [images, setImages] = useState(null);
     const [selected, setSelected] = useState(0);
@@ -30,24 +31,37 @@ export default function CreatePost({ ref }) {
         setImages(images);
     }
 
+    function handleClose() {
+        setImages(null);
+        setSelected(0);
+        setStatus("");
+
+        ref.current.close();
+    }
+
     return (
-        <dialog ref={ref} className="min-w-screen min-h-screen">
+        <dialog ref={ref} className="min-w-screen min-h-screen md:min-w-[40%] md:min-h-[50%] md:m-auto md:rounded-lg md:overflow-hidden">
             <span className="relative flex items-center pt-2 pb-4 border-b-1 border-neutral-200">
+                {images && (
+                    <button onClick={() => setImages(null)}>
+                        <img src={back} className="size-6 absolute left-2 top-1 mt-2 cursor-pointer" />
+                    </button>
+                )}
                 <h3 className="w-full mt-1 font-semibold text-center">Create post</h3>
-                <button onClick={() => ref.current.close()}>
-                    <img src={cancel} className="size-8 absolute right-1 top-1 mt-1" />
+                <button onClick={handleClose}>
+                    <img src={cancel} className="size-8 absolute right-1 top-1 mt-1 cursor-pointer" />
                 </button>
             </span>
             {status === "POSTED" && (
                 <div className="h-[80vh] flex flex-col items-center justify-center gap-3">
-                    <img src={posted} className="size-17"/>
+                    <img src={posted} className="size-17" />
                     <p className="font-semibold">Your post has been shared!</p>
                 </div>
             )}
             {!images && status !== "POSTED" && (
                 <div className="h-[80vh] flex flex-col items-center justify-center gap-3">
                     <img src={image} className="size-15" />
-                    <label htmlFor="image" className="p-1 pl-2 pr-2 font-semibold text-white bg-sky-500 rounded-md">
+                    <label htmlFor="image" className="p-1 pl-2 pr-2 font-semibold text-white bg-sky-500 rounded-md cursor-pointer hover:bg-sky-700">
                         Upload photos
                     </label>
                     <input type="file" multiple onChange={handleSetImages} accept="image/*" id="image" className="hidden" />
@@ -89,7 +103,7 @@ export default function CreatePost({ ref }) {
                             <button
                                 onClick={handleCreatePost}
                                 disabled={status === "POSTING"}
-                                className="p-2 ml-auto mt-2 text-sm text-white font-semibold bg-sky-500 rounded-md"
+                                className="p-2 ml-auto mt-2 text-sm text-white font-semibold bg-sky-500 rounded-md cursor-pointer hover:bg-sky-700"
                             >
                                 {status === "POSTING" ? <RotatingLines width="15" strokeColor="white" /> : "Share"}
                             </button>
