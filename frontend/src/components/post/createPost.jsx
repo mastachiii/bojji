@@ -2,12 +2,11 @@ import { useContext, useState } from "react";
 import postApi from "../../helpers/postApi";
 import cancel from "../../assets/cancel.svg";
 import image from "../../assets/image.svg";
-import next from "../../assets/next.svg";
-import prev from "../../assets/prev.svg";
 import back from "../../assets/back.svg";
 import userContext from "../context/userContext";
 import { RotatingLines } from "react-loader-spinner";
 import posted from "../../assets/posted.svg";
+import ImageCarousel from "./imageCarousel";
 
 export default function CreatePost({ ref }) {
     const user = useContext(userContext) || {};
@@ -69,24 +68,7 @@ export default function CreatePost({ ref }) {
             )}
             {images && status !== "POSTED" && (
                 <>
-                    <div className="w-fit h-140 relative flex justify-center ml-auto mr-auto mt-4">
-                        {selected > 0 && (
-                            <button onClick={() => setSelected(selected - 1)}>
-                                <img src={prev} className="w-7 absolute left-1 bottom-60" />
-                            </button>
-                        )}
-                        {[...images].map((image, index) => {
-                            return (
-                                <img src={URL.createObjectURL(image)} className={`w-sm animate-slide ${index === selected ? "block" : "hidden"}`} />
-                            );
-                        })}
-                        {selected < images.length - 1 && (
-                            <button onClick={() => setSelected(selected + 1)} className="w-7 absolute right-1 bottom-60">
-                                {" "}
-                                <img src={next} />
-                            </button>
-                        )}
-                    </div>
+                    <ImageCarousel images={images} />
                     <div className="mt-4 p-3">
                         <span className="flex items-center gap-2">
                             <img src={user.profilePicture} className="size-8 rounded-full" />
