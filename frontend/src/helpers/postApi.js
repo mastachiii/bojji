@@ -4,7 +4,7 @@ class Post {
         this.token = localStorage.getItem("token");
     }
 
-    async createPost({ body, images }) {
+    async createPost({ body, images, statusHandler, }) {
         try {
             const formData = new FormData();
 
@@ -20,6 +20,8 @@ class Post {
                     Authorization: `Bearer ${this.token}`,
                 },
                 body: formData,
+            }).then(res => {
+                statusHandler("POSTED");
             });
         } catch {
             window.location.href = "/error";
