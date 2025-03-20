@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@theme {
+    --animate-slide: slide 150ms ease-in-out;
+
+    @keyframes slide {
+        0% {
+            opacity: 50%;
+            transform: translateX(50%);
+        }
+    }
+}

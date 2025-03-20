@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import CreatePost from "./createPost";
+import CreatePost from "./post/createPost";
 import { useRef } from "react";
 
 function NavBarButton({ label, image, link }) {

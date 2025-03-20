@@ -156,4 +156,13 @@ class User {
     }
 }
 
+(async () => {
+    // await prisma.post.deleteMany({
+    //     where: {
+    //         author: {
+    //             username: "mastachii",
+    //         },
+    //     },
+    // });
+})();
 module.exports = new User();
