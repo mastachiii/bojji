@@ -7,7 +7,6 @@ import NavBar from "./navBar";
 
 export default function Feed() {
     const [posts, setPosts] = useState([]);
-    const userData = useContext(UserContext);
 
     useEffect(() => {
         (async () => {
@@ -18,18 +17,8 @@ export default function Feed() {
     }, []);
 
     return (
-        <div>
-            {userData &&
-                userData.following.map(f => {
-                    if (f.stories.length === 0) return;
-
-                    return (
-                        <Link to={`/story/${f.id}`} key={f.id}>
-                            {f.username}
-                        </Link>
-                    );
-                })}
-            { posts.map(p => {
+        <div className="flex flex-col gap-5">
+            {posts.map(p => {
                 return <PostPreview post={p} />;
             })}
             <NavBar />

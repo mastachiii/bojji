@@ -3,6 +3,7 @@ import { useContext, useRef, useState } from "react";
 import PostFull from "./postFull";
 import userContext from "../context/userContext";
 import ImageCarousel from "./imageCarousel";
+import { Link } from "react-router";
 
 export default function PostPreview({ post }) {
     const user = useContext(userContext) || {};
@@ -18,7 +19,10 @@ export default function PostPreview({ post }) {
 
     return (
         <div>
-            <p>{post.author.username}</p>
+            <Link to={`/user/${post.author.username}`} className="flex items-center gap-3 ml-3">
+                <img src={post.author.profilePicture} alt="" className="size-8 rounded-full"/>
+                <p className="text-sm font-semibold">{post.author.username}</p>
+            </Link>
             <ImageCarousel images={post.images} />
             <p>{likes} likes</p>
             <p>{post.body}</p>
