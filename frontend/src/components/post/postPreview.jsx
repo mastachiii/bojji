@@ -2,12 +2,12 @@ import postApi from "../../helpers/postApi";
 import { useContext, useRef, useState } from "react";
 import PostFull from "./postFull";
 import userContext from "../context/userContext";
+import ImageCarousel from "./imageCarousel";
 
 export default function PostPreview({ post }) {
     const user = useContext(userContext) || {};
     const [likes, setLikes] = useState(post.likedBy.length);
     const [likedByUser, setLikedByUser] = useState(post.likedBy.find(u => u.id === user.id));
-    const [selected, setSelected] = useState();
     const postFullRef = useRef();
 
     function handleInteraction() {
@@ -19,11 +19,7 @@ export default function PostPreview({ post }) {
     return (
         <div>
             <p>{post.author.username}</p>
-            <div>
-                {post.images.map(i => {
-                    return <img src={i} style={{ width: "300px" }} />;
-                })}
-            </div>
+            <ImageCarousel images={post.images} />
             <p>{likes} likes</p>
             <p>{post.body}</p>
             <button onClick={handleInteraction}>{likedByUser ? "DISLIKE" : "LIKE"}</button>
