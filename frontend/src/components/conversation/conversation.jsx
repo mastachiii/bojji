@@ -16,7 +16,7 @@ export default function Conversation() {
             {chatSelected ? (
                 <Chat chat={chatSelected} chatHandler={setChatSelected} />
             ) : (
-                <div className="h-fit p-3 m-auto border-1 rounded-full">
+                <div className="hidden h-fit p-3 m-auto border-1 rounded-full md:block">
                     <img src={messenger} />
                 </div>
             )}

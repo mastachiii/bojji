@@ -3,6 +3,7 @@ import postApi from "../helpers/postApi";
 import { Link } from "react-router";
 import UserContext from "./context/userContext";
 import PostPreview from "./post/postPreview";
+import NavBar from "./navBar";
 
 export default function Feed() {
     const [posts, setPosts] = useState([]);
@@ -31,6 +32,7 @@ export default function Feed() {
             { posts.map(p => {
                 return <PostPreview post={p} />;
             })}
+            <NavBar />
         </div>
     );
 }
