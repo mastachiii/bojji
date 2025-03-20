@@ -1,7 +1,7 @@
 import { useState } from "react";
 import postApi from "../helpers/postApi";
 
-export default function CreatePost() {
+export default function CreatePost({ ref }) {
     const [body, setBody] = useState("");
     const [images, setImages] = useState(null);
 
@@ -11,14 +11,26 @@ export default function CreatePost() {
         postApi.createPost({ body, images });
     }
 
+    console.log(images);
+
     return (
-        <div>
+        <dialog ref={ref}>
             <h3>Create post</h3>
-            <form onSubmit={handleSubmit} encType="multiple/form-data">
-                <textarea value={body} onChange={e => setBody(e.target.value)}></textarea>
-                <input type="file" multiple onChange={e => setImages(e.target.files)} accept="image/*" />
-                <button>create post</button>
-            </form>
-        </div>
+            {!images && (
+                <form onSubmit={handleSubmit} encType="multiple/form-data">
+                    <input type="file" multiple onChange={e => setImages(e.target.files)} accept="image/*" />
+                </form>
+            )}
+            {images && (
+                <>
+                    {[...images].forEach(i => {
+                        console.log(i)
+                        <img src={URL.createObjectURL(i)} />
+                    })}
+                    <textarea value={body} onChange={e => setBody(e.target.value)}></textarea>
+                    <button>create post</button>
+                </>
+            )}
+        </dialog>
     );
 }

@@ -1,10 +1,14 @@
 import { Link } from "react-router";
+import CreatePost from "./createPost";
+import { useRef } from "react";
 
 function NavBarButton({ label, image, link }) {
     return <Link to={link}> {label}</Link>;
 }
 
 export default function NavBar({ selected }) {
+    const createPostRef = useRef();
+
     return (
         <div>
             <NavBarButton link={"/"} label={"Home"} />
@@ -13,7 +17,8 @@ export default function NavBar({ selected }) {
             <NavBarButton link={"/reels"} label={"Reels"} />
             <NavBarButton link={"/conversations"} label={"Messages"} />
             <button>Notifications</button>
-            <button>Create</button>
+            <button onClick={() => createPostRef.current.showModal()}>Create</button>
+            <CreatePost ref={createPostRef} />
         </div>
     );
 }
