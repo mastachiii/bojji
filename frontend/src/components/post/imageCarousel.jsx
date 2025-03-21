@@ -8,7 +8,7 @@ export default function ImageCarousel({ images }) {
     const isString = typeof image === "string";
 
     return (
-        <div className="w-fit h-140 relative flex justify-center ml-auto mr-auto mt-4 bg-green-500">
+        <div className="w-fit h-140 relative flex justify-center ml-auto mr-auto mt-2 bg-green-500">
             {selected > 0 && (
                 <button onClick={() => setSelected(selected - 1)}>
                     <img src={prev} className="w-7 absolute left-1 bottom-60 cursor-pointer" />
