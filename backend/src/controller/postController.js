@@ -38,7 +38,11 @@ class Post {
 
     async likePost(req, res) {
         await db.likePost({ id: req.params.id, userId: req.user.id });
-        await notificationDb.createNotification({ userId: req.user.id, id: req.params.id, type: "LIKE POST", targetId: req.body.receiverId });
+
+        // Don't create notifiations if user is the same as author
+        if (req.user.id !== req.body.receiverId) {
+            await notificationDb.createNotification({ userId: req.user.id, postId: req.params.id, type: "LIKE POST", targetId: req.body.receiverId });
+        }
 
         res.sendStatus(200);
     }

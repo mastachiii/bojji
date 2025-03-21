@@ -14,7 +14,9 @@ export default function PostPreview({ post }) {
     const user = useContext(userContext) || {};
     const [likes, setLikes] = useState(post.likedBy.length);
     const [likedByUser, setLikedByUser] = useState(post.likedBy.find(u => u.id === user.id));
+    const [showFullBody, setShowFullBody] = useState(false);
     const postFullRef = useRef();
+    const postBodyRef = useRef({});
 
     function handleInteraction() {
         postApi.interactOnPost({ id: post.id, type: likedByUser ? "dislike" : "like", authorId: post.author.id });
@@ -39,16 +41,21 @@ export default function PostPreview({ post }) {
                 <img src={share} className="size-6" />
                 <img src={bookmark} className="size-6 ml-auto" />
             </div>
-            <div className="pl-3">
+            <div className="pl-3 pr-[5px]">
                 <p className="font-semibold">{likes} likes</p>
                 <span className="flex gap-2">
-                    <p className="text-wrap">
+                    <p className={`${showFullBody ? "w-full text-wrap" : "w-[95%] text-nowrap overflow-hidden"}`} ref={postBodyRef}>
                         <Link to={`/user/${post.author.username}`} className="font-semibold mr-2">
                             {post.author.username}
                         </Link>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, ad!
+                        {post.body}
                     </p>
                 </span>
+                {!showFullBody && postBodyRef.current.scrollLeftMax > 0 && (
+                    <button onClick={() => setShowFullBody(true)} className="text-sm text-neutral-600">
+                        Show More
+                    </button>
+                )}
             </div>
             <PostFull post={post} ref={postFullRef} likeHandler={handleInteraction} />
         </div>
