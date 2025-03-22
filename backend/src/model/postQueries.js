@@ -8,6 +8,7 @@ class Post {
             id: true,
             username: true,
             profilePicture: true,
+            followers: true,
         };
     }
 
@@ -60,7 +61,6 @@ class Post {
                 },
             },
         });
-
     }
 
     async dislikePost({ id, userId }) {

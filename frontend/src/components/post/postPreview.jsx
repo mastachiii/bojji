@@ -25,17 +25,17 @@ export default function PostPreview({ post }) {
     }
 
     return (
-        <div>
-            <Link to={`/user/${post.author.username}`} className="flex items-center gap-3 ml-3">
+        <div className="pb-5 border-b-1 border-neutral-300 md:w-[30%]">
+            <Link to={`/user/${post.author.username}`} className="flex items-center gap-3 ml-3 mb-2">
                 <img src={post.author.profilePicture} alt="" className="size-8 rounded-full" />
                 <p className="text-sm font-semibold">{post.author.username}</p>
             </Link>
             <ImageCarousel images={post.images} />
             <div className="flex gap-2 p-2">
-                <button onClick={handleInteraction} className="size-7">
+                <button onClick={handleInteraction} className="size-7 cursor-pointer">
                     {likedByUser ? <img src={heartActive} /> : <img src={heart} />}
                 </button>
-                <button onClick={() => postFullRef.current.showModal()} className="size-6">
+                <button onClick={() => postFullRef.current.showModal()} className="size-6 cursor-pointer">
                     <img src={comment} />
                 </button>
                 <img src={share} className="size-6" />
