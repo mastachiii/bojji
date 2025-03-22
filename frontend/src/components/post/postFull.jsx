@@ -23,8 +23,10 @@ export default function PostFull({ post, ref, likeHandler }) {
     return (
         <dialog ref={ref} className="min-w-screen min-h-screen">
             <ImageCarousel images={post.images} />
-            <div className="flex gap-2 mt-2 ml-2">
-                <img src={post.author.profilePicture} className="size-11 rounded-full" />
+            <div className="flex gap-2 pt-2 pl-2 pb-2 border-b-1 border-neutral-300">
+                <Link to={`/user/${post.author.username}`}>
+                    <img src={post.author.profilePicture} className="size-10 rounded-full" />
+                </Link>
                 <span className="flex items-center gap-2">
                     <Link to={`/user/${post.author.username}`} className="font-semibold">
                         {post.author.username}
@@ -37,10 +39,26 @@ export default function PostFull({ post, ref, likeHandler }) {
                     )}
                 </span>
             </div>
+            <div className="pl-2 pt-2">
+                <div className="flex">
+                    <Link to={`/user/${post.author.username}`} className="mr-2">
+                        <img src={post.author.profilePicture} className="size-10 rounded-full" />
+                    </Link>
+                    <p className="w-[80%] text-wrap">
+                        <Link to={`/user/${post.author.username}`} className="font-semibold mr-1">
+                            {post.author.username}
+                        </Link>
+                        {post.body}
+                        <p className="mt-2 text-xs text-neutral-600">{new Date().toLocaleDateString()}</p>
+                    </p>
+                </div>
+                <div className="flex flex-col gap-2 mt-5">
+                    {post.comments.map(c => {
+                        return <Comment comment={c} key={c.id} />;
+                    })}
+                </div>
+            </div>
             <p>PSOT FULL</p>
-            {post.comments.map(c => {
-                return <Comment comment={c} key={c.id} />;
-            })}
             <button onClick={likeHandler}>like</button>
             <input type="text" value={comment} onChange={e => setComment(e.target.value)} />
             <button onClick={handleComment}>comment</button>

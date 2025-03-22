@@ -80,6 +80,7 @@ export default function CreatePost({ ref }) {
                                 onChange={e => setBody(e.target.value)}
                                 rows={5}
                                 maxLength={500}
+                                required={true}
                                 className="w-full p-2 text-sm outline-0 resize-none border-1 border-neutral-200"
                             ></textarea>
                             <button

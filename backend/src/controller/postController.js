@@ -56,7 +56,7 @@ class Post {
     // Posts made by friends to populate user newsfeed
     async getPostFeed(req, res) {
         const posts = await db.getPostFeed({ userId: req.user.id });
-
+        console.log({ posts });
         res.status(200).json({ posts });
     }
 }
