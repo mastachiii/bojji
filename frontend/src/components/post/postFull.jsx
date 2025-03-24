@@ -8,7 +8,7 @@ import userApi from "../../helpers/userApi";
 
 export default function PostFull({ post, ref, likeHandler }) {
     const [comment, setComment] = useState("");
-    const user = useContext(userContext);
+    const user = useContext(userContext) || {};
     const [isFollowing, setIsFollowing] = useState(post.author.followers.find(f => f.id === user.id));
 
     function handleComment() {
@@ -44,12 +44,12 @@ export default function PostFull({ post, ref, likeHandler }) {
                     <Link to={`/user/${post.author.username}`} className="mr-2">
                         <img src={post.author.profilePicture} className="size-10 rounded-full" />
                     </Link>
-                    <p className="w-[80%] text-wrap">
+                    <p className="w-[80%] text-wrap text-sm">
                         <Link to={`/user/${post.author.username}`} className="font-semibold mr-1">
                             {post.author.username}
                         </Link>
                         {post.body}
-                        <p className="mt-2 text-xs text-neutral-600">{new Date().toLocaleDateString()}</p>
+                        <p className="mt-2 text-xs text-neutral-600">{new Date(post.createdAt).toLocaleDateString()}</p>
                     </p>
                 </div>
                 <div className="flex flex-col gap-2 mt-5">

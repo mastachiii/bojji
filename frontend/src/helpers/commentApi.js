@@ -6,7 +6,7 @@ class Comment {
 
     async createComment({ id, comment, authorId }) {
         try {
-            await fetch(`${this.postUrl}/${id}/comment`, {
+            await fetch(`${this.commentUrl}/${id}/comment`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -21,7 +21,7 @@ class Comment {
 
     async interactOnComment({ id, authorId, type }) {
         try {
-            await fetch(`${this.postUrl}/comment/${id}/${type}`, {
+            await fetch(`${this.commentUrl}/comment/${id}/${type}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

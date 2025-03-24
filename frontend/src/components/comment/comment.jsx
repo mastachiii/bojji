@@ -24,23 +24,32 @@ export default function Comment({ comment }) {
     }
 
     return (
-        <div className="flex">
+        <div className="flex text-sm">
             <Link to={`/user/${comment.author.username}`}>
                 <img src={comment.author.profilePicture} className="size-10 rounded-full mr-2" />
             </Link>
-            <span className="w-[80%] flex">
-                <p className="flex text-wrap">
-                    <Link to={`/user/${comment.author.username}`} className="mr-1">
-                        <p>{comment.author.username}</p>
-                    </Link>
-                    {/* {comment.body} */}
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti corrupti architecto error voluptates nesciunt doloremque cumque
-                    sed non, quam temporibus.
-                </p>
-                <button onClick={handleInteraction} className="ml-auto">
-                    <img src={likedByUser ? heartActive : heart} className="min-w-[1px] min-h-[1px] mb-2" />
+            <div className="w-[100%] flex ml-2">
+                <span className="w-full">
+                    <p className=" text-wrap">
+                        <div className="float-left h-1 pb-2 pr-1">
+                            <Link to={`/user/${comment.author.username}`} className="h-fit">
+                                <p className="w-fit h-fit font-semibold">{comment.author.username}</p>
+                            </Link>
+                        </div>
+                        <div className="float-none">
+                            <p className=" text-wrap">{comment.body}</p>
+                        </div>
+                        {/* {comment.body} */}
+                    </p>
+                    <span className="flex gap-3 mt-2 text-xs text-neutral-600">
+                        <p className="">{new Date(comment.createdAt).toLocaleDateString()}</p>
+                        <button>Reply</button>
+                    </span>
+                </span>
+                <button onClick={handleInteraction} className="w-[7%] mt-auto mb-auto ml-3 mr-2">
+                    <img src={likedByUser ? heartActive : heart} className="w-full mb-2" />
                 </button>
-            </span>
+            </div>
             {/* <p>{likes} likes</p> */}
             {/* {comment.replies.map(r => {
                 return <Reply reply={r} key={r.id} />;
