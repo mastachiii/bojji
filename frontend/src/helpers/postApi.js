@@ -4,7 +4,7 @@ class Post {
         this.token = localStorage.getItem("token");
     }
 
-    async createPost({ body, images, statusHandler, }) {
+    async createPost({ body, images, statusHandler }) {
         try {
             const formData = new FormData();
 
@@ -59,6 +59,15 @@ class Post {
         } catch {
             window.location.href = "/error";
         }
+    }
+
+    async deletePost({ id }) {
+        await fetch(`${this.postUrl}/delete/${id}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${this.token}`,
+            },
+        });
     }
 }
 

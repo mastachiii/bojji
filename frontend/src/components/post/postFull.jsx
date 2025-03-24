@@ -8,6 +8,7 @@ import userApi from "../../helpers/userApi";
 import replyApi from "../../helpers/replyApi";
 import PostInteract from "../post/postInteract";
 import cancel from "../../assets/cancel.svg";
+import postApi from "../../helpers/postApi";
 
 export default function PostFull({ post, ref, likeHandler }) {
     const [comment, setComment] = useState("");
@@ -62,6 +63,12 @@ export default function PostFull({ post, ref, likeHandler }) {
         setComment(e.target.value);
     }
 
+    async function handleDelete() {
+        prompt("Are you sure you want to delete this post?");
+        await postApi.deletePost({ id: post.id });
+        window.location.reload();
+    }
+
     return (
         <dialog
             ref={ref}
@@ -94,9 +101,12 @@ export default function PostFull({ post, ref, likeHandler }) {
                                 </button>
                             )}
                         </span>
-                        <button onClick={() => ref.current.close()} className="ml-auto mr-2 cursor-pointer">
-                            <img src={cancel} className="size-6" />
-                        </button>
+                        <span>
+                            <button>delete</button>
+                            <button onClick={() => ref.current.close()} className="ml-auto mr-2 cursor-pointer">
+                                <img src={cancel} className="size-6" />
+                            </button>
+                        </span>
                     </div>
                     <div className="pl-2 pt-2 md:pl-3">
                         <div className="flex mt-4">
