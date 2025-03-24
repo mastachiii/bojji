@@ -25,7 +25,7 @@ export default function PostPreview({ post }) {
     }
 
     return (
-        <div className="pb-5 border-b-1 border-neutral-300 md:w-[30%]">
+        <div className="pb-5 border-b-1 border-neutral-300 md:w-[25%]">
             <Link to={`/user/${post.author.username}`} className="flex items-center gap-3 ml-3 mb-2">
                 <img src={post.author.profilePicture} alt="" className="size-8 rounded-full" />
                 <p className="text-sm font-semibold">{post.author.username}</p>
