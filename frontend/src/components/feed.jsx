@@ -1,7 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import postApi from "../helpers/postApi";
-import { Link } from "react-router";
-import UserContext from "./context/userContext";
 import PostPreview from "./post/postPreview";
 import NavBar from "./navBar";
 

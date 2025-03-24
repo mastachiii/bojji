@@ -12,6 +12,7 @@ export default function Comment({ comment }) {
     const [likes, setLikes] = useState(comment.likedBy.length);
     const [likedByUser, setLikedByUser] = useState(comment.likedBy.find(u => u.id === user.id));
     const [reply, setReply] = useState("");
+    const [showReplies, setShowReplies] = useState(false);
 
     function handleInteraction() {
         commentApi.interactOnComment({ id: comment.id, type: likedByUser ? "dislike" : "like", authorId: comment.author.id });
@@ -24,39 +25,51 @@ export default function Comment({ comment }) {
     }
 
     return (
-        <div className="flex text-sm">
-            <Link to={`/user/${comment.author.username}`}>
-                <img src={comment.author.profilePicture} className="size-10 rounded-full mr-2" />
-            </Link>
-            <div className="w-[100%] flex ml-2">
-                <span className="w-full">
-                    <p className=" text-wrap">
-                        <div className="float-left h-1 pb-2 pr-1">
-                            <Link to={`/user/${comment.author.username}`} className="h-fit">
-                                <p className="w-fit h-fit font-semibold">{comment.author.username}</p>
-                            </Link>
-                        </div>
-                        <div className="float-none">
-                            <p className=" text-wrap">{comment.body}</p>
-                        </div>
-                        {/* {comment.body} */}
-                    </p>
-                    <span className="flex gap-3 mt-2 text-xs text-neutral-600">
-                        <p className="">{new Date(comment.createdAt).toLocaleDateString()}</p>
-                        <button>Reply</button>
+        <div>
+            <div className="flex text-sm">
+                <Link to={`/user/${comment.author.username}`}>
+                    <img src={comment.author.profilePicture} className="size-10 rounded-full mr-2" />
+                </Link>
+                <div className="w-[100%] flex ml-2">
+                    <span className="w-full">
+                        <p className=" text-wrap">
+                            <div className="float-left h-1 pb-2 pr-1">
+                                <Link to={`/user/${comment.author.username}`} className="h-fit">
+                                    <p className="w-fit h-fit font-semibold">{comment.author.username}</p>
+                                </Link>
+                            </div>
+                            <div className="float-none">
+                                <p className=" text-wrap">{comment.body}</p>
+                            </div>
+                        </p>
+                        <span className="flex gap-3 mt-2 text-xs text-neutral-600">
+                            <p className="">{new Date(comment.createdAt).toLocaleDateString()}</p>
+                            <p>{comment.likedBy.length} likes</p>
+                            <button>Reply</button>
+                        </span>
                     </span>
-                </span>
-                <button onClick={handleInteraction} className="w-[7%] mt-auto mb-auto ml-3 mr-2">
-                    <img src={likedByUser ? heartActive : heart} className="w-full mb-2" />
-                </button>
+                    <button onClick={handleInteraction} className="w-[7%] mt-auto mb-auto ml-3 mr-2">
+                        <img src={likedByUser ? heartActive : heart} className="w-full mb-2" />
+                    </button>
+                </div>
+                {/* <p>{likes} likes</p> */}
+                {/* <input type="text" value={reply} onChange={e => setReply(e.target.value)} />
+                <button onClick={handleReply}>reply</button>
+                <button onClick={handleInteraction}>like comment</button> */}
             </div>
-            {/* <p>{likes} likes</p> */}
-            {/* {comment.replies.map(r => {
-                return <Reply reply={r} key={r.id} />;
-            })} */}
-            {/* <input type="text" value={reply} onChange={e => setReply(e.target.value)} />
-            <button onClick={handleReply}>reply</button>
-            <button onClick={handleInteraction}>like comment</button> */}
+            <div className="pl-12 mt-2">
+                {comment.replies && (
+                    <button onClick={() => setShowReplies(!showReplies)} className="flex items-center gap-1 text-xs text-neutral-600">
+                        <div className="w-7 h-[1px] bg-neutral-400"></div>
+                        <p>{!showReplies ? `View Replies (${comment.replies.length})` : "Hide replies"}</p>
+                    </button>
+                )}
+                <div className={`flex flex-col gap-4 mt-4 ${showReplies ? "block" : "hidden"}`}>
+                    {comment.replies.map(r => {
+                        return <Reply reply={r} key={r.id} />;
+                    })}
+                </div>
+            </div>
         </div>
     );
 }
