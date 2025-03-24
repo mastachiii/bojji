@@ -6,13 +6,13 @@ import userContext from "../context/userContext";
 import { Link } from "react-router";
 import userApi from "../../helpers/userApi";
 import replyApi from "../../helpers/replyApi";
+import PostInteract from "../post/postInteract";
 
 export default function PostFull({ post, ref, likeHandler }) {
     const [comment, setComment] = useState("");
     const user = useContext(userContext) || {};
     const [isFollowing, setIsFollowing] = useState(post.author.followers.find(f => f.id === user.id));
     const [replyTo, setReplyTo] = useState(null);
-    const [replyAuthor, setReplyAuthor] = useState();
 
     function handleComment() {
         if (!comment) return;
@@ -33,7 +33,16 @@ export default function PostFull({ post, ref, likeHandler }) {
 
         if (!currentComment) return;
 
-        replyApi.createReply({ id: replyTo.id, reply: comment });
+        replyTo.replies.push({
+            id: replyTo.replies.length + 1,
+            author: user,
+            body: currentComment,
+            likedBy: [],
+            replies: [],
+            createdAt: new Date(),
+        });
+
+        replyApi.createReply({ id: replyTo.id, reply: currentComment });
     }
 
     function handleInteraction() {
@@ -43,7 +52,6 @@ export default function PostFull({ post, ref, likeHandler }) {
 
     function handleReplyTo({ user, comment }) {
         setReplyTo(comment);
-        setReplyAuthor(user);
         setComment(`@${user.username} `);
     }
 
@@ -95,6 +103,7 @@ export default function PostFull({ post, ref, likeHandler }) {
             <button onClick={likeHandler}>like</button>
             <input type="text" value={comment} onChange={handleCommentChange} />
             <button onClick={replyTo ? handleReply : handleComment}>{replyTo ? "REPLY" : "COMMENT"}</button>
+            <PostInteract post={post} likeHandler={likeHandler} />
         </dialog>
     );
 }
