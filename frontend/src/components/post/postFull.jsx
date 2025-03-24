@@ -81,7 +81,7 @@ export default function PostFull({ post, ref, likeHandler }) {
                 </span>
             </div>
             <div className="pl-2 pt-2">
-                <div className="flex">
+                <div className="flex mt-4">
                     <Link to={`/user/${post.author.username}`} className="mr-2">
                         <img src={post.author.profilePicture} className="size-10 rounded-full" />
                     </Link>
@@ -93,17 +93,20 @@ export default function PostFull({ post, ref, likeHandler }) {
                         <p className="mt-2 text-xs text-neutral-600">{new Date(post.createdAt).toLocaleDateString()}</p>
                     </p>
                 </div>
-                <div className="flex flex-col gap-3 mt-5">
+                <div className="flex flex-col gap-3 mt-5 mb-5">
                     {post.comments.map(c => {
                         return <Comment comment={c} key={c.id} replyHandler={handleReplyTo} />;
                     })}
                 </div>
             </div>
-            <p>PSOT FULL</p>
-            <button onClick={likeHandler}>like</button>
-            <input type="text" value={comment} onChange={handleCommentChange} />
-            <button onClick={replyTo ? handleReply : handleComment}>{replyTo ? "REPLY" : "COMMENT"}</button>
-            <PostInteract post={post} likeHandler={likeHandler} />
+            <PostInteract post={post} likeHandler={likeHandler}>
+                <div className="flex justify-center gap-3 mt-3 pt-3 pb-3 pl-4 pr-4 border-t-1 border-neutral-200">
+                    <input type="text" value={comment} onChange={handleCommentChange} placeholder={"Add a comment"} className="w-[100%] outline-0 text-sm"     />
+                    <button onClick={replyTo ? handleReply : handleComment} className="text-sky-700 font-semibold text-sm">
+                        Post
+                    </button>
+                </div>
+            </PostInteract>
         </dialog>
     );
 }

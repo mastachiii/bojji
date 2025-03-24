@@ -20,7 +20,7 @@ export default function FollowDialog({ follows, ref, user, label }) {
     return (
         <dialog
             ref={ref}
-            className="relative min-w-screen min-h-screen shadow-sm shadow-neutral-600 rounded-xl md:min-w-[30%] md:min-h-[50%] md:max-h-[50%] md:m-auto"
+            className="relative min-w-screen min-h-screen shadow-sm shadow-neutral-600 md:rounded-xl md:min-w-[30%] md:min-h-[50%] md:max-h-[50%] md:m-auto"
         >
             <div>
                 <span className="flex pt-2 pb-4 border-b-1 border-neutral-200">
