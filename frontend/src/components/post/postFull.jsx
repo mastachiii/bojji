@@ -9,6 +9,7 @@ import replyApi from "../../helpers/replyApi";
 import PostInteract from "../post/postInteract";
 import cancel from "../../assets/cancel.svg";
 import postApi from "../../helpers/postApi";
+import deleteImg from "../../assets/delete.svg";
 
 export default function PostFull({ post, ref, likeHandler }) {
     const [comment, setComment] = useState("");
@@ -64,9 +65,10 @@ export default function PostFull({ post, ref, likeHandler }) {
     }
 
     async function handleDelete() {
-        prompt("Are you sure you want to delete this post?");
-        await postApi.deletePost({ id: post.id });
-        window.location.reload();
+        if (confirm("Are you sure you want to delete this post?")) {
+            await postApi.deletePost({ id: post.id });
+            window.location.reload();
+        }
     }
 
     return (
@@ -82,7 +84,7 @@ export default function PostFull({ post, ref, likeHandler }) {
             </span>
             <button className="absolute">close</button>
             <div className="md:flex md:overflow-hidden">
-                <div className="md:w-[50%] md:h-full md:flex">
+                <div className="md:w-[50%] md:h-full md:flex md:m-auto">
                     <ImageCarousel images={post.images} heightDesktop="h-full" />
                 </div>
                 <div className="md:w-[50%]">
@@ -101,9 +103,13 @@ export default function PostFull({ post, ref, likeHandler }) {
                                 </button>
                             )}
                         </span>
-                        <span>
-                            <button>delete</button>
-                            <button onClick={() => ref.current.close()} className="ml-auto mr-2 cursor-pointer">
+                        <span className="hidden items-center gap-3 ml-auto md:flex">
+                            {user.id === post.author.id && (
+                                <button onClick={handleDelete} className="cursor-pointer">
+                                    <img src={deleteImg} className="size-5" />
+                                </button>
+                            )}
+                            <button onClick={() => ref.current.close()} className="mr-2 cursor-pointer">
                                 <img src={cancel} className="size-6" />
                             </button>
                         </span>

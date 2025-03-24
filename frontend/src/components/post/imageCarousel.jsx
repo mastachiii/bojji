@@ -14,7 +14,7 @@ export default function ImageCarousel({ images, height = "h-140", heightDesktop 
                     <img src={prev} className="w-7 absolute left-1 bottom-[40%] cursor-pointer" />
                 </button>
             )}
-            {<img src={isString ? image : URL.createObjectURL(image)} className={`w-screen md:h-full`} />}
+            {<img src={isString ? image : URL.createObjectURL(image)} className={`w-screen md:h-full md:w-full`} />}
             {selected < images.length - 1 && (
                 <button onClick={() => setSelected(selected + 1)} className="w-7 absolute right-1 bottom-[40%] cursor-pointer">
                     <img src={next} />
