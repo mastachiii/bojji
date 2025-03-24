@@ -32,7 +32,6 @@ export default function Reply({ reply }) {
                         <div className="float-none">
                             <p className=" text-wrap">{reply.body}</p>
                         </div>
-                        {/* {reply.body} */}
                     </p>
                     <span className="flex gap-3 mt-2 text-xs text-neutral-600">
                         <p className="">{new Date(reply.createdAt).toLocaleDateString()}</p>

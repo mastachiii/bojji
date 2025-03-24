@@ -5,19 +5,52 @@ import ImageCarousel from "./imageCarousel";
 import userContext from "../context/userContext";
 import { Link } from "react-router";
 import userApi from "../../helpers/userApi";
+import replyApi from "../../helpers/replyApi";
 
 export default function PostFull({ post, ref, likeHandler }) {
     const [comment, setComment] = useState("");
     const user = useContext(userContext) || {};
     const [isFollowing, setIsFollowing] = useState(post.author.followers.find(f => f.id === user.id));
+    const [replyTo, setReplyTo] = useState(null);
+    const [replyAuthor, setReplyAuthor] = useState();
 
     function handleComment() {
+        if (!comment) return;
+
+        post.comments.push({
+            id: post.comments.length + 1,
+            author: user,
+            body: comment,
+            likedBy: [],
+            replies: [],
+            createdAt: new Date(),
+        });
         commentApi.createComment({ id: post.id, comment, authorId: post.author.id });
+    }
+
+    function handleReply() {
+        const currentComment = comment.split(" ")[1];
+
+        if (!currentComment) return;
+
+        replyApi.createReply({ id: replyTo.id, reply: comment });
     }
 
     function handleInteraction() {
         setIsFollowing(!isFollowing);
         userApi.interactWithUser({ username: post.author.username, type: isFollowing ? "unfollow" : "follow" });
+    }
+
+    function handleReplyTo({ user, comment }) {
+        setReplyTo(comment);
+        setReplyAuthor(user);
+        setComment(`@${user.username} `);
+    }
+
+    function handleCommentChange(e) {
+        if (e.target.value === "") setReplyTo(null);
+
+        setComment(e.target.value);
     }
 
     return (
@@ -52,16 +85,16 @@ export default function PostFull({ post, ref, likeHandler }) {
                         <p className="mt-2 text-xs text-neutral-600">{new Date(post.createdAt).toLocaleDateString()}</p>
                     </p>
                 </div>
-                <div className="flex flex-col gap-2 mt-5">
+                <div className="flex flex-col gap-3 mt-5">
                     {post.comments.map(c => {
-                        return <Comment comment={c} key={c.id} />;
+                        return <Comment comment={c} key={c.id} replyHandler={handleReplyTo} />;
                     })}
                 </div>
             </div>
             <p>PSOT FULL</p>
             <button onClick={likeHandler}>like</button>
-            <input type="text" value={comment} onChange={e => setComment(e.target.value)} />
-            <button onClick={handleComment}>comment</button>
+            <input type="text" value={comment} onChange={handleCommentChange} />
+            <button onClick={replyTo ? handleReply : handleComment}>{replyTo ? "REPLY" : "COMMENT"}</button>
         </dialog>
     );
 }

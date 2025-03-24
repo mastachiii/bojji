@@ -1,27 +1,21 @@
 import { useContext, useState } from "react";
 import userContext from "../context/userContext";
 import commentApi from "../../helpers/commentApi";
-import replyApi from "../../helpers/replyApi";
 import Reply from "../reply/reply";
 import { Link } from "react-router";
 import heart from "../../assets/heart.svg";
 import heartActive from "../../assets/heartActive.svg";
 
-export default function Comment({ comment }) {
+export default function Comment({ comment, replyHandler }) {
     const user = useContext(userContext);
     const [likes, setLikes] = useState(comment.likedBy.length);
     const [likedByUser, setLikedByUser] = useState(comment.likedBy.find(u => u.id === user.id));
-    const [reply, setReply] = useState("");
     const [showReplies, setShowReplies] = useState(false);
 
     function handleInteraction() {
         commentApi.interactOnComment({ id: comment.id, type: likedByUser ? "dislike" : "like", authorId: comment.author.id });
         setLikedByUser(!likedByUser);
         setLikes(likedByUser ? likes - 1 : likes + 1);
-    }
-
-    function handleReply() {
-        replyApi.createReply({ id: comment.id, reply });
     }
 
     return (
@@ -45,7 +39,7 @@ export default function Comment({ comment }) {
                         <span className="flex gap-3 mt-2 text-xs text-neutral-600">
                             <p className="">{new Date(comment.createdAt).toLocaleDateString()}</p>
                             <p>{comment.likedBy.length} likes</p>
-                            <button>Reply</button>
+                            <button onClick={() => replyHandler({ user: comment.author, comment })}>Reply</button>
                         </span>
                     </span>
                     <button onClick={handleInteraction} className="w-[7%] mt-auto mb-auto ml-3 mr-2">
@@ -58,7 +52,7 @@ export default function Comment({ comment }) {
                 <button onClick={handleInteraction}>like comment</button> */}
             </div>
             <div className="pl-12 mt-2">
-                {comment.replies && (
+                {comment.replies.length > 0 && (
                     <button onClick={() => setShowReplies(!showReplies)} className="flex items-center gap-1 text-xs text-neutral-600">
                         <div className="w-7 h-[1px] bg-neutral-400"></div>
                         <p>{!showReplies ? `View Replies (${comment.replies.length})` : "Hide replies"}</p>
