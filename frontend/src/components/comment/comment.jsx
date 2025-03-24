@@ -43,13 +43,9 @@ export default function Comment({ comment, replyHandler }) {
                         </span>
                     </span>
                     <button onClick={handleInteraction} className="w-[7%] mt-auto mb-auto ml-3 mr-2">
-                        <img src={likedByUser ? heartActive : heart} className="w-full mb-2" />
+                        <img src={likedByUser ? heartActive : heart} className="w-full mb-2 md:size-5" />
                     </button>
                 </div>
-                {/* <p>{likes} likes</p> */}
-                {/* <input type="text" value={reply} onChange={e => setReply(e.target.value)} />
-                <button onClick={handleReply}>reply</button>
-                <button onClick={handleInteraction}>like comment</button> */}
             </div>
             <div className="pl-12 mt-2">
                 {comment.replies.length > 0 && (

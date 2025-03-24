@@ -39,7 +39,7 @@ export default function Reply({ reply }) {
                     </span>
                 </span>
                 <button onClick={handleInteraction} className="w-[7%] mt-auto mb-auto ml-3 mr-2">
-                    <img src={likedByUser ? heartActive : heart} className="w-full mb-2" />
+                    <img src={likedByUser ? heartActive : heart} className="w-full mb-2 md:size-5" />
                 </button>
             </div>
         </div>
