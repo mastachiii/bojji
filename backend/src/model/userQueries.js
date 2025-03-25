@@ -47,6 +47,7 @@ class User {
                 bio: true,
                 followers: selectFields,
                 following: selectFields,
+                notifications: true,
                 posts: true,
                 stories: true,
                 conversations: {

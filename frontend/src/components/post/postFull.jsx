@@ -74,7 +74,7 @@ export default function PostFull({ post, ref, likeHandler }) {
     return (
         <dialog
             ref={ref}
-            className="min-w-screen min-h-screen md:min-w-[60%] md:min-h-fit md:max-w-[60%] md:max-h-[90%] md:m-auto md:overflow-hidden"
+            className="min-w-screen min-h-screen md:min-w-[60%] md:min-h-[90%] md:max-w-[60%] md:max-h-[90%] md:m-auto md:overflow-hidden"
         >
             <span className="flex pt-2 pb-4 border-b-1 border-neutral-200 md:hidden">
                 <p className="w-[100%] mt-1 font-semibold text-center">Post</p>
@@ -82,9 +82,8 @@ export default function PostFull({ post, ref, likeHandler }) {
                     <img src={cancel} className="size-8" />
                 </button>
             </span>
-            <button className="absolute">close</button>
             <div className="md:flex md:overflow-hidden">
-                <div className="md:w-[50%] md:h-full md:flex md:m-auto">
+                <div className="md:w-[50%] md:flex">
                     <ImageCarousel images={post.images} heightDesktop="h-full" />
                 </div>
                 <div className="md:w-[50%]">
