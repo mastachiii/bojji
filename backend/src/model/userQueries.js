@@ -48,7 +48,40 @@ class User {
                 followers: selectFields,
                 following: selectFields,
                 notifications: true,
-                posts: true,
+                posts: {
+                    include: {
+                        likedBy: {
+                            select: this.selectFields,
+                        },
+                        comments: {
+                            include: {
+                                author: {
+                                    select: this.selectFields,
+                                },
+                                likedBy: {
+                                    select: this.selectFields,
+                                },
+                                replies: {
+                                    include: {
+                                        author: {
+                                            select: this.selectFields,
+                                        },
+                                        likedBy: {
+                                            select: this.selectFields,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                        author: {
+                            include: {
+                                followers: {
+                                    select: this.selectFields,
+                                },
+                            },
+                        },
+                    },
+                },
                 stories: true,
                 conversations: {
                     include: {
@@ -157,13 +190,4 @@ class User {
     }
 }
 
-(async () => {
-    // await prisma.post.deleteMany({
-    //     where: {
-    //         author: {
-    //             username: "mastachii",
-    //         },
-    //     },
-    // });
-})();
 module.exports = new User();

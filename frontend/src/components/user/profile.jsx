@@ -8,6 +8,7 @@ import EmptyPosts from "./emptyPosts";
 import { Link } from "react-router";
 import FollowDialog from "./followDialog";
 import EditProfile from "./editProfile";
+import PostProfilePreview from "../post/postProfilePreview";
 
 export default function Profile() {
     const [user, setUser] = useState(null);
@@ -102,7 +103,7 @@ export default function Profile() {
                 <div className="grid grid-cols-3 gap-1 mt-2 justify-center">
                     {user.posts.length >= 1 ? (
                         user.posts.map(p => {
-                            return <img src={p.images[0]} className="w-full min-h-40 md:min-h-80" />;
+                            return <PostProfilePreview post={p} />;
                         })
                     ) : (
                         <EmptyPosts />

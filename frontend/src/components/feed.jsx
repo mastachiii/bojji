@@ -22,14 +22,14 @@ export default function Feed() {
             <div className="hidden md:block md:w-[20%]">
                 <NavBar />
             </div>
-            <div className="w-[70%] flex flex-col">
+            <div className="flex flex-col md:w-[70%]">
                 <div className="flex flex-col gap-5 items-center mt-5">
                     {posts.map(p => {
                         return <PostPreview post={p} />;
                     })}
                 </div>
-                <h4 className="w-[40%] ml-auto mr-auto mt-2 text-lg font-semibold">Suggested Posts</h4>
-                <div className="flex flex-col gap-5 items-center mt-5">
+                <h4 className="mt-2 ml-4 text-lg font-semibold md:w-[40%] md:m-auto md:mt-2">Suggested Posts</h4>
+                <div className="flex flex-col gap-5 items-center mt-5 pb-10">
                     {suggestedPosts.map(p => {
                         return <PostPreview post={p} />;
                     })}
