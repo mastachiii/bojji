@@ -8,7 +8,7 @@ export default function ImageCarousel({ images, height = "h-140", heightDesktop 
     const isString = typeof image === "string";
 
     return (
-        <div className={`w-fit ${height} relative flex justify-center ml-auto mr-auto md:${heightDesktop} md:min-w-[50%]`}>
+        <div className={`w-fit ${height} relative flex justify-center md:ml-auto md:mr-auto md:${heightDesktop} md:min-w-[50%]`}>
             {selected > 0 && (
                 <button onClick={() => setSelected(selected - 1)}>
                     <img src={prev} className="w-7 absolute left-1 bottom-[40%] cursor-pointer" />
