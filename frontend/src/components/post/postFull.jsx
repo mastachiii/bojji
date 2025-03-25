@@ -74,7 +74,7 @@ export default function PostFull({ post, ref, likeHandler }) {
     return (
         <dialog
             ref={ref}
-            className="min-w-screen min-h-screen max-h-screen relative md:min-w-[60%] md:min-h-[80%] md:max-w-[60%] md:max-h-[90%] md:h-full md:m-auto"
+            className="min-w-screen min-h-screen max-h-screen md:min-w-[60%] md:min-h-[80%] md:max-w-[60%] md:max-h-[90%] md:h-full md:m-auto fixed top-0"
         >
             <span className="flex pt-2 pb-4 border-b-1 border-neutral-200 md:hidden">
                 <p className="w-[100%] mt-1 font-semibold text-center">Post</p>

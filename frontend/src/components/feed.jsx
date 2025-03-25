@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import postApi from "../helpers/postApi";
 import PostPreview from "./post/postPreview";
 import NavBar from "./navBar";
