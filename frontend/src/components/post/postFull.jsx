@@ -74,7 +74,7 @@ export default function PostFull({ post, ref, likeHandler }) {
     return (
         <dialog
             ref={ref}
-            className="min-w-screen min-h-screen max-h-screen md:min-w-[60%] md:min-h-[80%] md:max-w-[60%] md:max-h-[90%] md:h-full md:m-auto fixed top-0"
+            className="min-w-screen h-full min-h-screen max-h-screen md:min-w-[60%] md:min-h-[80%] md:max-w-[60%] md:max-h-[90%] md:h-full md:m-auto fixed top-0"
         >
             <span className="flex pt-2 pb-4 border-b-1 border-neutral-200 md:hidden">
                 <p className="w-[100%] mt-1 font-semibold text-center">Post</p>
@@ -82,11 +82,11 @@ export default function PostFull({ post, ref, likeHandler }) {
                     <img src={cancel} className="size-8" />
                 </button>
             </span>
-            <div className="md:flex md:h-full">
+            <div className="h-full md:flex md:h-full">
                 <div className="md:w-[50%] md:min-h-[90%]">
                     <ImageCarousel images={post.images} heightDesktop="h-full" />
                 </div>
-                <div className=" md:w-[50%]">
+                <div className="h-full md:w-[50%]">
                     <div className="flex gap-2 pt-2 pl-2 pb-2 border-b-1 border-neutral-300 md:pl-3">
                         <Link to={`/user/${post.author.username}`}>
                             <img src={post.author.profilePicture} className="size-10 rounded-full" />
@@ -113,7 +113,7 @@ export default function PostFull({ post, ref, likeHandler }) {
                             </button>
                         </span>
                     </div>
-                    <div className="pl-2 pt-2 h-10 md:pl-3 md:h-[70%] md:overflow-y-scroll">
+                    <div className="h-[80%] pl-2 pt-2 md:pl-3 md:h-[70%] md:overflow-y-scroll md:scroll-">
                         <div className="flex mt-4">
                             <Link to={`/user/${post.author.username}`} className="mr-2">
                                 <img src={post.author.profilePicture} className="size-10 rounded-full" />
@@ -126,7 +126,7 @@ export default function PostFull({ post, ref, likeHandler }) {
                                 <p className="mt-2 text-xs text-neutral-600">{new Date(post.createdAt).toLocaleDateString()}</p>
                             </p>
                         </div>
-                        <div className="flex flex-col gap-3 mt-5 h-[80%]">
+                        <div className="h-[80%] flex flex-col gap-3 mt-5 overflow-y-scroll md:overflow-auto">
                             {post.comments.map(c => {
                                 return <Comment comment={c} key={c.id} replyHandler={handleReplyTo} />;
                             })}

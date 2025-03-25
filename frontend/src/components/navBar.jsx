@@ -31,7 +31,7 @@ export default function NavBar({ selected }) {
             <NavBarLink link={"/"} label={"Home"} image={home} size="8" />
             <NavBarLink link={"/search"} label={"Search"} image={search} size="8" />
             <NavBarLink link={"/explore"} label={"Explore"} image={explore} size="7" />
-            <NavBarLink link={"/conversations"} label={"Messages"} image={messenger} size="9" />
+            <NavBarLink link={"/conversation"} label={"Messages"} image={messenger} size="9" />
             <button className="flex gap-4">
                 <img src={heart} className="size-8 ml-[3px]" />
                 <p className="hidden md:block">Notifications</p>
