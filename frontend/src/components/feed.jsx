@@ -16,7 +16,7 @@ export default function Feed() {
 
     return (
         <div className="flex flex-col md:flex-row">
-            <div className="hidden md:block">
+            <div className="hidden md:block md:w-[15%]">
                 <NavBar />
             </div>
             <div className="flex flex-col gap-5">
