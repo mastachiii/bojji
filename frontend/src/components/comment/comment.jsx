@@ -7,7 +7,7 @@ import heart from "../../assets/heart.svg";
 import heartActive from "../../assets/heartActive.svg";
 
 export default function Comment({ comment, replyHandler }) {
-    const user = useContext(userContext);
+    const user = useContext(userContext) || {};
     const [likes, setLikes] = useState(comment.likedBy.length);
     const [likedByUser, setLikedByUser] = useState(comment.likedBy.find(u => u.id === user.id));
     const [showReplies, setShowReplies] = useState(false);

@@ -139,6 +139,64 @@ class Post {
 
         return posts;
     }
+
+    async getSuggestedPosts({ userId }) {
+        const posts = await prisma.post.findMany({
+            where: {
+                author: {
+                    OR: [
+                        {
+                            id: {
+                                not: userId,
+                            },
+                        },
+                        {
+                            followers: {
+                                some: {
+                                    id: {
+                                        not: userId,
+                                    },
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+            include: {
+                likedBy: {
+                    select: this.selectFields,
+                },
+                comments: {
+                    include: {
+                        author: {
+                            select: this.selectFields,
+                        },
+                        likedBy: {
+                            select: this.selectFields,
+                        },
+                        replies: {
+                            include: {
+                                author: {
+                                    select: this.selectFields,
+                                },
+                                likedBy: {
+                                    select: this.selectFields,
+                                },
+                            },
+                        },
+                    },
+                },
+                author: {
+                    select: this.selectFields,
+                },
+            },
+        });
+
+        return posts;
+    }
 }
 
 module.exports = new Post();

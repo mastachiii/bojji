@@ -12,8 +12,8 @@ import postApi from "../../helpers/postApi";
 import deleteImg from "../../assets/delete.svg";
 
 export default function PostFull({ post, ref, likeHandler }) {
+    const user = useContext(userContext) || {};
     const [comment, setComment] = useState("");
-    const user = useContext(userContext);
     const [isFollowing, setIsFollowing] = useState(post.author.followers.find(f => f.id === user.id));
     const [replyTo, setReplyTo] = useState(null);
 

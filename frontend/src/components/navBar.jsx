@@ -23,7 +23,7 @@ function NavBarLink({ label, image, link, extraClass, size = "7" }) {
 
 export default function NavBar({ selected }) {
     const createPostRef = useRef();
-    const user = useContext(userContext);
+    const user = useContext(userContext) || {};
 
     return (
         <div className="w-full fixed bottom-0 flex items-center justify-center gap-7 p-2 bg-white border-t-1 border-r-1 border-neutral-200 md:h-screen md:sticky md:flex-col md:top-0 md:pt-10 md:pl-5 md:items-start md:justify-start">
@@ -36,7 +36,7 @@ export default function NavBar({ selected }) {
                 <img src={heart} className="size-8 ml-[3px]" />
                 <p className="hidden md:block">Notifications</p>
             </button>
-            <button onClick={() => createPostRef.current.showModal()} className="flex gap-5 ml-[6px]">
+            <button onClick={() => createPostRef.current.showModal()} className="flex gap-5 ml-[6px] cursor-pointer">
                 <img src={create} className="size-6" />
                 <p className="hidden md:block">Create</p>
             </button>

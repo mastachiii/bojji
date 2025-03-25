@@ -8,7 +8,7 @@ import bookmark from "../../assets/bookmark.svg";
 import FollowDialog from "../user/followDialog";
 
 export default function PostInteract({ post, likeHandler, children }) {
-    const user = useContext(userContext);
+    const user = useContext(userContext) || {};
     const [likes, setLikes] = useState(post.likedBy.length);
     const [likedByUser, setLikedByUser] = useState(post.likedBy.find(u => u.id === user.id));
     const likesDialogRef = useRef();

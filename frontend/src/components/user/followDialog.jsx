@@ -5,7 +5,7 @@ import cancel from "../../assets/cancel.svg";
 import { Link } from "react-router";
 import SearchDialog from "../searchDialog";
 
-export default function FollowDialog({ follows, ref, user, label }) {
+export default function FollowDialog({ follows, ref, user = {}, label }) {
     const [activeBtn, setActiveBtn] = useState(null);
     const [search, setSearch] = useState("");
     const usersToShow = follows.filter(f => f.username.includes(search));

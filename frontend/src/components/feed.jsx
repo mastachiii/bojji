@@ -16,10 +16,10 @@ export default function Feed() {
 
     return (
         <div className="flex flex-col md:flex-row">
-            <div className="hidden md:block md:w-[15%]">
+            <div className="hidden md:block md:w-[20%]">
                 <NavBar />
             </div>
-            <div className="flex flex-col gap-5">
+            <div className="w-[60%] flex flex-col gap-5 items-center mt-5">
                 {posts.map(p => {
                     return <PostPreview post={p} />;
                 })}
