@@ -74,7 +74,7 @@ export default function PostFull({ post, ref, likeHandler }) {
     return (
         <dialog
             ref={ref}
-            className="min-w-screen min-h-screen max-h-screen relative md:min-w-[60%] md:min-h-[90%] md:max-w-[60%] md:max-h-[90%] md:m-auto md:overflow-hidden"
+            className="min-w-screen min-h-screen max-h-screen relative md:min-w-[60%] md:min-h-[90%] md:max-w-[60%] md:max-h-[90%] md:m-auto"
         >
             <span className="flex pt-2 pb-4 border-b-1 border-neutral-200 md:hidden">
                 <p className="w-[100%] mt-1 font-semibold text-center">Post</p>
@@ -113,7 +113,7 @@ export default function PostFull({ post, ref, likeHandler }) {
                             </button>
                         </span>
                     </div>
-                    <div className="pl-2 pt-2 md:pl-3">
+                    <div className="pl-2 pt-2 h-10 md:pl-3">
                         <div className="flex mt-4">
                             <Link to={`/user/${post.author.username}`} className="mr-2">
                                 <img src={post.author.profilePicture} className="size-10 rounded-full" />
@@ -126,7 +126,7 @@ export default function PostFull({ post, ref, likeHandler }) {
                                 <p className="mt-2 text-xs text-neutral-600">{new Date(post.createdAt).toLocaleDateString()}</p>
                             </p>
                         </div>
-                        <div className="flex flex-col gap-3 mt-5 mb-5 overflow-scroll mt-100">
+                        <div className="flex flex-col gap-3 mt-5 mb-5">
                             {post.comments.map(c => {
                                 return <Comment comment={c} key={c.id} replyHandler={handleReplyTo} />;
                             })}

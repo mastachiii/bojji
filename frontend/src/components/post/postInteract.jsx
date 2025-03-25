@@ -20,7 +20,7 @@ export default function PostInteract({ post, likeHandler, children }) {
     }
 
     return (
-        <div className="absolute bottom-0 bg-white md:absolute md:w-[50%]">
+        <div className="sticky bottom-0 bg-white md:absolute md:w-[50%]">
             <div className="pt-3 pl-4 pr-4 border-t-1 border-neutral-200">
                 <span className="flex gap-2">
                     <button onClick={handleLike} className="size-6">

@@ -23,6 +23,16 @@ class User {
         });
     }
 
+    async getUserAuth({ username }) {
+        const user = await prisma.user.findUnique({
+            where: {
+                username,
+            },
+        });
+
+        return user;
+    }
+
     async getUserByUsername({ username }) {
         const selectFields = {
             select: {

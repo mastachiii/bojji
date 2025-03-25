@@ -52,6 +52,7 @@ class User {
 
                         errorHandler([{ msg: data.error }]);
                     } else {
+                        console.log({ data });
                         localStorage.setItem("token", data.token);
 
                         window.location.href = "/";
@@ -83,6 +84,7 @@ class User {
 
     async getUserData({ username }) {
         try {
+            console.log(this.token);
             const user = await fetch(`${this.userUrl}/${username}`, {
                 headers: {
                     Authorization: `Bearer ${this.token}`,

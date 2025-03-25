@@ -13,16 +13,6 @@ const userStrategy = new JwtStrategy(options, async (payload, done) => {
     try {
         const user = await primsa.user.findUnique({
             where: { id: payload.user.id },
-            include: {
-                followers: true,
-                following: true,
-                posts: true,
-                stories: true,
-                comments: true,
-                conversations: true,
-                messages: true,
-                commentReplies: true,
-            },
         });
         if (!user) return done(null, false);
 
