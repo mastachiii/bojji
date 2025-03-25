@@ -44,6 +44,22 @@ class Post {
         }
     }
 
+    async getSuggestedPosts() {
+        try {
+            const posts = await fetch(`${this.postUrl}/suggested`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            })
+                .then(response => response.json())
+                .then(data => data.posts);
+
+            return posts;
+        } catch {
+            window.location.href = "/error";
+        }
+    }
+
     async interactOnPost({ id, authorId, type }) {
         try {
             const link = `${this.postUrl}/${id}/${type}`;

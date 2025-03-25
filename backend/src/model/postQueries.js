@@ -144,7 +144,7 @@ class Post {
         const posts = await prisma.post.findMany({
             where: {
                 author: {
-                    OR: [
+                    AND: [
                         {
                             id: {
                                 not: userId,
@@ -152,7 +152,7 @@ class Post {
                         },
                         {
                             followers: {
-                                some: {
+                                every: {
                                     id: {
                                         not: userId,
                                     },

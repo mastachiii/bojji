@@ -32,7 +32,7 @@ export default function FollowDialog({ follows, ref, user = {}, label }) {
                 <SearchDialog value={search} handler={setSearch} />
                 <div>
                     {usersToShow.map(f => {
-                        const isFollowing = user.following.find(u => u.id === f.id);
+                        const isFollowing = user.following && user.following.find(u => u.id === f.id);
                         const isUser = f.id === user.id;
 
                         return (
