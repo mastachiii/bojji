@@ -57,7 +57,12 @@ class User {
                 bio: true,
                 followers: selectFields,
                 following: selectFields,
-                notifications: true,
+                notifications: {
+                    include: {
+                        post: true,
+                        user: { select: this.selectFields },
+                    },
+                },
                 posts: {
                     include: {
                         likedBy: {

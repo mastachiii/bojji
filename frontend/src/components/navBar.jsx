@@ -10,6 +10,7 @@ import messenger from "../assets/messenger.svg";
 import userContext from "./context/userContext";
 import Search from "./user/search";
 import NavBarContext from "./context/navBarContext";
+import Notification from "./notifications/notifications";
 
 function NavBarLink({ label, image, link, extraClass, handler, size = "7" }) {
     const navBarContext = useContext(NavBarContext);
@@ -34,9 +35,10 @@ function NavBarLink({ label, image, link, extraClass, handler, size = "7" }) {
 }
 
 export default function NavBar({ minimized, extraClass = "w-full" }) {
+    const user = useContext(userContext) || {};
     const createPostRef = useRef();
     const searchUserRef = useRef();
-    const user = useContext(userContext) || {};
+    const notificationRef = useRef();
 
     return (
         <div
@@ -49,12 +51,13 @@ export default function NavBar({ minimized, extraClass = "w-full" }) {
                 <NavBarLink label={"Search"} image={search} size="8" handler={() => searchUserRef.current.showModal()} />
                 <NavBarLink link={"/explore"} label={"Explore"} image={explore} size="7" />
                 <NavBarLink link={"/conversation"} label={"Messages"} image={messenger} size="9" />
-                <NavBarLink link={"/"} label={"Notifications"} image={heart} />
+                <NavBarLink label={"Notifications"} image={heart} handler={() => notificationRef.current.showModal()} />
                 <NavBarLink link={"/"} label={"Create"} image={create} handler={() => createPostRef.current.showModal()} size="6" />
                 <NavBarLink link={`/user/${user.username}`} image={user.profilePicture} label="Profile" size="8" extraClass={"rounded-full"} />
             </NavBarContext.Provider>
             <CreatePost ref={createPostRef} />
             <Search ref={searchUserRef} />
+            <Notification ref={notificationRef} notifications={user.notifications} />
         </div>
     );
 }
