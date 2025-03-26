@@ -83,7 +83,6 @@ class User {
 
     async getUserData({ username }) {
         try {
-            console.log(this.token);
             const user = await fetch(`${this.userUrl}/${username}`, {
                 headers: {
                     Authorization: `Bearer ${this.token}`,
