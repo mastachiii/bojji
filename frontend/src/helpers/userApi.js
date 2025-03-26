@@ -52,7 +52,6 @@ class User {
 
                         errorHandler([{ msg: data.error }]);
                     } else {
-                        console.log({ data });
                         localStorage.setItem("token", data.token);
 
                         window.location.href = "/";

@@ -9,7 +9,7 @@ export default function Wrapper({ children }) {
     useEffect(() => {
         (async () => {
             const data = await userApi.getUserData({ username: "" });
-
+            console.log({data})
             setTimeout(() => {
                 setTrigger(trigger + 1);
             }, 3000);

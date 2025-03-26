@@ -30,7 +30,7 @@ export default function Chat({ chat, chatHandler }) {
     if (!chat) return;
 
     return (
-        <div className="w-screen h-screen relative overflow-y-hidden md:grow">
+        <div className="w-screen h-screen relative overflow-y-hidden md:w-[70%]">
             <div className="flex items-center p-2 border-b-1 border-neutral-200">
                 <button onClick={() => chatHandler(null)} className="size-8 md:hidden">
                     <img src={back} />

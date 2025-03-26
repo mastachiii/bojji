@@ -4,20 +4,28 @@ const prisma = new PrismaClient();
 
 class Notification {
     async createNotification({ userId, postId, targetId, type }) {
-        await prisma.notification.create({
+        const notification = await prisma.notification.create({
             data: {
                 type,
                 user: {
-                    connect: userId,
+                    connect: {
+                        id: userId,
+                    },
                 },
                 post: {
-                    connect: postId,
+                    connect: {
+                        id: postId,
+                    },
                 },
                 targetUser: {
-                    connect: targetId,
+                    connect: {
+                        id: targetId,
+                    },
                 },
             },
         });
+
+        console.log({ notification })
     }
 }
 
