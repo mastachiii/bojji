@@ -15,7 +15,7 @@ export default function PostProfilePreview({ post }) {
 
     return (
         <div>
-            <img src={post.images[0]} className="w-full h-40 md:h-100 opacity-100" onClick={() => postFullRef.current.showModal()} />
+            <img src={post.images[0]} className="w-full h-40 md:h-100 opacity-100 transition duration-100 ease-in cursor-pointer hover:scale-101" onClick={() => postFullRef.current.showModal()} />
             <PostFull post={post} likeHandler={handleLike} ref={postFullRef} />
         </div>
     );
