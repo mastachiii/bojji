@@ -12,6 +12,8 @@ import Search from "./user/search";
 import NavBarContext from "./context/navBarContext";
 
 function NavBarLink({ label, image, link, extraClass, handler, size = "7" }) {
+    const navBarContext = useContext(NavBarContext);
+
     return (
         <Link
             to={link}
@@ -26,19 +28,21 @@ function NavBarLink({ label, image, link, extraClass, handler, size = "7" }) {
             <div className="md:size-9">
                 <img src={image} className={`size-${size} ${extraClass} m-auto`} />
             </div>
-            <p className="hidden md:block">{label}</p>
+            <p className={`${navBarContext ? "hidden" : "hidden md:block"}`}>{label}</p>
         </Link>
     );
 }
 
-export default function NavBar({ minimized }) {
+export default function NavBar({ minimized, extraClass = "w-full" }) {
     const createPostRef = useRef();
     const searchUserRef = useRef();
     const user = useContext(userContext) || {};
 
     return (
-        <div className="w-full fixed bottom-0 flex items-center justify-center gap-7 p-2 bg-white border-t-1 border-r-1 border-neutral-200 md:h-screen md:sticky md:flex-col md:top-0 md:pt-10 md:pl-5 md:items-start md:justify-start">
-            <h4 className="hidden mb-5 ml-2 font-[Pacifico] text-[1.6rem] md:block">Bojji</h4>
+        <div
+            className={`${extraClass} fixed bottom-0 flex items-center justify-center gap-7 p-2 bg-white border-t-1 border-r-1 border-neutral-200 md:h-screen md:sticky md:flex-col md:top-0 md:pt-10 md:pl-5 md:items-start md:justify-start`}
+        >
+            {!minimized && <h4 className="hidden mb-5 ml-2 font-[Pacifico] text-[1.6rem] md:block">Bojji</h4>}
 
             <NavBarContext.Provider value={minimized}>
                 <NavBarLink link={"/"} label={"Home"} image={home} size="8" />

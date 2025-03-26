@@ -3,6 +3,7 @@ import UserContext from "../context/userContext";
 import ChatNavBar from "./chatNavBar";
 import Chat from "./chat";
 import messenger from "../../assets/messenger.svg";
+import NavBar from "../navBar";
 
 export default function Conversation() {
     const [chatSelected, setChatSelected] = useState(null);
@@ -10,7 +11,8 @@ export default function Conversation() {
 
     return (
         <div className="md:flex">
-            <div className={`md:w-[35%] ${chatSelected && "hidden md:block"}`}>
+            <NavBar minimized={true} extraClass="w-[4%]" />
+            <div className={`md:w-[30%] ${chatSelected && "hidden md:block"}`}>
                 <ChatNavBar chats={userData.conversations} chatHandler={setChatSelected} />
             </div>
             {chatSelected ? (
