@@ -11,9 +11,7 @@ export default function Search() {
     function handleChange(value) {
         setFilter(value);
 
-        if (value.length < 2) return setUsers([]);
-
-        userApi.searchForUsers({ filter, handler: setUsers });
+        value.length <= 2 ? setUsers([]) : userApi.searchForUsers({ filter, handler: setUsers });
     }
 
     return (
@@ -25,15 +23,19 @@ export default function Search() {
                 </button>
             </span>
             <SearchDialog value={filter} handler={handleChange} />
-            {users.map(u => {
-                return (
-                    <div>
-                        <img src={u.profilePicture} />
-                        <p>{u.username}</p>
-                        <p>{u.fullName}</p>
-                    </div>
-                );
-            })}
+            <div className="flex flex-col gap-3">
+                {users.map(u => {
+                    return (
+                        <Link to={`/user/${u.username}`} className="flex gap-3 items-center pl-3">
+                            <img src={u.profilePicture} className="size-12 rounded-full" />
+                            <span className="text-sm">
+                                <p className="font-semibold">{u.username}</p>
+                                <p className="text-neutral-600">{u.fullName}</p>
+                            </span>
+                        </Link>
+                    );
+                })}
+            </div>
         </div>
     );
 }

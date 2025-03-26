@@ -185,7 +185,7 @@ class User {
             take: 20,
             where: {
                 username: {
-                    contains: filter,
+                    startsWith: filter,
                 },
             },
             select: {
