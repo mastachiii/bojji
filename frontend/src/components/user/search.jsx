@@ -4,7 +4,7 @@ import { useState } from "react";
 import cancel from "../../assets/cancel.svg";
 import SearchDialog from "../searchDialog";
 
-export default function Search() {
+export default function Search({ ref }) {
     const [filter, setFilter] = useState("");
     const [users, setUsers] = useState([]);
 
@@ -15,10 +15,10 @@ export default function Search() {
     }
 
     return (
-        <div>
+        <dialog ref={ref} className="min-h-screen min-w-screen md:min-w-[30%] md:min-h-[50%] md:m-auto md:rounded-xl">
             <span className="flex pt-2 pb-4 border-b-1 border-neutral-200">
                 <p className="w-[100%] mt-1 font-semibold text-center">Search</p>
-                <button onClick={null} className="absolute right-2 cursor-pointer">
+                <button onClick={() => ref.current.close()} className="absolute right-2 cursor-pointer">
                     <img src={cancel} className="size-8" />
                 </button>
             </span>
@@ -36,6 +36,6 @@ export default function Search() {
                     );
                 })}
             </div>
-        </div>
+        </dialog>
     );
 }
