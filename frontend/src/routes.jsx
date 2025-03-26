@@ -9,6 +9,7 @@ import Error from "./components/error.jsx";
 import CreateStory from "./components/story/createStory.jsx";
 import ViewStory from "./components/story/viewStory.jsx";
 import EditProfile from "./components/user/editProfile.jsx";
+import Explore from "./components/post/explore.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ const routes = createBrowserRouter([
     {
         path: "/story/:id",
         element: <ViewStory />,
+    },
+    {
+        path: "/explore",
+        element: <Explore />,
     },
     {
         path: "/error",
