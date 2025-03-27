@@ -38,12 +38,19 @@ class Post {
         const post = await prisma.post.findUnique({
             where: { id },
             include: {
-                likedBy: this.selectFields,
+                likedBy: {
+                    select: this.selectFields,
+                },
                 comments: {
                     include: {
-                        likedBy: this.selectFields,
+                        likedBy: {
+                            select: this.selectFields,
+                        },
                     },
                 },
+                author: {
+                    select: this.selectFields
+                }
             },
         });
 

@@ -1,6 +1,6 @@
 class Post {
     constructor() {
-        this.postUrl = "https://bojji.onrender.com/post";
+        this.postUrl = "http://bojji.onrender.com/post";
         this.token = localStorage.getItem("token");
     }
 
