@@ -11,27 +11,28 @@ export default function LogIn() {
     const [status, setStatus] = useState("");
     const allFieldsFilled = username && password;
 
-    function handleSubmit(e) {
+    function handleSubmit(e, type) {
         e.preventDefault();
 
-        if (!allFieldsFilled) return;
+        if (!allFieldsFilled && type !== "guest") return;
 
-        setStatus("LOGGING IN");
-        user.logIn({ username, password, errorHandler: setErrors, statusHandler: setStatus });
+        setStatus(type === "guest" ? "GUEST LOGGING IN" : "LOGGING IN");
+        user.logIn({
+            username: type === "guest" ? "guest" : username,
+            password: type === "guest" ? "guestpassword123" : password,
+            errorHandler: setErrors,
+            statusHandler: setStatus,
+        });
     }
 
     return (
-        <FormWrapper
-            label={"Sign Up"}
-            btnActiveStatus={status === "LOGGING IN"}
-            btnLabel={"Log In"}
-            btnHandler={handleSubmit}
-            redirectLink={"/sign-up"}
-        >
-            <Form submitHandler={handleSubmit} error={errors} label={""}>
-                <FormField id={"username"} label={"Username"} type={"text"} value={username} valueHandler={setUsername} />
-                <FormField id={"password"} label={"Password"} type={"password"} value={password} valueHandler={setPassword} />
-            </Form>
-        </FormWrapper>
+        <>
+            <FormWrapper label={"Sign Up"} btnStatus={status} btnLabel={"Log In"} btnHandler={handleSubmit} redirectLink={"/sign-up"} type={"logIn"}>
+                <Form submitHandler={handleSubmit} error={errors} label={""}>
+                    <FormField id={"username"} label={"Username"} type={"text"} value={username} valueHandler={setUsername} />
+                    <FormField id={"password"} label={"Password"} type={"password"} value={password} valueHandler={setPassword} />
+                </Form>
+            </FormWrapper>
+        </>
     );
 }

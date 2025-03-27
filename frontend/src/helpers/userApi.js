@@ -48,9 +48,9 @@ class User {
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
-                        statusHandler("");
+                        statusHandler && statusHandler("");
 
-                        errorHandler([{ msg: data.error }]);
+                        errorHandler && errorHandler([{ msg: data.error }]);
                     } else {
                         localStorage.setItem("token", data.token);
 
@@ -98,7 +98,7 @@ class User {
                     const path = window.location.href.split("/");
                     const lastPath = path[path.length - 1];
 
-                    if (response.status === 401 && lastPath !== "log-in" && lastPath !== 'sign-up') return (window.location.href = "/log-in");
+                    if (response.status === 401 && lastPath !== "log-in" && lastPath !== "sign-up") return (window.location.href = "/log-in");
 
                     return response.json();
                 })
