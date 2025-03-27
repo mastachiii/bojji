@@ -7,6 +7,7 @@ import explore from "../assets/explore.svg";
 import heart from "../assets/heart.svg";
 import create from "../assets/create.svg";
 import messenger from "../assets/messenger.svg";
+import logout from "../assets/logOut.svg";
 import userContext from "./context/userContext";
 import Search from "./user/search";
 import NavBarContext from "./context/navBarContext";
@@ -55,8 +56,8 @@ export default function NavBar({ minimized, extraClass = "w-full" }) {
                 <NavBarLink label={"Notifications"} image={heart} handler={() => notificationRef.current.showModal()} />
                 <NavBarLink link={"/"} label={"Create"} image={create} handler={() => createPostRef.current.showModal()} size="6" />
                 <NavBarLink link={`/user/${user.username}`} image={user.profilePicture} label="Profile" size="8" extraClass={"rounded-full"} />
-                <div className="mt-auto">
-                    <NavBarLink image={user.profilePicture} label="Log out" size="8" handler={() => userApi.logOut()} extraClass={"rounded-full"} />
+                <div className="md:mt-auto md:mb-10">
+                    <NavBarLink image={logout} label="Log out" size="6" handler={() => userApi.logOut()} />
                 </div>
             </NavBarContext.Provider>
             <CreatePost ref={createPostRef} />

@@ -94,7 +94,14 @@ class User {
                     Authorization: `Bearer ${this.token}`,
                 },
             })
-                .then(response => response.json())
+                .then(response => {
+                    const path = window.location.href.split("/");
+                    const lastPath = path[path.length - 1];
+
+                    if (response.status === 401 && lastPath !== "log-in" && lastPath !== 'sign-up') return (window.location.href = "/log-in");
+
+                    return response.json();
+                })
                 .then(data => data.user);
 
             return user;
