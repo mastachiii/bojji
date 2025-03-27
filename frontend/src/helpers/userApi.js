@@ -62,6 +62,12 @@ class User {
         }
     }
 
+    async logOut() {
+        localStorage.removeItem("token");
+
+        window.location.href = "/log-in";
+    }
+
     async searchForUsers({ filter, handler }) {
         try {
             await fetch(`${this.userUrl}/search`, {

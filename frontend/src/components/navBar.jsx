@@ -11,6 +11,7 @@ import userContext from "./context/userContext";
 import Search from "./user/search";
 import NavBarContext from "./context/navBarContext";
 import Notification from "./notifications/notifications";
+import userApi from "../helpers/userApi";
 
 function NavBarLink({ label, image, link, extraClass, handler, size = "7" }) {
     const navBarContext = useContext(NavBarContext);
@@ -54,6 +55,9 @@ export default function NavBar({ minimized, extraClass = "w-full" }) {
                 <NavBarLink label={"Notifications"} image={heart} handler={() => notificationRef.current.showModal()} />
                 <NavBarLink link={"/"} label={"Create"} image={create} handler={() => createPostRef.current.showModal()} size="6" />
                 <NavBarLink link={`/user/${user.username}`} image={user.profilePicture} label="Profile" size="8" extraClass={"rounded-full"} />
+                <div className="mt-auto">
+                    <NavBarLink image={user.profilePicture} label="Log out" size="8" handler={() => userApi.logOut()} extraClass={"rounded-full"} />
+                </div>
             </NavBarContext.Provider>
             <CreatePost ref={createPostRef} />
             <Search ref={searchUserRef} />

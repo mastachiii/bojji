@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 
 export default function Form({ children, submitHandler, error, errors }) {
-    console.log({ errors });
     return (
         <form onSubmit={submitHandler} className="w-full">
             <div>
