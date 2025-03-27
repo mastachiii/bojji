@@ -56,7 +56,7 @@ export default function Profile() {
 
         return (
             <div className="flex">
-                <div className="w-[20%]">
+                <div className="w-[20%] hidden md:block">
                     <NavBar />
                 </div>
                 <div className="font-sans md:w-[50%] md:ml-auto md:mr-auto md:mt-2">

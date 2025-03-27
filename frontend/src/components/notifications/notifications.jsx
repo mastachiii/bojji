@@ -9,7 +9,7 @@ export default function Notification({ ref, notifications = [] }) {
                     <img src={cancel} className="size-8" />
                 </button>
             </span>
-            <div className="flex flex-col gap-4 mt-4 pb-1000 ">
+            <div className="flex flex-col gap-4 mt-4">
                 {notifications.map(n => {
                     return (
                         <div className="flex gap-4 pl-4 pr-4">

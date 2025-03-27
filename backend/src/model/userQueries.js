@@ -62,6 +62,9 @@ class User {
                         post: true,
                         user: { select: this.selectFields },
                     },
+                    orderBy: {
+                        createdAt: "desc",
+                    },
                 },
                 posts: {
                     include: {

@@ -9,6 +9,7 @@ import heartActive from "../../assets/heartActive.svg";
 import comment from "../../assets/comment.svg";
 import share from "../../assets/share.svg";
 import bookmark from "../../assets/bookmark.svg";
+import FollowDialog from "../user/followDialog";
 
 export default function PostPreview({ post }) {
     const user = useContext(userContext) || {};
@@ -17,6 +18,7 @@ export default function PostPreview({ post }) {
     const [showFullBody, setShowFullBody] = useState(false);
     const postFullRef = useRef();
     const postBodyRef = useRef({});
+    const likesRef = useRef();
 
     function handleInteraction() {
         postApi.interactOnPost({ id: post.id, type: likedByUser ? "dislike" : "like", authorId: post.author.id });
@@ -42,7 +44,9 @@ export default function PostPreview({ post }) {
                 <img src={bookmark} className="size-6 ml-auto" />
             </div>
             <div className="pl-3 pr-[5px]">
-                <p className="font-semibold">{likes} likes</p>
+                <button onClick={() => likesRef.current.showModal()} className="font-semibold cursor-pointer">
+                    {likes} likes
+                </button>
                 <span className="flex gap-2">
                     <p className={`${showFullBody ? "w-full text-wrap" : "w-[95%] text-nowrap overflow-hidden"}`} ref={postBodyRef}>
                         <Link to={`/user/${post.author.username}`} className="font-semibold mr-2">
@@ -58,6 +62,7 @@ export default function PostPreview({ post }) {
                 )}
             </div>
             <PostFull post={post} ref={postFullRef} likeHandler={handleInteraction} />
+            <FollowDialog follows={post.likedBy} ref={likesRef} user={user} label={"Likes"} />
         </div>
     );
 }
