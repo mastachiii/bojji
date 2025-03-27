@@ -39,7 +39,7 @@ export default function CreatePost({ ref }) {
     }
 
     return (
-        <dialog ref={ref} className="min-w-screen min-h-screen md:min-w-[40%] md:min-h-[50%] md:m-auto md:rounded-lg md:overflow-hidden">
+        <dialog ref={ref} className="min-w-screen min-h-screen md:min-w-[40%] md:min-h-[50%] md:m-auto md:rounded-lg">
             <span className="relative flex items-center pt-2 pb-4 border-b-1 border-neutral-200">
                 {images && (
                     <button onClick={() => setImages(null)}>
