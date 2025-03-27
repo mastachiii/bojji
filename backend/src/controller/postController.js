@@ -1,8 +1,10 @@
 const db = require("../model/postQueries");
 const notificationDb = require("../model/notificationQueries");
 
-function checkIfUserPost({ user, postId }) {
-    return user.posts.find(p => p.id === postId);
+async function checkIfUserPost({ user, postId }) {
+    const post = await db.getPost({ id: postId });
+
+    return post.author.id === user.id;
 }
 
 class Post {
@@ -19,7 +21,9 @@ class Post {
     }
 
     async updatePost(req, res) {
-        if (!checkIfUserPost({ user: req.user, postId: req.params.id })) return res.sendStatus(403);
+        const isUserPost = await checkIfUserPost({ user: req.user, postId: req.params.id });
+
+        if (!isUserPost) return res.sendStatus(403);
 
         const post = await db.getPost({ id: req.params.id }); // If user does not update images or body, use current details
 
@@ -29,7 +33,9 @@ class Post {
     }
 
     async deletePost(req, res) {
-        if (!checkIfUserPost({ user: req.user, postId: req.params.id })) return res.sendStatus(403);
+        const isUserPost = await checkIfUserPost({ user: req.user, postId: req.params.id });
+
+        if (!isUserPost) return res.sendStatus(403);
 
         await db.deletePost({ id: req.params.id });
 

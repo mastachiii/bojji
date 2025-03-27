@@ -67,7 +67,7 @@ export default function PostFull({ post, ref, likeHandler }) {
     async function handleDelete() {
         if (confirm("Are you sure you want to delete this post?")) {
             await postApi.deletePost({ id: post.id });
-            window.location.reload();
+            // window.location.reload();
         }
     }
 
