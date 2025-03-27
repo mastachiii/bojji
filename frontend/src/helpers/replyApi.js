@@ -1,6 +1,6 @@
 class Reply {
     constructor() {
-        this.replyUrl = "http://localhost:8080/post/comment";
+        this.replyUrl = "https://bojji.onrender.com/post/comment";
         this.token = localStorage.getItem("token");
     }
 

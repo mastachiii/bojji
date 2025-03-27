@@ -1,6 +1,6 @@
 class User {
     constructor() {
-        this.userUrl = "http://localhost:8080/user";
+        this.userUrl = "https://bojji.onrender.com/user";
         this.token = localStorage.getItem("token");
     }
 

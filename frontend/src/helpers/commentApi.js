@@ -1,6 +1,6 @@
 class Comment {
     constructor() {
-        this.commentUrl = "http://localhost:8080/post";
+        this.commentUrl = "https://bojji.onrender.com/post";
         this.token = localStorage.getItem("token");
     }
 

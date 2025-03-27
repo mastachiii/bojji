@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import userApi from "../helpers/userApi";
 import UserContext from "./context/userContext";
-import { useLocation } from "react-router";
 
 export default function Wrapper({ children }) {
     const [trigger, setTrigger] = useState(0);
