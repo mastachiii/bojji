@@ -24,3 +24,9 @@ Fullstack Instagram clone
 ![Post](/images/postFull.png)
 
 ![Profile](/images/profile.png)
+
+![Homepage Mobile](/images/homepageMobile.png)
+
+![Post Mobile](/images/postMobile.png)
+
+![Profile Mobile](/images/profileMobile.png)
